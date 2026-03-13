@@ -1,0 +1,366 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "chrome": "https://developer.chrome.com/docs/extensions/schema/",
+    "chromeManagement": "https://developers.google.com/chrome/management/schema/",
+    "chromePolicy": "https://developers.google.com/chrome/policy/schema/",
+    "cws": "https://developer.chrome.com/docs/webstore/schema/",
+    "cdp": "https://chromedevtools.github.io/devtools-protocol/schema/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "BrowserExtension": {
+      "@id": "chrome:BrowserExtension",
+      "@context": {
+        "id": "@id",
+        "name": "schema:name",
+        "shortName": "schema:alternateName",
+        "description": "schema:description",
+        "version": "schema:softwareVersion",
+        "versionName": "chrome:versionName",
+        "manifestVersion": {
+          "@id": "chrome:manifestVersion",
+          "@type": "xsd:integer"
+        },
+        "author": "schema:author",
+        "homepageUrl": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "permissions": {
+          "@id": "chrome:permissions",
+          "@container": "@set"
+        },
+        "hostPermissions": {
+          "@id": "chrome:hostPermissions",
+          "@container": "@set"
+        },
+        "optionalPermissions": {
+          "@id": "chrome:optionalPermissions",
+          "@container": "@set"
+        },
+        "minimumChromeVersion": "chrome:minimumChromeVersion",
+        "incognito": "chrome:incognito",
+        "offlineEnabled": {
+          "@id": "chrome:offlineEnabled",
+          "@type": "xsd:boolean"
+        },
+        "key": "chrome:publicKey",
+        "updateUrl": {
+          "@id": "chrome:updateUrl",
+          "@type": "@id"
+        },
+        "defaultLocale": "chrome:defaultLocale"
+      }
+    },
+
+    "ExtensionAction": {
+      "@id": "chrome:ExtensionAction",
+      "@context": {
+        "defaultTitle": "schema:name",
+        "defaultPopup": "chrome:defaultPopup",
+        "defaultIcon": {
+          "@id": "schema:image",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "ServiceWorker": {
+      "@id": "chrome:ServiceWorker",
+      "@context": {
+        "path": "chrome:serviceWorkerPath",
+        "type": "chrome:moduleType"
+      }
+    },
+
+    "ContentScript": {
+      "@id": "chrome:ContentScript",
+      "@context": {
+        "matches": {
+          "@id": "chrome:matchPatterns",
+          "@container": "@set"
+        },
+        "excludeMatches": {
+          "@id": "chrome:excludeMatchPatterns",
+          "@container": "@set"
+        },
+        "js": {
+          "@id": "chrome:jsFiles",
+          "@container": "@list"
+        },
+        "css": {
+          "@id": "chrome:cssFiles",
+          "@container": "@list"
+        },
+        "runAt": "chrome:runAt",
+        "allFrames": {
+          "@id": "chrome:allFrames",
+          "@type": "xsd:boolean"
+        },
+        "world": "chrome:executionWorld"
+      }
+    },
+
+    "DeclarativeNetRequestRuleset": {
+      "@id": "chrome:DeclarativeNetRequestRuleset",
+      "@context": {
+        "id": "schema:identifier",
+        "enabled": {
+          "@id": "chrome:rulesetEnabled",
+          "@type": "xsd:boolean"
+        },
+        "path": "chrome:rulesetPath"
+      }
+    },
+
+    "ChromeWebStoreItem": {
+      "@id": "cws:WebStoreItem",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "description": "schema:description",
+        "version": "schema:softwareVersion",
+        "storeUrl": {
+          "@id": "cws:storeUrl",
+          "@type": "@id"
+        },
+        "iconUrl": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "publisher": "schema:publisher",
+        "category": "schema:applicationCategory",
+        "rating": {
+          "@id": "schema:aggregateRating",
+          "@type": "xsd:decimal"
+        },
+        "reviewCount": {
+          "@id": "schema:reviewCount",
+          "@type": "xsd:integer"
+        },
+        "userCount": {
+          "@id": "cws:userCount",
+          "@type": "xsd:integer"
+        },
+        "datePublished": {
+          "@id": "dcterms:issued",
+          "@type": "xsd:date"
+        },
+        "dateModified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ManagedDevice": {
+      "@id": "chromeManagement:ManagedDevice",
+      "@context": {
+        "deviceId": "schema:identifier",
+        "serialNumber": "chromeManagement:serialNumber",
+        "orgUnitId": "chromeManagement:orgUnitId",
+        "model": "schema:model",
+        "osVersion": "schema:operatingSystem",
+        "lastSync": {
+          "@id": "chromeManagement:lastSyncTime",
+          "@type": "xsd:dateTime"
+        },
+        "annotatedUser": "chromeManagement:annotatedUser",
+        "annotatedLocation": "chromeManagement:annotatedLocation",
+        "annotatedAssetId": "chromeManagement:annotatedAssetId",
+        "status": "schema:additionalType",
+        "autoUpdateExpiration": {
+          "@id": "chromeManagement:autoUpdateExpiration",
+          "@type": "xsd:date"
+        }
+      }
+    },
+
+    "TelemetryDevice": {
+      "@id": "chromeManagement:TelemetryDevice",
+      "@context": {
+        "name": "schema:name",
+        "deviceId": "schema:identifier",
+        "serialNumber": "chromeManagement:serialNumber",
+        "orgUnitId": "chromeManagement:orgUnitId",
+        "cpuInfo": "chromeManagement:cpuInfo",
+        "memoryInfo": "chromeManagement:memoryInfo",
+        "storageInfo": "chromeManagement:storageInfo",
+        "networkInfo": "chromeManagement:networkInfo",
+        "batteryInfo": "chromeManagement:batteryInfo",
+        "osUpdateStatus": "chromeManagement:osUpdateStatus",
+        "graphicsInfo": "chromeManagement:graphicsInfo"
+      }
+    },
+
+    "TelemetryEvent": {
+      "@id": "chromeManagement:TelemetryEvent",
+      "@context": {
+        "name": "schema:name",
+        "eventType": "chromeManagement:eventType",
+        "reportTime": {
+          "@id": "chromeManagement:reportTime",
+          "@type": "xsd:dateTime"
+        },
+        "device": {
+          "@id": "chromeManagement:device",
+          "@type": "@id"
+        },
+        "user": {
+          "@id": "chromeManagement:user",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "TelemetryUser": {
+      "@id": "chromeManagement:TelemetryUser",
+      "@context": {
+        "name": "schema:name",
+        "userEmail": {
+          "@id": "schema:email"
+        },
+        "userId": "schema:identifier",
+        "orgUnitId": "chromeManagement:orgUnitId",
+        "userDevice": {
+          "@id": "chromeManagement:userDevice",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "ChromePolicy": {
+      "@id": "chromePolicy:ChromePolicy",
+      "@context": {
+        "schemaName": "schema:name",
+        "policyDescription": "schema:description",
+        "fieldDescriptions": {
+          "@id": "chromePolicy:fieldDescriptions",
+          "@container": "@set"
+        },
+        "definition": "chromePolicy:definition",
+        "additionalTargetKeyNames": {
+          "@id": "chromePolicy:additionalTargetKeyNames",
+          "@container": "@set"
+        },
+        "policyApiLifecycle": "chromePolicy:policyApiLifecycle",
+        "categoryTitle": "chromePolicy:categoryTitle",
+        "supportUri": {
+          "@id": "chromePolicy:supportUri",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "PolicySchema": {
+      "@id": "chromePolicy:PolicySchema",
+      "@context": {
+        "name": "schema:name",
+        "schemaName": "chromePolicy:schemaName",
+        "policyDescription": "schema:description",
+        "validTargetResources": {
+          "@id": "chromePolicy:validTargetResources",
+          "@container": "@set"
+        },
+        "notices": {
+          "@id": "chromePolicy:notices",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "DevToolsTarget": {
+      "@id": "cdp:DevToolsTarget",
+      "@context": {
+        "id": "@id",
+        "title": "schema:name",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "type": "schema:additionalType",
+        "description": "schema:description",
+        "webSocketDebuggerUrl": {
+          "@id": "cdp:webSocketDebuggerUrl",
+          "@type": "@id"
+        },
+        "devtoolsFrontendUrl": {
+          "@id": "cdp:devtoolsFrontendUrl",
+          "@type": "@id"
+        },
+        "faviconUrl": {
+          "@id": "schema:image",
+          "@type": "@id"
+        }
+      }
+    },
+
+    "CrUXRecord": {
+      "@id": "chrome:CrUXRecord",
+      "@context": {
+        "origin": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "formFactor": "chrome:formFactor",
+        "metrics": "chrome:metrics",
+        "collectionPeriod": "chrome:collectionPeriod",
+        "firstContentfulPaint": "chrome:firstContentfulPaint",
+        "largestContentfulPaint": "chrome:largestContentfulPaint",
+        "cumulativeLayoutShift": "chrome:cumulativeLayoutShift",
+        "interactionToNextPaint": "chrome:interactionToNextPaint",
+        "timeToFirstByte": "chrome:timeToFirstByte",
+        "firstInputDelay": "chrome:firstInputDelay"
+      }
+    },
+
+    "BuiltInAISession": {
+      "@id": "chrome:BuiltInAISession",
+      "@context": {
+        "id": "@id",
+        "modelName": "schema:name",
+        "modelVersion": "schema:softwareVersion",
+        "topK": {
+          "@id": "chrome:topK",
+          "@type": "xsd:integer"
+        },
+        "temperature": {
+          "@id": "chrome:temperature",
+          "@type": "xsd:decimal"
+        },
+        "initialPrompts": {
+          "@id": "chrome:initialPrompts",
+          "@container": "@set"
+        },
+        "systemPrompt": "chrome:systemPrompt"
+      }
+    },
+
+    "SafeBrowsingThreat": {
+      "@id": "chrome:SafeBrowsingThreat",
+      "@context": {
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "threatType": "chrome:threatType",
+        "platformType": "chrome:platformType",
+        "threatEntryType": "chrome:threatEntryType",
+        "cacheDuration": "chrome:cacheDuration"
+      }
+    },
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": {"@id": "schema:url", "@type": "@id"},
+    "identifier": "schema:identifier",
+    "dateCreated": {"@id": "dcterms:created", "@type": "xsd:dateTime"},
+    "dateModified": {"@id": "dcterms:modified", "@type": "xsd:dateTime"},
+    "version": "schema:softwareVersion",
+    "platform": "schema:operatingSystem",
+    "publisher": "schema:publisher",
+    "category": "schema:applicationCategory"
+  }
+}

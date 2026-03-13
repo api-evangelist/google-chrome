@@ -8,7 +8,7 @@ tags:
 - Chrome Extensions
 - Developer Tools
 created: '2024'
-modified: '2024'
+modified: '2026-03-03'
 apis:
 - name: Chrome Extensions API
   description: APIs for building Chrome browser extensions
@@ -28,6 +28,10 @@ apis:
     url: https://github.com/GoogleChrome/chrome-extensions-samples
   - type: API Reference
     url: https://developer.chrome.com/docs/extensions/reference/api
+  - type: Manifest Reference
+    url: https://developer.chrome.com/docs/extensions/reference
+  - type: MV3 Migration Guide
+    url: https://developer.chrome.com/docs/extensions/develop/migrate
   contact:
   - type: Support
     url: https://support.google.com/chrome/
@@ -49,6 +53,8 @@ apis:
     url: https://github.com/ChromeDevTools/devtools-protocol
   - type: API Reference
     url: https://chromedevtools.github.io/devtools-protocol/tot/
+  - type: Awesome Chrome DevTools
+    url: https://github.com/ChromeDevTools/awesome-chrome-devtools
   contact:
   - type: GitHub Issues
     url: https://github.com/ChromeDevTools/devtools-protocol/issues
@@ -69,6 +75,12 @@ apis:
     url: https://chrome.google.com/webstore/devconsole
   - type: Authentication
     url: https://developer.chrome.com/docs/webstore/using_webstore_api/#beforeyoubegin
+  - type: V2 API Reference
+    url: https://developer.chrome.com/docs/webstore/api/reference/rest
+  - type: V2 API Guide
+    url: https://developer.chrome.com/docs/webstore/using-api
+  - type: V2 Announcement
+    url: https://developer.chrome.com/blog/cws-api-v2
   contact:
   - type: Support
     url: https://support.google.com/chrome_webstore/
@@ -83,10 +95,22 @@ apis:
   properties:
   - type: Documentation
     url: https://developers.google.com/chrome/management/reference/rest
+  - type: OpenAPI
+    url: openapi/google-chrome-management-api-openapi.json
   - type: API Reference
     url: https://developers.google.com/chrome/management/reference/rest/v1/customers.apps
   - type: Admin Console
     url: https://admin.google.com/
+  - type: Telemetry API Guide
+    url: https://developers.google.com/chrome/management/guides/telemetry_api
+  - type: Reports API Guide
+    url: https://developers.google.com/chrome/management/guides/reports_api
+  - type: Telemetry API Samples
+    url: https://developers.google.com/chrome/management/guides/samples_telemetryapi
+  - type: Reports API Samples
+    url: https://developers.google.com/chrome/management/guides/samples_reportsapi
+  - type: GitHub
+    url: https://github.com/google/ChromeBrowserEnterprise
   contact:
   - type: Support
     url: https://support.google.com/chrome/a/
@@ -106,13 +130,130 @@ apis:
     url: https://developers.google.com/web/tools/chrome-user-experience-report/api/reference/rest
   - type: Dataset
     url: https://developers.google.com/web/tools/chrome-user-experience-report/bigquery/getting-started
+  - type: CrUX Tools
+    url: https://developer.chrome.com/docs/crux/methodology/tools
   contact:
   - type: Support
     url: https://support.google.com/webmasters/
+- name: Chrome Policy API
+  description: API for programmatically viewing and managing Chrome policies assigned to Organizational Units
+  humanUrl: https://developers.google.com/chrome/policy
+  baseUrl: https://chromepolicy.googleapis.com/
+  tags:
+  - Enterprise
+  - Policies
+  - Administration
+  - Chrome OS
+  properties:
+  - type: Documentation
+    url: https://developers.google.com/chrome/policy
+  - type: API Overview
+    url: https://developers.google.com/chrome/policy/guides/overview
+  - type: Policy Schemas
+    url: https://developers.google.com/chrome/policy/guides/policy-schemas
+  - type: Setup Guide
+    url: https://developers.google.com/chrome/policy/guides/setup
+  - type: Samples
+    url: https://developers.google.com/chrome/policy/guides/samples
+  contact:
+  - type: Support
+    url: https://support.google.com/chrome/a/
+- name: Chrome Verified Access API
+  description: API to cryptographically verify that ChromeOS clients are genuine and conform to corporate policy
+  humanUrl: https://developers.google.com/chrome/verified-access
+  baseUrl: https://verifiedaccess.googleapis.com/
+  tags:
+  - Enterprise
+  - Security
+  - Verification
+  - Chrome OS
+  properties:
+  - type: Documentation
+    url: https://developers.google.com/chrome/verified-access
+  - type: Developer Guide
+    url: https://developers.google.com/chrome/verified-access/developer-guide
+  - type: Overview
+    url: https://developers.google.com/chrome/verified-access/overview
+  contact:
+  - type: Support
+    url: https://support.google.com/chrome/a/
+- name: Google Safe Browsing API
+  description: API to check URLs against Google lists of unsafe web resources including phishing and malware sites
+  humanUrl: https://developers.google.com/safe-browsing
+  baseUrl: https://safebrowsing.googleapis.com/
+  tags:
+  - Security
+  - Malware
+  - Phishing
+  - URL Checking
+  properties:
+  - type: Documentation
+    url: https://developers.google.com/safe-browsing
+  - type: API Reference
+    url: https://developers.google.com/safe-browsing/reference/rest
+  - type: Getting Started
+    url: https://developers.google.com/safe-browsing/v4/get-started
+  - type: Lookup API
+    url: https://developers.google.com/safe-browsing/v4/lookup-api
+  - type: GitHub
+    url: https://github.com/google/safebrowsing
+  contact:
+  - type: Support
+    url: https://safebrowsing.google.com/
+- name: PageSpeed Insights API
+  description: API to measure web page performance and receive optimization suggestions using Lighthouse and CrUX data
+  humanUrl: https://developers.google.com/speed/docs/insights/v5/about
+  baseUrl: https://pagespeedonline.googleapis.com/
+  tags:
+  - Performance
+  - Analytics
+  - Lighthouse
+  - Optimization
+  properties:
+  - type: Documentation
+    url: https://developers.google.com/speed/docs/insights/rest
+  - type: API Reference
+    url: https://developers.google.com/speed/docs/insights/v5/reference
+  - type: Getting Started
+    url: https://developers.google.com/speed/docs/insights/v5/get-started
+  contact:
+  - type: Support
+    url: https://support.google.com/webmasters/
+- name: Chrome Built-in AI APIs
+  description: On-device AI APIs powered by Gemini Nano built into Chrome for text generation, summarization, translation, and more
+  humanUrl: https://developer.chrome.com/docs/ai/built-in
+  baseUrl: chrome://flags/#optimization-guide-on-device-model
+  tags:
+  - AI
+  - Machine Learning
+  - Gemini Nano
+  - On-Device AI
+  properties:
+  - type: Documentation
+    url: https://developer.chrome.com/docs/ai/built-in
+  - type: API Overview
+    url: https://developer.chrome.com/docs/ai/built-in-apis
+  - type: Getting Started
+    url: https://developer.chrome.com/docs/ai/get-started
+  - type: Prompt API
+    url: https://developer.chrome.com/docs/ai/prompt-api
+  - type: Summarizer API
+    url: https://developer.chrome.com/docs/ai/summarizer-api
+  - type: Writer API
+    url: https://developer.chrome.com/docs/ai/writer-api
+  - type: Rewriter API
+    url: https://developer.chrome.com/docs/ai/rewriter-api
+  - type: Language Detection API
+    url: https://developer.chrome.com/docs/ai/language-detection
+  - type: Proofreader API
+    url: https://developer.chrome.com/docs/ai/proofreader-api
+  contact:
+  - type: Support
+    url: https://developer.chrome.com/docs/ai/built-in
 maintainers:
-- name: Google Chrome Team
-  email: chrome-developer-relations@google.com
-  url: https://developer.chrome.com/
+- name: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com/
 common:
 - type: Developer Portal
   url: https://developer.chrome.com/
@@ -128,3 +269,23 @@ common:
   url: https://developers.google.com/terms
 - type: Privacy Policy
   url: https://policies.google.com/privacy
+- type: Release Notes
+  url: https://developer.chrome.com/release-notes
+- type: What's New
+  url: https://developer.chrome.com/new
+- type: Chrome Status
+  url: https://chromestatus.com/
+- type: Origin Trials
+  url: https://developer.chrome.com/origintrials/
+- type: Origin Trials Documentation
+  url: https://developer.chrome.com/docs/web-platform/origin-trials
+- type: Stack Overflow
+  url: https://stackoverflow.com/questions/tagged/google-chrome-extension
+- type: Chrome Enterprise
+  url: https://chromeenterprise.google/
+- type: Chromium Source
+  url: https://source.chromium.org/chromium
+- type: JSONSchema
+  url: json-schema/google-chrome-extension-manifest-schema.json
+- type: JSON-LD
+  url: json-ld/google-chrome-context.jsonld

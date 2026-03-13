@@ -1,0 +1,602 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/google-chrome/refs/heads/main/json-schema/google-chrome-extension-manifest-schema.json",
+  "title": "Chrome Extension Manifest (Manifest V3)",
+  "description": "Schema for the manifest.json file required by Chrome browser extensions using Manifest V3. The manifest defines extension metadata, permissions, background service workers, content scripts, UI elements, and API access. Manifest V3 is the current standard for Chrome extensions, replacing Manifest V2 with improved security, performance, and privacy. See https://developer.chrome.com/docs/extensions/reference/manifest for the complete reference.",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "name",
+    "version"
+  ],
+  "properties": {
+    "manifest_version": {
+      "type": "integer",
+      "const": 3,
+      "description": "Manifest file format version. Must be 3 for Manifest V3 extensions. Manifest V2 is deprecated and will be removed from Chrome."
+    },
+    "name": {
+      "type": "string",
+      "maxLength": 45,
+      "description": "Name of the extension displayed in the Chrome Web Store, browser toolbar, and chrome://extensions. Maximum 45 characters."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d{1,5}(\\.\\d{1,5}){0,3}$",
+      "description": "Extension version string. One to four dot-separated integers (e.g., 1.0.0.0). Each integer must be between 0 and 65535. Used for auto-update version comparison."
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 132,
+      "description": "Plain text description of the extension. Maximum 132 characters. Displayed in the Chrome Web Store and chrome://extensions."
+    },
+    "default_locale": {
+      "type": "string",
+      "description": "Default locale for internationalization (e.g., en). Required if the extension uses the _locales directory. Specifies the subdirectory of _locales that contains the default strings."
+    },
+    "icons": {
+      "type": "object",
+      "description": "Extension icons at various sizes. Used in the Chrome Web Store, toolbar, extension management page, and other contexts. Recommended sizes are 16, 32, 48, and 128 pixels. PNG format recommended; SVG is not supported.",
+      "properties": {
+        "16": {
+          "type": "string",
+          "description": "Path to 16x16 pixel icon. Used as the favicon for extension pages and as the toolbar icon fallback."
+        },
+        "32": {
+          "type": "string",
+          "description": "Path to 32x32 pixel icon. Used on higher-DPI displays where 16px would be scaled."
+        },
+        "48": {
+          "type": "string",
+          "description": "Path to 48x48 pixel icon. Displayed on the extensions management page (chrome://extensions)."
+        },
+        "128": {
+          "type": "string",
+          "description": "Path to 128x128 pixel icon. Displayed in the Chrome Web Store and during installation."
+        }
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "action": {
+      "type": "object",
+      "description": "Configures the extension's toolbar icon behavior and appearance. Replaces browser_action and page_action from Manifest V2. Controls the icon, tooltip, badge, and popup displayed when the user clicks the extension icon.",
+      "properties": {
+        "default_icon": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Path to a single icon image file."
+            },
+            {
+              "type": "object",
+              "description": "Icon images at multiple sizes for different display densities.",
+              "properties": {
+                "16": { "type": "string" },
+                "24": { "type": "string" },
+                "32": { "type": "string" }
+              },
+              "additionalProperties": { "type": "string" }
+            }
+          ],
+          "description": "Icon shown in the browser toolbar. Provide multiple sizes for crisp display across different screen densities."
+        },
+        "default_title": {
+          "type": "string",
+          "description": "Tooltip text shown when the user hovers over the extension icon in the toolbar."
+        },
+        "default_popup": {
+          "type": "string",
+          "description": "Path to the HTML file displayed as a popup when the extension icon is clicked. The popup runs in its own context and can communicate with the service worker via chrome.runtime messaging."
+        }
+      }
+    },
+    "background": {
+      "type": "object",
+      "description": "Specifies the extension's background service worker. In Manifest V3, background pages are replaced by service workers that run on-demand and are terminated when idle, improving performance and resource usage.",
+      "properties": {
+        "service_worker": {
+          "type": "string",
+          "description": "Path to the JavaScript file that acts as the extension's service worker. Must be in the root directory of the extension. This is the main entry point for background processing."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["module"],
+          "description": "Set to 'module' to enable ES module support in the service worker, allowing use of import statements."
+        }
+      },
+      "required": ["service_worker"]
+    },
+    "content_scripts": {
+      "type": "array",
+      "description": "Scripts and CSS that are injected into web pages matching specified URL patterns. Content scripts run in an isolated world with access to the page DOM but a separate JavaScript namespace. They can communicate with the extension service worker via chrome.runtime messaging.",
+      "items": {
+        "type": "object",
+        "required": ["matches"],
+        "properties": {
+          "matches": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "URL match patterns specifying which pages to inject into. Patterns follow the format <scheme>://<host>/<path>. Use <all_urls> to match all URLs. Example: https://*.google.com/*"
+          },
+          "exclude_matches": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "URL match patterns specifying which pages to exclude from injection."
+          },
+          "css": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "CSS files to inject into matching pages. Injected in the order listed, before any DOM construction or script execution."
+          },
+          "js": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "JavaScript files to inject into matching pages. Injected in the order listed."
+          },
+          "run_at": {
+            "type": "string",
+            "enum": ["document_start", "document_end", "document_idle"],
+            "default": "document_idle",
+            "description": "When to inject the content script. document_start: before DOM construction. document_end: after DOM complete but before subresources. document_idle: between document_end and window.onload (default)."
+          },
+          "all_frames": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether to inject into all frames on the page (true) or only the top frame (false, default)."
+          },
+          "match_about_blank": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether to inject into about:blank and about:srcdoc frames whose parent URL matches a pattern in matches."
+          },
+          "match_origin_as_fallback": {
+            "type": "boolean",
+            "description": "Whether to inject into frames created by a matching origin but whose URL would not normally match (e.g., data: URLs, blob: URLs, about: URLs)."
+          },
+          "include_globs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Glob patterns for additional URL filtering (applied after matches). Supports * and ? wildcards."
+          },
+          "exclude_globs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Glob patterns for excluding URLs (applied after matches and include_globs)."
+          },
+          "world": {
+            "type": "string",
+            "enum": ["ISOLATED", "MAIN"],
+            "default": "ISOLATED",
+            "description": "The JavaScript world to execute the content script in. ISOLATED (default) provides a separate namespace. MAIN shares the page's JavaScript namespace, useful for interacting with page scripts."
+          }
+        }
+      }
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "API permissions the extension requires. These are granted at install time and displayed to the user as permission warnings. Common permissions: activeTab, alarms, bookmarks, contextMenus, cookies, debugger, declarativeNetRequest, downloads, history, identity, management, notifications, pageCapture, scripting, search, storage, tabCapture, tabGroups, tabs, topSites, tts, webNavigation, webRequest."
+    },
+    "optional_permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "API permissions that can be requested at runtime using chrome.permissions.request(). Users can grant or deny these after installation, providing a more gradual permission model."
+    },
+    "host_permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URL match patterns granting the extension access to specific hosts. Separated from permissions in MV3 for better granularity. Users can choose to grant these on specific sites rather than all at once. Example: https://*.google.com/*"
+    },
+    "optional_host_permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Host permission patterns that can be requested at runtime using chrome.permissions.request()."
+    },
+    "content_security_policy": {
+      "type": "object",
+      "description": "Content Security Policy overrides for extension pages. MV3 restricts CSP more strictly than MV2 and does not allow remotely hosted code.",
+      "properties": {
+        "extension_pages": {
+          "type": "string",
+          "description": "CSP for extension pages (popup, options, side panel). Default: script-src 'self'; object-src 'self'. Cannot include remotely hosted scripts."
+        },
+        "sandbox": {
+          "type": "string",
+          "description": "CSP for sandboxed extension pages. More permissive than extension_pages but pages cannot use Chrome extension APIs directly."
+        }
+      }
+    },
+    "web_accessible_resources": {
+      "type": "array",
+      "description": "Resources within the extension that can be accessed by web pages or other extensions. In MV3, access is restricted by specifying which origins or extensions can access each resource set.",
+      "items": {
+        "type": "object",
+        "required": ["resources"],
+        "properties": {
+          "resources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Paths to extension resources accessible to web pages. Supports wildcards."
+          },
+          "matches": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "URL match patterns of web pages that can access these resources."
+          },
+          "extension_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "IDs of extensions that can access these resources."
+          },
+          "use_dynamic_url": {
+            "type": "boolean",
+            "description": "Whether to use a dynamic URL that changes per session, preventing fingerprinting."
+          }
+        }
+      }
+    },
+    "options_page": {
+      "type": "string",
+      "description": "Path to the extension's options page HTML file. Opens in a new tab. Use options_ui instead for an embedded options experience."
+    },
+    "options_ui": {
+      "type": "object",
+      "description": "Configuration for the extension's embedded options page, displayed within chrome://extensions.",
+      "properties": {
+        "page": {
+          "type": "string",
+          "description": "Path to the HTML file for the options page."
+        },
+        "open_in_tab": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to open the options page in a new tab instead of embedding it."
+        }
+      },
+      "required": ["page"]
+    },
+    "side_panel": {
+      "type": "object",
+      "description": "Configuration for the extension's side panel, displayed in Chrome's sidebar alongside the current page. Requires the sidePanel permission.",
+      "properties": {
+        "default_path": {
+          "type": "string",
+          "description": "Path to the HTML file displayed in the side panel."
+        }
+      }
+    },
+    "devtools_page": {
+      "type": "string",
+      "description": "Path to an HTML page that adds functionality to Chrome DevTools. The page can use chrome.devtools.* APIs to create panels, interact with the inspected window, and access network information."
+    },
+    "chrome_url_overrides": {
+      "type": "object",
+      "description": "Overrides for Chrome's built-in pages. Only one page can be overridden per extension.",
+      "properties": {
+        "newtab": {
+          "type": "string",
+          "description": "Path to the HTML file that replaces Chrome's new tab page."
+        },
+        "history": {
+          "type": "string",
+          "description": "Path to the HTML file that replaces Chrome's history page."
+        },
+        "bookmarks": {
+          "type": "string",
+          "description": "Path to the HTML file that replaces Chrome's bookmarks page."
+        }
+      }
+    },
+    "omnibox": {
+      "type": "object",
+      "description": "Registers a keyword for the Chrome address bar (omnibox). When the user types the keyword and presses Tab, the extension receives omnibox input and can provide suggestions.",
+      "properties": {
+        "keyword": {
+          "type": "string",
+          "description": "The keyword that triggers the extension's omnibox suggestions."
+        }
+      },
+      "required": ["keyword"]
+    },
+    "commands": {
+      "type": "object",
+      "description": "Keyboard shortcuts for extension actions. Each command has a unique name and an optional default keyboard shortcut. The _execute_action command triggers the extension's action (toolbar icon click).",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "suggested_key": {
+            "type": "object",
+            "description": "Default keyboard shortcut suggestions for different platforms.",
+            "properties": {
+              "default": {
+                "type": "string",
+                "description": "Default keyboard shortcut (e.g., Ctrl+Shift+Y or Alt+P)."
+              },
+              "mac": {
+                "type": "string",
+                "description": "macOS-specific shortcut using Command key."
+              },
+              "windows": {
+                "type": "string",
+                "description": "Windows-specific shortcut."
+              },
+              "linux": {
+                "type": "string",
+                "description": "Linux-specific shortcut."
+              },
+              "chromeos": {
+                "type": "string",
+                "description": "ChromeOS-specific shortcut."
+              }
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the command shown in chrome://extensions/shortcuts."
+          },
+          "global": {
+            "type": "boolean",
+            "default": false,
+            "description": "Whether the shortcut works even when Chrome does not have focus. Limited to Ctrl+Shift+[0-9] on most platforms."
+          }
+        }
+      }
+    },
+    "declarative_net_request": {
+      "type": "object",
+      "description": "Configuration for the Declarative Net Request API, which enables blocking or modifying network requests using declarative rules without intercepting request content. Replaces the blocking webRequest API from MV2.",
+      "properties": {
+        "rule_resources": {
+          "type": "array",
+          "description": "Static rulesets for network request modification. Each ruleset is a JSON file containing an array of rules.",
+          "items": {
+            "type": "object",
+            "required": ["id", "enabled", "path"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for this ruleset."
+              },
+              "enabled": {
+                "type": "boolean",
+                "description": "Whether this ruleset is enabled by default."
+              },
+              "path": {
+                "type": "string",
+                "description": "Path to the JSON file containing the ruleset rules."
+              }
+            }
+          }
+        }
+      }
+    },
+    "externally_connectable": {
+      "type": "object",
+      "description": "Specifies which web pages and other extensions can connect to this extension using chrome.runtime.connect() and chrome.runtime.sendMessage().",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Extension IDs allowed to connect. Use '*' to allow all extensions."
+        },
+        "matches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "URL match patterns of web pages allowed to connect."
+        },
+        "accepts_tls_channel_id": {
+          "type": "boolean",
+          "description": "Whether to accept TLS channel ID from connecting pages."
+        }
+      }
+    },
+    "storage": {
+      "type": "object",
+      "description": "Configuration for the chrome.storage.managed API, which allows enterprise administrators to set extension configuration via policy.",
+      "properties": {
+        "managed_schema": {
+          "type": "string",
+          "description": "Path to a JSON Schema file defining the structure of managed storage policy data."
+        }
+      }
+    },
+    "oauth2": {
+      "type": "object",
+      "description": "Configuration for the chrome.identity API OAuth2 flow. Enables the extension to obtain OAuth tokens for Google APIs or other services.",
+      "properties": {
+        "client_id": {
+          "type": "string",
+          "description": "OAuth 2.0 client ID from the Google Cloud Console."
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "OAuth 2.0 scopes to request."
+        }
+      },
+      "required": ["client_id", "scopes"]
+    },
+    "key": {
+      "type": "string",
+      "description": "Public key for the extension, used to ensure a consistent extension ID during development. This is the base64-encoded value from the .pem file generated when the extension is first packed."
+    },
+    "minimum_chrome_version": {
+      "type": "string",
+      "description": "Minimum Chrome browser version required to install the extension. If the user's Chrome version is older, the extension will not be installable. Format: major.minor.build.patch (e.g., 120.0.0.0)."
+    },
+    "incognito": {
+      "type": "string",
+      "enum": ["spanning", "split", "not_allowed"],
+      "default": "spanning",
+      "description": "How the extension behaves in incognito mode. spanning (default): a single instance handles both normal and incognito. split: separate instances for normal and incognito. not_allowed: extension is disabled in incognito."
+    },
+    "short_name": {
+      "type": "string",
+      "maxLength": 12,
+      "description": "Short name for the extension, used where space is limited. Maximum 12 characters. Falls back to name if not specified."
+    },
+    "version_name": {
+      "type": "string",
+      "description": "Human-readable version string for display purposes (e.g., '1.0 beta'). Not used for update comparison."
+    },
+    "author": {
+      "type": "object",
+      "description": "The extension author information.",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Author's email address."
+        }
+      }
+    },
+    "homepage_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the extension's homepage or documentation site."
+    },
+    "update_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the extension's update manifest XML file. Used for self-hosted extensions that update outside the Chrome Web Store."
+    },
+    "export": {
+      "type": "object",
+      "description": "Declares shared modules that other extensions can import.",
+      "properties": {
+        "allowlist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Extension IDs allowed to import this shared module."
+        }
+      }
+    },
+    "import": {
+      "type": "array",
+      "description": "Shared modules to import from other extensions.",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Extension ID of the shared module to import."
+          },
+          "minimum_version": {
+            "type": "string",
+            "description": "Minimum version of the shared module required."
+          }
+        }
+      }
+    },
+    "sandbox": {
+      "type": "object",
+      "description": "Defines pages that run in a sandboxed environment with a relaxed CSP. Sandboxed pages cannot use Chrome extension APIs but can use eval() and other normally restricted features.",
+      "properties": {
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Paths to pages that should be served in a sandboxed environment."
+        }
+      },
+      "required": ["pages"]
+    },
+    "offline_enabled": {
+      "type": "boolean",
+      "description": "Whether the extension works offline. If true, the extension appears in the list of offline-enabled apps."
+    },
+    "cross_origin_embedder_policy": {
+      "type": "object",
+      "description": "Cross-Origin Embedder Policy for extension pages.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": ["require-corp", "credentialless", "unsafe-none"],
+          "description": "COEP header value for extension pages."
+        }
+      }
+    },
+    "cross_origin_opener_policy": {
+      "type": "object",
+      "description": "Cross-Origin Opener Policy for extension pages.",
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": ["same-origin", "same-origin-allow-popups", "restrict-properties", "unsafe-none"],
+          "description": "COOP header value for extension pages."
+        }
+      }
+    },
+    "tts_engine": {
+      "type": "object",
+      "description": "Configuration for text-to-speech engine extensions. Registers the extension as a TTS engine that can synthesize speech.",
+      "properties": {
+        "voices": {
+          "type": "array",
+          "description": "TTS voices provided by the extension.",
+          "items": {
+            "type": "object",
+            "required": ["voice_name", "event_types"],
+            "properties": {
+              "voice_name": {
+                "type": "string",
+                "description": "Name of the voice."
+              },
+              "lang": {
+                "type": "string",
+                "description": "BCP 47 language tag for the voice."
+              },
+              "event_types": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["start", "word", "sentence", "marker", "end", "error"]
+                },
+                "description": "TTS events this voice supports."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}
