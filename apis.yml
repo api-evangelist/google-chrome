@@ -1,14 +1,17 @@
+aid: google-chrome
 name: Google Chrome APIs
 description: Collection of APIs and resources for the Google Chrome browser and Chrome platform
 image: https://www.google.com/chrome/static/images/chrome-logo.svg
 url: https://www.google.com/chrome/
+type: Index
+specificationVersion: '0.19'
 tags:
 - Browser
 - Web Platform
 - Chrome Extensions
 - Developer Tools
 created: '2024'
-modified: '2026-03-03'
+modified: '2026-03-16'
 apis:
 - name: Chrome Extensions API
   description: APIs for building Chrome browser extensions
@@ -251,7 +254,7 @@ apis:
   - type: Support
     url: https://developer.chrome.com/docs/ai/built-in
 maintainers:
-- name: Kin Lane
+- FN: Kin Lane
   email: kin@apievangelist.com
   url: https://apievangelist.com/
 common:
