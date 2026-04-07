@@ -8,9 +8,9 @@ type: Index
 specificationVersion: '0.19'
 tags:
   - Browser
-  - Web Platform
   - Chrome Extensions
   - Developer Tools
+  - Web Platform
 created: '2024'
 modified: '2026-03-16'
 apis:
@@ -21,9 +21,9 @@ apis:
     humanUrl: https://developer.chrome.com/docs/extensions/
     baseUrl: chrome://extensions/
     tags:
-      - Extensions
+      - Add-Ons
       - Browser
-      - Add-ons
+      - Extensions
     properties:
       - type: Documentation
         url: https://developer.chrome.com/docs/extensions/reference/
@@ -47,10 +47,10 @@ apis:
     humanUrl: https://chromedevtools.github.io/devtools-protocol/
     baseUrl: ws://localhost:9222/devtools/browser
     tags:
-      - DevTools
-      - Debugging
-      - Testing
       - Automation
+      - Debugging
+      - DevTools
+      - Testing
     properties:
       - type: Documentation
         url: https://chromedevtools.github.io/devtools-protocol/
@@ -71,9 +71,9 @@ apis:
     humanUrl: https://developer.chrome.com/docs/webstore/
     baseUrl: https://www.googleapis.com/chromewebstore/v1.1/
     tags:
-      - Web Store
-      - Publishing
       - Distribution
+      - Publishing
+      - Web Store
     properties:
       - type: Documentation
         url: https://developer.chrome.com/docs/webstore/using_webstore_api/
@@ -82,8 +82,7 @@ apis:
       - type: Developer Dashboard
         url: https://chrome.google.com/webstore/devconsole
       - type: Authentication
-        url: 
-          https://developer.chrome.com/docs/webstore/using_webstore_api/#beforeyoubegin
+        url: https://developer.chrome.com/docs/webstore/using_webstore_api/#beforeyoubegin
       - type: V2 API Reference
         url: https://developer.chrome.com/docs/webstore/api/reference/rest
       - type: V2 API Guide
@@ -99,30 +98,26 @@ apis:
     humanUrl: https://developers.google.com/chrome/management
     baseUrl: https://chromemanagement.googleapis.com/
     tags:
-      - Enterprise
-      - Device Management
       - Administration
+      - Device Management
+      - Enterprise
     properties:
       - type: Documentation
         url: https://developers.google.com/chrome/management/reference/rest
       - type: OpenAPI
         url: openapi/google-chrome-management-api-openapi.json
       - type: API Reference
-        url: 
-          https://developers.google.com/chrome/management/reference/rest/v1/customers.apps
+        url: https://developers.google.com/chrome/management/reference/rest/v1/customers.apps
       - type: Admin Console
         url: https://admin.google.com/
       - type: Telemetry API Guide
-        url: 
-          https://developers.google.com/chrome/management/guides/telemetry_api
+        url: https://developers.google.com/chrome/management/guides/telemetry_api
       - type: Reports API Guide
         url: https://developers.google.com/chrome/management/guides/reports_api
       - type: Telemetry API Samples
-        url: 
-          https://developers.google.com/chrome/management/guides/samples_telemetryapi
+        url: https://developers.google.com/chrome/management/guides/samples_telemetryapi
       - type: Reports API Samples
-        url: 
-          https://developers.google.com/chrome/management/guides/samples_reportsapi
+        url: https://developers.google.com/chrome/management/guides/samples_reportsapi
       - type: GitHub
         url: https://github.com/google/ChromeBrowserEnterprise
     contact:
@@ -131,24 +126,20 @@ apis:
   - name: Chrome User Experience Report API
     description: >-
       Access real-world user experience data for popular websites.
-    humanUrl: 
-      https://developers.google.com/web/tools/chrome-user-experience-report
+    humanUrl: https://developers.google.com/web/tools/chrome-user-experience-report
     baseUrl: https://chromeuxreport.googleapis.com/
     tags:
       - Analytics
+      - Metrics
       - Performance
       - User Experience
-      - Metrics
     properties:
       - type: Documentation
-        url: 
-          https://developers.google.com/web/tools/chrome-user-experience-report/api/reference
+        url: https://developers.google.com/web/tools/chrome-user-experience-report/api/reference
       - type: API Reference
-        url: 
-          https://developers.google.com/web/tools/chrome-user-experience-report/api/reference/rest
+        url: https://developers.google.com/web/tools/chrome-user-experience-report/api/reference/rest
       - type: Dataset
-        url: 
-          https://developers.google.com/web/tools/chrome-user-experience-report/bigquery/getting-started
+        url: https://developers.google.com/web/tools/chrome-user-experience-report/bigquery/getting-started
       - type: CrUX Tools
         url: https://developer.chrome.com/docs/crux/methodology/tools
     contact:
@@ -161,10 +152,10 @@ apis:
     humanUrl: https://developers.google.com/chrome/policy
     baseUrl: https://chromepolicy.googleapis.com/
     tags:
-      - Enterprise
-      - Policies
       - Administration
       - Chrome OS
+      - Enterprise
+      - Policies
     properties:
       - type: Documentation
         url: https://developers.google.com/chrome/policy
@@ -186,16 +177,15 @@ apis:
     humanUrl: https://developers.google.com/chrome/verified-access
     baseUrl: https://verifiedaccess.googleapis.com/
     tags:
+      - Chrome OS
       - Enterprise
       - Security
       - Verification
-      - Chrome OS
     properties:
       - type: Documentation
         url: https://developers.google.com/chrome/verified-access
       - type: Developer Guide
-        url: 
-          https://developers.google.com/chrome/verified-access/developer-guide
+        url: https://developers.google.com/chrome/verified-access/developer-guide
       - type: Overview
         url: https://developers.google.com/chrome/verified-access/overview
     contact:
@@ -208,9 +198,9 @@ apis:
     humanUrl: https://developers.google.com/safe-browsing
     baseUrl: https://safebrowsing.googleapis.com/
     tags:
-      - Security
       - Malware
       - Phishing
+      - Security
       - URL Checking
     properties:
       - type: Documentation
@@ -233,10 +223,10 @@ apis:
     humanUrl: https://developers.google.com/speed/docs/insights/v5/about
     baseUrl: https://pagespeedonline.googleapis.com/
     tags:
-      - Performance
       - Analytics
       - Lighthouse
       - Optimization
+      - Performance
     properties:
       - type: Documentation
         url: https://developers.google.com/speed/docs/insights/rest
@@ -255,8 +245,8 @@ apis:
     baseUrl: chrome://flags/#optimization-guide-on-device-model
     tags:
       - AI
-      - Machine Learning
       - Gemini Nano
+      - Machine Learning
       - On-Device AI
     properties:
       - type: Documentation
