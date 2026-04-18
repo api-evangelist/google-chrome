@@ -1,0 +1,55 @@
+name: Google Chrome API Vocabulary
+description: Vocabulary and taxonomy schema mapping operational and capability dimensions for Google Chrome APIs.
+domains:
+  - name: Browser Platform
+    concepts:
+      - term: Chrome Extension
+        definition: A software module that customizes the Chrome browsing experience using web technologies.
+      - term: Manifest V3
+        definition: The current extension platform architecture providing improved security, privacy, and performance.
+        aliases:
+          - MV3
+      - term: Chrome DevTools Protocol
+        definition: A protocol for instrumenting, inspecting, debugging, and profiling Chromium-based browsers.
+        aliases:
+          - CDP
+  - name: Enterprise Management
+    concepts:
+      - term: Chrome Management API
+        definition: API for managing Chrome browser and ChromeOS devices in enterprise environments.
+      - term: Chrome Policy API
+        definition: API for programmatically managing Chrome policies assigned to organizational units.
+      - term: Verified Access
+        definition: Cryptographic verification that ChromeOS clients are genuine and conform to corporate policy.
+      - term: Telemetry
+        definition: Device and usage data collected from managed ChromeOS devices.
+  - name: Web Performance
+    concepts:
+      - term: Chrome User Experience Report
+        definition: Real-world user experience data for websites based on Chrome browser metrics.
+        aliases:
+          - CrUX
+      - term: PageSpeed Insights
+        definition: Tool measuring web page performance using Lighthouse and CrUX data.
+      - term: Core Web Vitals
+        definition: A set of metrics measuring loading, interactivity, and visual stability of web pages.
+  - name: Security
+    concepts:
+      - term: Safe Browsing
+        definition: Service that checks URLs against Google lists of unsafe web resources.
+      - term: Threat Match
+        definition: A URL that matches a known phishing, malware, or unwanted software list.
+  - name: Browser AI
+    concepts:
+      - term: Built-In AI
+        definition: On-device AI capabilities powered by Gemini Nano built into Chrome.
+      - term: Prompt API
+        definition: API for text generation using on-device AI models.
+      - term: Summarizer API
+        definition: API for content summarization using on-device AI models.
+tags:
+  - Browser
+  - Chrome Extensions
+  - Developer Tools
+  - Enterprise
+  - Web Platform

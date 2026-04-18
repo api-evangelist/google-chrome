@@ -12,7 +12,7 @@ tags:
   - Developer Tools
   - Web Platform
 created: '2024'
-modified: '2026-03-16'
+modified: '2026-04-18'
 apis:
   - name: Chrome Extensions API
     description: >-
@@ -27,15 +27,15 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.chrome.com/docs/extensions/reference/
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developer.chrome.com/docs/extensions/mv3/getstarted/
-      - type: Samples
+      - type: CodeExamples
         url: https://github.com/GoogleChrome/chrome-extensions-samples
-      - type: API Reference
+      - type: APIReference
         url: https://developer.chrome.com/docs/extensions/reference/api
-      - type: Manifest Reference
+      - type: APIReference
         url: https://developer.chrome.com/docs/extensions/reference
-      - type: MV3 Migration Guide
+      - type: Documentation
         url: https://developer.chrome.com/docs/extensions/develop/migrate
     contact:
       - type: Support
@@ -54,13 +54,11 @@ apis:
     properties:
       - type: Documentation
         url: https://chromedevtools.github.io/devtools-protocol/
-      - type: Protocol Viewer
+      - type: APIReference
         url: https://chromedevtools.github.io/devtools-protocol/tot/
-      - type: GitHub
+      - type: GitHubRepository
         url: https://github.com/ChromeDevTools/devtools-protocol
-      - type: API Reference
-        url: https://chromedevtools.github.io/devtools-protocol/tot/
-      - type: Awesome Chrome DevTools
+      - type: Resources
         url: https://github.com/ChromeDevTools/awesome-chrome-devtools
     contact:
       - type: GitHub Issues
@@ -77,17 +75,17 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.chrome.com/docs/webstore/using_webstore_api/
-      - type: API Reference
+      - type: APIReference
         url: https://developer.chrome.com/docs/webstore/webstore_api/items/
-      - type: Developer Dashboard
+      - type: Console
         url: https://chrome.google.com/webstore/devconsole
       - type: Authentication
         url: https://developer.chrome.com/docs/webstore/using_webstore_api/#beforeyoubegin
-      - type: V2 API Reference
+      - type: APIReference
         url: https://developer.chrome.com/docs/webstore/api/reference/rest
-      - type: V2 API Guide
+      - type: Documentation
         url: https://developer.chrome.com/docs/webstore/using-api
-      - type: V2 Announcement
+      - type: Blog
         url: https://developer.chrome.com/blog/cws-api-v2
     contact:
       - type: Support
@@ -106,19 +104,19 @@ apis:
         url: https://developers.google.com/chrome/management/reference/rest
       - type: OpenAPI
         url: openapi/google-chrome-management-api-openapi.json
-      - type: API Reference
+      - type: APIReference
         url: https://developers.google.com/chrome/management/reference/rest/v1/customers.apps
-      - type: Admin Console
+      - type: Console
         url: https://admin.google.com/
-      - type: Telemetry API Guide
+      - type: Documentation
         url: https://developers.google.com/chrome/management/guides/telemetry_api
-      - type: Reports API Guide
+      - type: Documentation
         url: https://developers.google.com/chrome/management/guides/reports_api
-      - type: Telemetry API Samples
+      - type: CodeExamples
         url: https://developers.google.com/chrome/management/guides/samples_telemetryapi
-      - type: Reports API Samples
+      - type: CodeExamples
         url: https://developers.google.com/chrome/management/guides/samples_reportsapi
-      - type: GitHub
+      - type: GitHubRepository
         url: https://github.com/google/ChromeBrowserEnterprise
     contact:
       - type: Support
@@ -136,11 +134,11 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.google.com/web/tools/chrome-user-experience-report/api/reference
-      - type: API Reference
+      - type: APIReference
         url: https://developers.google.com/web/tools/chrome-user-experience-report/api/reference/rest
-      - type: Dataset
+      - type: Documentation
         url: https://developers.google.com/web/tools/chrome-user-experience-report/bigquery/getting-started
-      - type: CrUX Tools
+      - type: Resources
         url: https://developer.chrome.com/docs/crux/methodology/tools
     contact:
       - type: Support
@@ -159,13 +157,13 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.google.com/chrome/policy
-      - type: API Overview
+      - type: Documentation
         url: https://developers.google.com/chrome/policy/guides/overview
-      - type: Policy Schemas
+      - type: Documentation
         url: https://developers.google.com/chrome/policy/guides/policy-schemas
-      - type: Setup Guide
+      - type: GettingStarted
         url: https://developers.google.com/chrome/policy/guides/setup
-      - type: Samples
+      - type: CodeExamples
         url: https://developers.google.com/chrome/policy/guides/samples
     contact:
       - type: Support
@@ -184,9 +182,9 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.google.com/chrome/verified-access
-      - type: Developer Guide
+      - type: Documentation
         url: https://developers.google.com/chrome/verified-access/developer-guide
-      - type: Overview
+      - type: Documentation
         url: https://developers.google.com/chrome/verified-access/overview
     contact:
       - type: Support
@@ -205,13 +203,13 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.google.com/safe-browsing
-      - type: API Reference
+      - type: APIReference
         url: https://developers.google.com/safe-browsing/reference/rest
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developers.google.com/safe-browsing/v4/get-started
-      - type: Lookup API
+      - type: Documentation
         url: https://developers.google.com/safe-browsing/v4/lookup-api
-      - type: GitHub
+      - type: GitHubRepository
         url: https://github.com/google/safebrowsing
     contact:
       - type: Support
@@ -230,9 +228,9 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.google.com/speed/docs/insights/rest
-      - type: API Reference
+      - type: APIReference
         url: https://developers.google.com/speed/docs/insights/v5/reference
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developers.google.com/speed/docs/insights/v5/get-started
     contact:
       - type: Support
@@ -251,21 +249,21 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.chrome.com/docs/ai/built-in
-      - type: API Overview
+      - type: APIReference
         url: https://developer.chrome.com/docs/ai/built-in-apis
-      - type: Getting Started
+      - type: GettingStarted
         url: https://developer.chrome.com/docs/ai/get-started
-      - type: Prompt API
+      - type: Documentation
         url: https://developer.chrome.com/docs/ai/prompt-api
-      - type: Summarizer API
+      - type: Documentation
         url: https://developer.chrome.com/docs/ai/summarizer-api
-      - type: Writer API
+      - type: Documentation
         url: https://developer.chrome.com/docs/ai/writer-api
-      - type: Rewriter API
+      - type: Documentation
         url: https://developer.chrome.com/docs/ai/rewriter-api
-      - type: Language Detection API
+      - type: Documentation
         url: https://developer.chrome.com/docs/ai/language-detection
-      - type: Proofreader API
+      - type: Documentation
         url: https://developer.chrome.com/docs/ai/proofreader-api
     contact:
       - type: Support
@@ -275,37 +273,67 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com/
 common:
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://developer.chrome.com/
   - type: Blog
     url: https://developer.chrome.com/blog/
-  - type: GitHub
+  - type: GitHubOrganization
     url: https://github.com/GoogleChrome
-  - type: Twitter
+  - type: X
     url: https://twitter.com/ChromiumDev
   - type: YouTube
     url: https://www.youtube.com/c/GoogleChromeDevelopers
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://developers.google.com/terms
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://policies.google.com/privacy
-  - type: Release Notes
+  - type: ReleaseNotes
     url: https://developer.chrome.com/release-notes
-  - type: What's New
+  - type: ChangeLog
     url: https://developer.chrome.com/new
-  - type: Chrome Status
+  - type: StatusPage
     url: https://chromestatus.com/
-  - type: Origin Trials
+  - type: Documentation
     url: https://developer.chrome.com/origintrials/
-  - type: Origin Trials Documentation
+  - type: Documentation
     url: https://developer.chrome.com/docs/web-platform/origin-trials
-  - type: Stack Overflow
+  - type: StackOverflow
     url: https://stackoverflow.com/questions/tagged/google-chrome-extension
-  - type: Chrome Enterprise
+  - type: Portal
     url: https://chromeenterprise.google/
-  - type: Chromium Source
+  - type: Resources
     url: https://source.chromium.org/chromium
   - type: JSONSchema
     url: json-schema/google-chrome-extension-manifest-schema.json
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/google-chrome-context.jsonld
+  - type: Features
+    data:
+      - Chrome Extensions Manifest V3 platform
+      - Chrome DevTools Protocol for browser automation
+      - Chrome Web Store publishing and management APIs
+      - Enterprise device and policy management
+      - Real user experience metrics (CrUX)
+      - Safe Browsing URL threat detection
+      - PageSpeed Insights performance analysis
+      - Built-in AI APIs (Gemini Nano)
+      - Verified Access for ChromeOS device attestation
+  - type: UseCases
+    data:
+      - Building and publishing Chrome browser extensions
+      - Automating browser testing and debugging
+      - Managing Chrome enterprise deployments at scale
+      - Monitoring web performance with real user metrics
+      - Protecting users from phishing and malware URLs
+      - Running on-device AI inference in the browser
+      - Enforcing Chrome policies across organizational units
+  - type: Integrations
+    data:
+      - Google Workspace Admin
+      - Google Cloud
+      - Puppeteer
+      - Playwright
+      - Selenium
+      - BigQuery
+      - Lighthouse
+      - Google Search Console

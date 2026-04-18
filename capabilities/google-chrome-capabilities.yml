@@ -1,0 +1,80 @@
+name: Google Chrome API Capabilities
+description: Shared per-API capability definitions and workflow compositions for Google Chrome APIs.
+capabilities:
+  - name: Enterprise Device Management
+    description: Manage Chrome browser and ChromeOS devices in enterprise environments.
+    apis:
+      - google-chrome:management-api
+    operations:
+      - listTelemetryDevices
+      - getTelemetryDevice
+      - listTelemetryEvents
+      - listTelemetryUsers
+    workflows:
+      - name: Device Health Monitoring
+        description: Monitor managed device health and telemetry data.
+        steps:
+          - description: List managed ChromeOS devices with telemetry data.
+          - description: Filter devices by health status or OS version.
+          - description: Review telemetry events for problematic devices.
+
+  - name: Policy Management
+    description: View and manage Chrome policies assigned to organizational units.
+    apis:
+      - google-chrome:policy-api
+    workflows:
+      - name: Policy Compliance Audit
+        description: Audit Chrome policies across organizational units.
+        steps:
+          - description: List policy schemas available for configuration.
+          - description: Retrieve policies assigned to target organizational units.
+          - description: Compare against compliance baseline.
+
+  - name: Extension Publishing
+    description: Publish and manage Chrome extensions in the Web Store.
+    apis:
+      - google-chrome:web-store-api
+    workflows:
+      - name: Extension Release
+        description: Publish a new version of a Chrome extension.
+        steps:
+          - description: Upload the extension package to the Web Store.
+          - description: Update extension metadata and listing.
+          - description: Publish the extension for distribution.
+
+  - name: Web Performance Analysis
+    description: Measure and analyze web page performance using Chrome tools.
+    apis:
+      - google-chrome:crux-api
+      - google-chrome:pagespeed-api
+    workflows:
+      - name: Performance Audit
+        description: Comprehensive performance audit of a website.
+        steps:
+          - description: Query CrUX API for real user experience metrics.
+          - description: Run PageSpeed Insights analysis for lab data.
+          - description: Compare metrics against performance thresholds.
+
+  - name: Security Threat Detection
+    description: Check URLs against Google lists of unsafe web resources.
+    apis:
+      - google-chrome:safe-browsing-api
+    workflows:
+      - name: URL Safety Check
+        description: Check a batch of URLs for threats.
+        steps:
+          - description: Submit URLs to the Safe Browsing Lookup API.
+          - description: Process threat match results.
+          - description: Block or warn users about unsafe URLs.
+
+  - name: Browser AI Integration
+    description: Leverage on-device AI capabilities built into Chrome.
+    apis:
+      - google-chrome:built-in-ai-apis
+    workflows:
+      - name: Content Processing
+        description: Use built-in AI for content generation and analysis.
+        steps:
+          - description: Check AI model availability on the device.
+          - description: Use Prompt API for text generation.
+          - description: Use Summarizer API for content summarization.

@@ -1,0 +1,49 @@
+extends:
+  - spectral:oas
+rules:
+  chrome-operation-summary-title-case:
+    description: Operation summaries must use Title Case.
+    severity: warn
+    given: $.paths[*][*].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: ^[A-Z][a-zA-Z]+(\\s[A-Z][a-zA-Z]+)*$
+
+  chrome-oauth2-required:
+    description: All endpoints must require OAuth2 authentication.
+    severity: error
+    given: $.security
+    then:
+      function: truthy
+
+  chrome-operation-id-required:
+    description: All operations must have an operationId.
+    severity: error
+    given: $.paths[*][*]
+    then:
+      field: operationId
+      function: truthy
+
+  chrome-description-required:
+    description: All operations must have a description.
+    severity: error
+    given: $.paths[*][*]
+    then:
+      field: description
+      function: truthy
+
+  chrome-tags-required:
+    description: All operations must have at least one tag.
+    severity: warn
+    given: $.paths[*][*]
+    then:
+      field: tags
+      function: truthy
+
+  chrome-customer-path-prefix:
+    description: Chrome Management API paths should include customers resource prefix.
+    severity: info
+    given: $.paths
+    then:
+      function: truthy
