@@ -1,0 +1,19 @@
+{
+  "repo": "google-chrome",
+  "feeds": [
+    {
+      "source": "https://developer.chrome.com/blog/",
+      "feed_url": "https://developer.chrome.com/blog/feed.xml",
+      "saved": 10,
+      "title": "developer.chrome.com: Blog"
+    },
+    {
+      "source": "https://developer.chrome.com/blog/cws-api-v2",
+      "feed_url": "https://developer.chrome.com/static/blog/feed.xml",
+      "saved": 10,
+      "title": "developer.chrome.com: Blog"
+    }
+  ],
+  "post_count": 20,
+  "fetched": "2026-05-03T23:29:18Z"
+}
