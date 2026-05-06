@@ -4,131 +4,75 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Google Chrome
 providerId: google-chrome
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Browser
   - Chrome Extensions
   - Developer Tools
   - Web Platform
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Google Chrome API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: 'Most Chrome developer APIs run in-process inside the browser and have per-extension or per-API
+  internal limits rather than network-rate limits. Two cloud-hosted Chrome APIs do enforce server-side
+  quotas: the Chrome User Experience (CrUX) API and PageSpeed Insights API, which share the standard
+  Google Cloud API project quotas (default 25,000 queries per day per API key with per-100-second per-user
+  caps). The Chrome Web Store publishing API has per-publisher daily limits.'
+sources:
+  - https://developer.chrome.com/docs/crux/api
+  - https://developers.google.com/speed/docs/insights/v5/get-started
+  - https://developer.chrome.com/docs/webstore/api
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  quotaExceeded: 403
 limits:
-  - tier: free
-    name: Free Tier Default
+  - name: CrUX API queries per day
     scope: api-key
+    metric: requests_per_day
+    limit: 150
+    timeFrame: day
+    notes: Default per-API-key daily quota; can be raised via the Cloud Console quotas page.
+  - name: CrUX API queries per minute per user
+    scope: user
     metric: requests_per_minute
-    limit: 10
-    burst: 20
+    limit: 30
     timeFrame: minute
-    applies:
-      - Chrome Extensions API
-      - Chrome DevTools Protocol
-      - Chrome Web Store API
-      - Chrome Management API
-      - Chrome User Experience Report API
-      - Chrome Policy API
-      - Chrome Verified Access API
-      - Google Safe Browsing API
-      - PageSpeed Insights API
-      - Chrome Built-in AI APIs
-  - tier: free
-    name: Free Tier Monthly Quota
+  - name: PageSpeed Insights queries per day
     scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Chrome Extensions API
-      - Chrome DevTools Protocol
-      - Chrome Web Store API
-      - Chrome Management API
-      - Chrome User Experience Report API
-      - Chrome Policy API
-      - Chrome Verified Access API
-      - Google Safe Browsing API
-      - PageSpeed Insights API
-      - Chrome Built-in AI APIs
-  - tier: professional
-    name: Professional Tier Default
+    metric: requests_per_day
+    limit: 25000
+    timeFrame: day
+  - name: PageSpeed Insights queries per 100 seconds
     scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
+    metric: requests_per_100_seconds
+    limit: 400
+    notes: 400 queries per 100 seconds per API key.
+  - name: Chrome Web Store Publish API
+    scope: developer-account
+    metric: requests_per_day
+    limit: see Cloud Console quota
+    notes: Standard Google API project quota; raise via the Cloud Console.
+  - name: Extension chrome.storage.sync per item
+    scope: extension
+    metric: bytes
+    limit: 8192
+    notes: 8 KB per item; 100 KB total quota for sync storage.
+  - name: Extension chrome.storage.sync write operations
+    scope: extension
+    metric: writes_per_minute
+    limit: 120
     timeFrame: minute
-    applies:
-      - Chrome Extensions API
-      - Chrome DevTools Protocol
-      - Chrome Web Store API
-      - Chrome Management API
-      - Chrome User Experience Report API
-      - Chrome Policy API
-      - Chrome Verified Access API
-      - Google Safe Browsing API
-      - PageSpeed Insights API
-      - Chrome Built-in AI APIs
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Chrome Extensions API
-      - Chrome DevTools Protocol
-      - Chrome Web Store API
-      - Chrome Management API
-      - Chrome User Experience Report API
-      - Chrome Policy API
-      - Chrome Verified Access API
-      - Google Safe Browsing API
-      - PageSpeed Insights API
-      - Chrome Built-in AI APIs
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Chrome Extensions API
-      - Chrome DevTools Protocol
-      - Chrome Web Store API
-      - Chrome Management API
-      - Chrome User Experience Report API
-      - Chrome Policy API
-      - Chrome Verified Access API
-      - Google Safe Browsing API
-      - PageSpeed Insights API
-      - Chrome Built-in AI APIs
+    notes: Maximum sustained write operations to chrome.storage.sync.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: API project quotas
+    description: Cloud-hosted Chrome APIs (CrUX, PageSpeed Insights) follow the standard Google Cloud
+      API project quota model and can be raised via the Cloud Console quotas page.
+  - name: In-browser API rate limits
+    description: Extension APIs enforce per-extension internal limits (e.g., chrome.storage.sync write
+      throughput, chrome.alarms minimum interval, chrome.tabs operation rates). These are not network-rate
+      limits and are documented per API in developer.chrome.com.
+  - name: Backoff
+    description: Honor 429 / 403 quotaExceeded with exponential backoff and jitter; cache CrUX responses
+      since underlying data updates only daily/weekly.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
-    url: https://apievangelist.com/
