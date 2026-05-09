@@ -4,16 +4,16 @@
     {
       "source": "https://developer.chrome.com/blog/",
       "feed_url": "https://developer.chrome.com/blog/feed.xml",
-      "saved": 10,
-      "title": "developer.chrome.com: Blog"
+      "title": "developer.chrome.com: Blog",
+      "saved": 3
     },
     {
       "source": "https://developer.chrome.com/blog/cws-api-v2",
-      "feed_url": "https://developer.chrome.com/static/blog/feed.xml",
-      "saved": 10,
-      "title": "developer.chrome.com: Blog"
+      "feed_url": "https://developer.chrome.com/feed.xml",
+      "title": "developer.chrome.com: Blog",
+      "saved": 0
     }
   ],
-  "post_count": 20,
-  "fetched": "2026-05-03T23:29:18Z"
+  "post_count": 23,
+  "fetched": "2026-05-09T20:17:51Z"
 }
