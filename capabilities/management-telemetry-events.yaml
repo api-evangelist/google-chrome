@@ -1,0 +1,98 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Chrome Management API — Telemetry Events
+  description: 'Google Chrome Management API — Telemetry Events. 1 operations. Lead operation: List telemetry events. Self-contained
+    Naftiko capability covering one Google Chrome business surface.'
+  tags:
+  - Google Chrome
+  - Telemetry Events
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CHROME_API_KEY: GOOGLE_CHROME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-telemetry-events
+    baseUri: https://chromemanagement.googleapis.com/v1
+    description: Google Chrome Management API — Telemetry Events business capability. Self-contained, no shared references.
+    resources:
+    - name: customers-customerId-telemetry-events
+      path: /customers/{customerId}/telemetry/events
+      operations:
+      - name: listtelemetryevents
+        method: GET
+        description: List telemetry events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: pageSize
+          in: query
+          type: integer
+          description: Maximum number of results to return. Maximum value is 1000.
+        - name: pageToken
+          in: query
+          type: string
+          description: Token to specify next page in the result set.
+        - name: filter
+          in: query
+          type: string
+          description: Filter to restrict results. Supports filtering by event type, device, user, and timestamp.
+        - name: readMask
+          in: query
+          type: string
+          description: 'Fields to include in the response. Supported event types: audioSevereUnderrunEvent, usbPeripheralsEvent,
+            networkStateChangeEvent, httpsLatencyChangeEvent, wifiS'
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CHROME_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-telemetry-events-rest
+    port: 8080
+    description: REST adapter for Google Chrome Management API — Telemetry Events. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/customers/{customerid}/telemetry/events
+      name: customers-customerid-telemetry-events
+      description: REST surface for customers-customerId-telemetry-events.
+      operations:
+      - method: GET
+        name: listtelemetryevents
+        description: List telemetry events
+        call: management-telemetry-events.listtelemetryevents
+        with:
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+          filter: rest.filter
+          readMask: rest.readMask
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-telemetry-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Chrome Management API — Telemetry Events. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-telemetry-events
+      description: List telemetry events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-telemetry-events.listtelemetryevents
+      with:
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+        filter: tools.filter
+        readMask: tools.readMask
+      outputParameters:
+      - type: object
+        mapping: $.

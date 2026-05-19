@@ -1,0 +1,163 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Chrome Management API — Telemetry Notification Configs
+  description: 'Google Chrome Management API — Telemetry Notification Configs. 3 operations. Lead operation: List telemetry
+    notification configs. Self-contained Naftiko capability covering one Google Chrome business surface.'
+  tags:
+  - Google Chrome
+  - Telemetry Notification Configs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CHROME_API_KEY: GOOGLE_CHROME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-telemetry-notification-configs
+    baseUri: https://chromemanagement.googleapis.com/v1
+    description: Google Chrome Management API — Telemetry Notification Configs business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: customers-customerId-telemetry-notificationConfigs
+      path: /customers/{customerId}/telemetry/notificationConfigs
+      operations:
+      - name: listtelemetrynotificationconfigs
+        method: GET
+        description: List telemetry notification configs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: pageSize
+          in: query
+          type: integer
+          description: Maximum number of results to return.
+        - name: pageToken
+          in: query
+          type: string
+          description: Token to specify next page in the result set.
+      - name: createtelemetrynotificationconfig
+        method: POST
+        description: Create a telemetry notification config
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: customers-customerId-telemetry-notificationConfigs-configId
+      path: /customers/{customerId}/telemetry/notificationConfigs/{configId}
+      operations:
+      - name: deletetelemetrynotificationconfig
+        method: DELETE
+        description: Delete a telemetry notification config
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: configId
+          in: path
+          type: string
+          description: Identifier of the notification config to delete.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CHROME_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-telemetry-notification-configs-rest
+    port: 8080
+    description: REST adapter for Google Chrome Management API — Telemetry Notification Configs. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/customers/{customerid}/telemetry/notificationconfigs
+      name: customers-customerid-telemetry-notificationconfigs
+      description: REST surface for customers-customerId-telemetry-notificationConfigs.
+      operations:
+      - method: GET
+        name: listtelemetrynotificationconfigs
+        description: List telemetry notification configs
+        call: management-telemetry-notification-configs.listtelemetrynotificationconfigs
+        with:
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtelemetrynotificationconfig
+        description: Create a telemetry notification config
+        call: management-telemetry-notification-configs.createtelemetrynotificationconfig
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{customerid}/telemetry/notificationconfigs/{configid}
+      name: customers-customerid-telemetry-notificationconfigs-configid
+      description: REST surface for customers-customerId-telemetry-notificationConfigs-configId.
+      operations:
+      - method: DELETE
+        name: deletetelemetrynotificationconfig
+        description: Delete a telemetry notification config
+        call: management-telemetry-notification-configs.deletetelemetrynotificationconfig
+        with:
+          configId: rest.configId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-telemetry-notification-configs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Chrome Management API — Telemetry Notification Configs. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: list-telemetry-notification-configs
+      description: List telemetry notification configs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-telemetry-notification-configs.listtelemetrynotificationconfigs
+      with:
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-telemetry-notification-config
+      description: Create a telemetry notification config
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-telemetry-notification-configs.createtelemetrynotificationconfig
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-telemetry-notification-config
+      description: Delete a telemetry notification config
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: management-telemetry-notification-configs.deletetelemetrynotificationconfig
+      with:
+        configId: tools.configId
+      outputParameters:
+      - type: object
+        mapping: $.

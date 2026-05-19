@@ -1,0 +1,147 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Chrome Management API — Telemetry Devices
+  description: 'Google Chrome Management API — Telemetry Devices. 2 operations. Lead operation: List telemetry devices. Self-contained
+    Naftiko capability covering one Google Chrome business surface.'
+  tags:
+  - Google Chrome
+  - Telemetry Devices
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CHROME_API_KEY: GOOGLE_CHROME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-telemetry-devices
+    baseUri: https://chromemanagement.googleapis.com/v1
+    description: Google Chrome Management API — Telemetry Devices business capability. Self-contained, no shared references.
+    resources:
+    - name: customers-customerId-telemetry-devices
+      path: /customers/{customerId}/telemetry/devices
+      operations:
+      - name: listtelemetrydevices
+        method: GET
+        description: List telemetry devices
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: pageSize
+          in: query
+          type: integer
+          description: Maximum number of results to return. Maximum and default value is 100.
+        - name: pageToken
+          in: query
+          type: string
+          description: Token to specify next page in the result set.
+        - name: filter
+          in: query
+          type: string
+          description: 'Filter to restrict results. Supports filtering by serial number, device ID, org unit, and timestamps.
+            Example: serial_number=ABC123 AND timestamp>2024-01-01T00:'
+        - name: readMask
+          in: query
+          type: string
+          description: Fields to include in the response. Use this to request specific telemetry data categories such as cpuInfo,
+            cpuStatusReport, memoryInfo, memoryStatusReport, netw
+    - name: customers-customerId-telemetry-devices-deviceId
+      path: /customers/{customerId}/telemetry/devices/{deviceId}
+      operations:
+      - name: gettelemetrydevice
+        method: GET
+        description: Get a telemetry device
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: deviceId
+          in: path
+          type: string
+          description: Unique identifier of the telemetry device.
+          required: true
+        - name: readMask
+          in: query
+          type: string
+          description: Fields to include in the response.
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CHROME_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-telemetry-devices-rest
+    port: 8080
+    description: REST adapter for Google Chrome Management API — Telemetry Devices. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/customers/{customerid}/telemetry/devices
+      name: customers-customerid-telemetry-devices
+      description: REST surface for customers-customerId-telemetry-devices.
+      operations:
+      - method: GET
+        name: listtelemetrydevices
+        description: List telemetry devices
+        call: management-telemetry-devices.listtelemetrydevices
+        with:
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+          filter: rest.filter
+          readMask: rest.readMask
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{customerid}/telemetry/devices/{deviceid}
+      name: customers-customerid-telemetry-devices-deviceid
+      description: REST surface for customers-customerId-telemetry-devices-deviceId.
+      operations:
+      - method: GET
+        name: gettelemetrydevice
+        description: Get a telemetry device
+        call: management-telemetry-devices.gettelemetrydevice
+        with:
+          deviceId: rest.deviceId
+          readMask: rest.readMask
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-telemetry-devices-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Chrome Management API — Telemetry Devices. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-telemetry-devices
+      description: List telemetry devices
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-telemetry-devices.listtelemetrydevices
+      with:
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+        filter: tools.filter
+        readMask: tools.readMask
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-telemetry-device
+      description: Get a telemetry device
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-telemetry-devices.gettelemetrydevice
+      with:
+        deviceId: tools.deviceId
+        readMask: tools.readMask
+      outputParameters:
+      - type: object
+        mapping: $.

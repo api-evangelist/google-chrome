@@ -1,0 +1,446 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Google Chrome Management API — Reports
+  description: 'Google Chrome Management API — Reports. 7 operations. Lead operation: Count Chrome browsers needing attention.
+    Self-contained Naftiko capability covering one Google Chrome business surface.'
+  tags:
+  - Google Chrome
+  - Reports
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    GOOGLE_CHROME_API_KEY: GOOGLE_CHROME_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-reports
+    baseUri: https://chromemanagement.googleapis.com/v1
+    description: Google Chrome Management API — Reports business capability. Self-contained, no shared references.
+    resources:
+    - name: customers-customerId-reports:countChromeBrowsersNeedingAttention
+      path: /customers/{customerId}/reports:countChromeBrowsersNeedingAttention
+      operations:
+      - name: countchromebrowsersneedingattention
+        method: GET
+        description: Count Chrome browsers needing attention
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgUnitId
+          in: query
+          type: string
+          description: The organizational unit ID.
+    - name: customers-customerId-reports:countChromeDevicesReachingAutoExpirationDate
+      path: /customers/{customerId}/reports:countChromeDevicesReachingAutoExpirationDate
+      operations:
+      - name: countchromedevicesreachingautoexpirationdate
+        method: GET
+        description: Count ChromeOS devices reaching auto-update expiration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgUnitId
+          in: query
+          type: string
+          description: The organizational unit ID.
+        - name: minAueDate
+          in: query
+          type: string
+          description: Minimum auto-update expiration date filter (inclusive) in yyyy-mm-dd format.
+        - name: maxAueDate
+          in: query
+          type: string
+          description: Maximum auto-update expiration date filter (inclusive) in yyyy-mm-dd format.
+        - name: pageSize
+          in: query
+          type: integer
+          description: Maximum number of results to return.
+        - name: pageToken
+          in: query
+          type: string
+          description: Token for pagination.
+    - name: customers-customerId-reports:countChromeDevicesThatNeedOsUpdate
+      path: /customers/{customerId}/reports:countChromeDevicesThatNeedOsUpdate
+      operations:
+      - name: countchromedevicesthatneedosupdate
+        method: GET
+        description: Count ChromeOS devices needing OS update
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgUnitId
+          in: query
+          type: string
+          description: The organizational unit ID.
+        - name: pageSize
+          in: query
+          type: integer
+          description: Maximum number of results to return.
+        - name: pageToken
+          in: query
+          type: string
+          description: Token for pagination.
+    - name: customers-customerId-reports:countChromeHardwareFleetDevices
+      path: /customers/{customerId}/reports:countChromeHardwareFleetDevices
+      operations:
+      - name: countchromehardwarefleetdevices
+        method: GET
+        description: Count ChromeOS hardware fleet devices
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgUnitId
+          in: query
+          type: string
+          description: The organizational unit ID.
+        - name: readMask
+          in: query
+          type: string
+          description: Fields to include in the response. Options include cpuReports, memoryReports, modelReports, storageReports.
+    - name: customers-customerId-reports:countChromeVersions
+      path: /customers/{customerId}/reports:countChromeVersions
+      operations:
+      - name: countchromeversions
+        method: GET
+        description: Count Chrome browser versions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgUnitId
+          in: query
+          type: string
+          description: The organizational unit ID. If omitted, returns data for all org units.
+        - name: filter
+          in: query
+          type: string
+          description: Filter string for narrowing results. Supports filtering by version, channel, platform, and last active
+            date.
+        - name: pageSize
+          in: query
+          type: integer
+          description: Maximum number of results to return.
+        - name: pageToken
+          in: query
+          type: string
+          description: Token for pagination.
+    - name: customers-customerId-reports:countInstalledApps
+      path: /customers/{customerId}/reports:countInstalledApps
+      operations:
+      - name: countinstalledapps
+        method: GET
+        description: Count installed apps and extensions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: orgUnitId
+          in: query
+          type: string
+          description: The organizational unit ID.
+        - name: filter
+          in: query
+          type: string
+          description: Filter string. Supports filtering by app name, app ID, app type, install type, and permissions.
+        - name: orderBy
+          in: query
+          type: string
+          description: 'Field to sort results by. Supported fields: app_name, install_type, machine_count, and permission_count.'
+        - name: pageSize
+          in: query
+          type: integer
+          description: Maximum number of results to return.
+        - name: pageToken
+          in: query
+          type: string
+          description: Token for pagination.
+    - name: customers-customerId-reports:findInstalledAppDevices
+      path: /customers/{customerId}/reports:findInstalledAppDevices
+      operations:
+      - name: findinstalledappdevices
+        method: GET
+        description: Find devices with a specific app installed
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: appId
+          in: query
+          type: string
+          description: The app ID to search for.
+        - name: appType
+          in: query
+          type: string
+          description: Type of the app. Values include EXTENSION, APP, THEME, HOSTED_APP.
+        - name: orgUnitId
+          in: query
+          type: string
+          description: The organizational unit ID.
+        - name: filter
+          in: query
+          type: string
+          description: Filter string for narrowing results.
+        - name: orderBy
+          in: query
+          type: string
+          description: Field to sort results by.
+        - name: pageSize
+          in: query
+          type: integer
+          description: Maximum number of results to return.
+        - name: pageToken
+          in: query
+          type: string
+          description: Token for pagination.
+    authentication:
+      type: bearer
+      token: '{{env.GOOGLE_CHROME_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-reports-rest
+    port: 8080
+    description: REST adapter for Google Chrome Management API — Reports. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/customers/{customerid}/reports-countchromebrowsersneedingattention
+      name: customers-customerid-reports-countchromebrowsersneedingattention
+      description: REST surface for customers-customerId-reports:countChromeBrowsersNeedingAttention.
+      operations:
+      - method: GET
+        name: countchromebrowsersneedingattention
+        description: Count Chrome browsers needing attention
+        call: management-reports.countchromebrowsersneedingattention
+        with:
+          orgUnitId: rest.orgUnitId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{customerid}/reports-countchromedevicesreachingautoexpirationdate
+      name: customers-customerid-reports-countchromedevicesreachingautoexpirationdate
+      description: REST surface for customers-customerId-reports:countChromeDevicesReachingAutoExpirationDate.
+      operations:
+      - method: GET
+        name: countchromedevicesreachingautoexpirationdate
+        description: Count ChromeOS devices reaching auto-update expiration
+        call: management-reports.countchromedevicesreachingautoexpirationdate
+        with:
+          orgUnitId: rest.orgUnitId
+          minAueDate: rest.minAueDate
+          maxAueDate: rest.maxAueDate
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{customerid}/reports-countchromedevicesthatneedosupdate
+      name: customers-customerid-reports-countchromedevicesthatneedosupdate
+      description: REST surface for customers-customerId-reports:countChromeDevicesThatNeedOsUpdate.
+      operations:
+      - method: GET
+        name: countchromedevicesthatneedosupdate
+        description: Count ChromeOS devices needing OS update
+        call: management-reports.countchromedevicesthatneedosupdate
+        with:
+          orgUnitId: rest.orgUnitId
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{customerid}/reports-countchromehardwarefleetdevices
+      name: customers-customerid-reports-countchromehardwarefleetdevices
+      description: REST surface for customers-customerId-reports:countChromeHardwareFleetDevices.
+      operations:
+      - method: GET
+        name: countchromehardwarefleetdevices
+        description: Count ChromeOS hardware fleet devices
+        call: management-reports.countchromehardwarefleetdevices
+        with:
+          orgUnitId: rest.orgUnitId
+          readMask: rest.readMask
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{customerid}/reports-countchromeversions
+      name: customers-customerid-reports-countchromeversions
+      description: REST surface for customers-customerId-reports:countChromeVersions.
+      operations:
+      - method: GET
+        name: countchromeversions
+        description: Count Chrome browser versions
+        call: management-reports.countchromeversions
+        with:
+          orgUnitId: rest.orgUnitId
+          filter: rest.filter
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{customerid}/reports-countinstalledapps
+      name: customers-customerid-reports-countinstalledapps
+      description: REST surface for customers-customerId-reports:countInstalledApps.
+      operations:
+      - method: GET
+        name: countinstalledapps
+        description: Count installed apps and extensions
+        call: management-reports.countinstalledapps
+        with:
+          orgUnitId: rest.orgUnitId
+          filter: rest.filter
+          orderBy: rest.orderBy
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customers/{customerid}/reports-findinstalledappdevices
+      name: customers-customerid-reports-findinstalledappdevices
+      description: REST surface for customers-customerId-reports:findInstalledAppDevices.
+      operations:
+      - method: GET
+        name: findinstalledappdevices
+        description: Find devices with a specific app installed
+        call: management-reports.findinstalledappdevices
+        with:
+          appId: rest.appId
+          appType: rest.appType
+          orgUnitId: rest.orgUnitId
+          filter: rest.filter
+          orderBy: rest.orderBy
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-reports-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Google Chrome Management API — Reports. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: count-chrome-browsers-needing-attention
+      description: Count Chrome browsers needing attention
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-reports.countchromebrowsersneedingattention
+      with:
+        orgUnitId: tools.orgUnitId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-chromeos-devices-reaching-auto
+      description: Count ChromeOS devices reaching auto-update expiration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-reports.countchromedevicesreachingautoexpirationdate
+      with:
+        orgUnitId: tools.orgUnitId
+        minAueDate: tools.minAueDate
+        maxAueDate: tools.maxAueDate
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-chromeos-devices-needing-os
+      description: Count ChromeOS devices needing OS update
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-reports.countchromedevicesthatneedosupdate
+      with:
+        orgUnitId: tools.orgUnitId
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-chromeos-hardware-fleet-devices
+      description: Count ChromeOS hardware fleet devices
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-reports.countchromehardwarefleetdevices
+      with:
+        orgUnitId: tools.orgUnitId
+        readMask: tools.readMask
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-chrome-browser-versions
+      description: Count Chrome browser versions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-reports.countchromeversions
+      with:
+        orgUnitId: tools.orgUnitId
+        filter: tools.filter
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: count-installed-apps-and-extensions
+      description: Count installed apps and extensions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-reports.countinstalledapps
+      with:
+        orgUnitId: tools.orgUnitId
+        filter: tools.filter
+        orderBy: tools.orderBy
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: find-devices-specific-app-installed
+      description: Find devices with a specific app installed
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-reports.findinstalledappdevices
+      with:
+        appId: tools.appId
+        appType: tools.appType
+        orgUnitId: tools.orgUnitId
+        filter: tools.filter
+        orderBy: tools.orderBy
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+      outputParameters:
+      - type: object
+        mapping: $.
