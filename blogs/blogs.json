@@ -5,7 +5,7 @@
       "source": "https://developer.chrome.com/blog/",
       "feed_url": "https://developer.chrome.com/blog/feed.xml",
       "title": "developer.chrome.com: Blog",
-      "saved": 3
+      "saved": 7
     },
     {
       "source": "https://developer.chrome.com/blog/cws-api-v2",
@@ -14,6 +14,6 @@
       "saved": 0
     }
   ],
-  "post_count": 23,
-  "fetched": "2026-05-09T20:17:51Z"
+  "post_count": 30,
+  "fetched": "2026-05-17T20:20:35Z"
 }
