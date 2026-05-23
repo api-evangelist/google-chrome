@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TelemetryDevice",
+  "title": "TelemetryDevice",
+  "type": "object",
+  "description": "Telemetry data for a single managed ChromeOS device, including hardware, OS, network, storage, and peripheral information.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Resource name of the telemetry device. Format: customers/{customer}/telemetry/devices/{device}"
+    },
+    "customer": {
+      "type": "string",
+      "description": "Google Workspace customer resource name."
+    },
+    "orgUnitId": {
+      "type": "string",
+      "description": "Organizational unit ID of the device."
+    },
+    "deviceId": {
+      "type": "string",
+      "description": "Unique device identifier from the Directory API."
+    },
+    "serialNumber": {
+      "type": "string",
+      "description": "Serial number of the device."
+    },
+    "cpuInfo": {
+      "type": "array",
+      "description": "CPU information for the device.",
+      "items": {
+        "$ref": "#/components/schemas/CpuInfo"
+      }
+    },
+    "cpuStatusReport": {
+      "type": "array",
+      "description": "CPU status reports with usage and temperature data.",
+      "items": {
+        "$ref": "#/components/schemas/CpuStatusReport"
+      }
+    },
+    "memoryInfo": {
+      "$ref": "#/components/schemas/MemoryInfo"
+    },
+    "memoryStatusReport": {
+      "type": "array",
+      "description": "Memory status reports with usage data.",
+      "items": {
+        "$ref": "#/components/schemas/MemoryStatusReport"
+      }
+    },
+    "networkInfo": {
+      "$ref": "#/components/schemas/NetworkInfo"
+    },
+    "networkStatusReport": {
+      "type": "array",
+      "description": "Network connection status reports.",
+      "items": {
+        "$ref": "#/components/schemas/NetworkStatusReport"
+      }
+    },
+    "osUpdateStatus": {
+      "type": "array",
+      "description": "ChromeOS update status information.",
+      "items": {
+        "$ref": "#/components/schemas/OsUpdateStatus"
+      }
+    },
+    "storageInfo": {
+      "$ref": "#/components/schemas/StorageInfo"
+    },
+    "storageStatusReport": {
+      "type": "array",
+      "description": "Storage status reports with disk usage data.",
+      "items": {
+        "$ref": "#/components/schemas/StorageStatusReport"
+      }
+    },
+    "batteryInfo": {
+      "type": "array",
+      "description": "Battery information and health data.",
+      "items": {
+        "$ref": "#/components/schemas/BatteryInfo"
+      }
+    },
+    "batteryStatusReport": {
+      "type": "array",
+      "description": "Battery status reports with charge level and cycle counts.",
+      "items": {
+        "$ref": "#/components/schemas/BatteryStatusReport"
+      }
+    },
+    "graphicsInfo": {
+      "$ref": "#/components/schemas/GraphicsInfo"
+    },
+    "graphicsStatusReport": {
+      "type": "array",
+      "description": "Graphics adapter and display status reports.",
+      "items": {
+        "$ref": "#/components/schemas/GraphicsStatusReport"
+      }
+    },
+    "audioStatusReport": {
+      "type": "array",
+      "description": "Audio device status reports.",
+      "items": {
+        "$ref": "#/components/schemas/AudioStatusReport"
+      }
+    },
+    "peripheralsReport": {
+      "type": "array",
+      "description": "Connected USB peripheral reports.",
+      "items": {
+        "$ref": "#/components/schemas/PeripheralsReport"
+      }
+    },
+    "bootPerformanceReport": {
+      "type": "array",
+      "description": "Device boot performance reports.",
+      "items": {
+        "$ref": "#/components/schemas/BootPerformanceReport"
+      }
+    },
+    "heartbeatStatusReport": {
+      "type": "array",
+      "description": "Heartbeat status reports with timestamps indicating the device is online.",
+      "items": {
+        "$ref": "#/components/schemas/HeartbeatStatusReport"
+      }
+    },
+    "networkDiagnosticsReport": {
+      "type": "array",
+      "description": "Network diagnostics reports with latency and HTTPS test results.",
+      "items": {
+        "$ref": "#/components/schemas/NetworkDiagnosticsReport"
+      }
+    }
+  }
+}

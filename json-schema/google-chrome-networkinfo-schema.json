@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkInfo",
+  "title": "NetworkInfo",
+  "type": "object",
+  "description": "Network hardware and configuration information.",
+  "properties": {
+    "networkDevices": {
+      "type": "array",
+      "description": "List of network devices and their properties.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Network device type.",
+            "enum": [
+              "WIFI",
+              "ETHERNET",
+              "CELLULAR",
+              "NETWORK_DEVICE_TYPE_UNSPECIFIED"
+            ]
+          },
+          "macAddress": {
+            "type": "string",
+            "description": "MAC address of the device."
+          },
+          "meid": {
+            "type": "string",
+            "description": "MEID of the cellular device."
+          },
+          "imei": {
+            "type": "string",
+            "description": "IMEI of the cellular device."
+          },
+          "iccid": {
+            "type": "string",
+            "description": "ICCID of the SIM card."
+          },
+          "mdn": {
+            "type": "string",
+            "description": "MDN (phone number) of the cellular device."
+          }
+        }
+      }
+    }
+  }
+}

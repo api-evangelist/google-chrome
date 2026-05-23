@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BootPerformanceReport",
+  "title": "BootPerformanceReport",
+  "type": "object",
+  "description": "Boot performance report.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the report."
+    },
+    "bootUpDuration": {
+      "type": "string",
+      "description": "Duration of boot-up in seconds."
+    },
+    "bootUpTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the device booted up."
+    },
+    "shutdownDuration": {
+      "type": "string",
+      "description": "Duration of shutdown in seconds."
+    },
+    "shutdownTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the device shut down."
+    },
+    "shutdownReason": {
+      "type": "string",
+      "description": "Reason for the last shutdown.",
+      "enum": [
+        "SHUTDOWN_REASON_UNSPECIFIED",
+        "USER_REQUEST",
+        "SYSTEM_UPDATE",
+        "LOW_BATTERY",
+        "OTHER"
+      ]
+    }
+  }
+}

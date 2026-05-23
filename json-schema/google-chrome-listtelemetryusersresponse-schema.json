@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ListTelemetryUsersResponse",
+  "title": "ListTelemetryUsersResponse",
+  "type": "object",
+  "description": "Response containing a list of telemetry users.",
+  "properties": {
+    "telemetryUsers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TelemetryUser"
+      }
+    },
+    "nextPageToken": {
+      "type": "string",
+      "description": "Token for retrieving the next page of results."
+    }
+  }
+}

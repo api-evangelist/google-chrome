@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CpuInfo",
+  "title": "CpuInfo",
+  "type": "object",
+  "description": "CPU hardware information.",
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "CPU model name."
+    },
+    "architecture": {
+      "type": "string",
+      "description": "CPU architecture (e.g., x86_64, ARM).",
+      "enum": [
+        "X86_64",
+        "ARM",
+        "ARCHITECTURE_UNSPECIFIED"
+      ]
+    },
+    "maxClockSpeed": {
+      "type": "integer",
+      "description": "Maximum clock speed in kilohertz."
+    },
+    "keylockerSupported": {
+      "type": "boolean",
+      "description": "Whether Key Locker is supported."
+    },
+    "keylockerConfigured": {
+      "type": "boolean",
+      "description": "Whether Key Locker is configured."
+    }
+  }
+}

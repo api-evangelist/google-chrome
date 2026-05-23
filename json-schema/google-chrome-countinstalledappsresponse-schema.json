@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CountInstalledAppsResponse",
+  "title": "CountInstalledAppsResponse",
+  "type": "object",
+  "description": "Response containing counts of installed apps and extensions.",
+  "properties": {
+    "installedApps": {
+      "type": "array",
+      "description": "Installed app counts.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "appId": {
+            "type": "string",
+            "description": "App identifier."
+          },
+          "appType": {
+            "type": "string",
+            "description": "Type of the app.",
+            "enum": [
+              "APP_TYPE_UNSPECIFIED",
+              "EXTENSION",
+              "APP",
+              "THEME",
+              "HOSTED_APP",
+              "ANDROID_APP"
+            ]
+          },
+          "appInstallType": {
+            "type": "string",
+            "description": "How the app was installed.",
+            "enum": [
+              "APP_INSTALL_TYPE_UNSPECIFIED",
+              "MULTIPLE",
+              "NORMAL",
+              "ADMIN",
+              "DEVELOPMENT",
+              "SIDELOAD",
+              "OTHER"
+            ]
+          },
+          "appSource": {
+            "type": "string",
+            "description": "Source of the app.",
+            "enum": [
+              "APP_SOURCE_UNSPECIFIED",
+              "CHROME_WEBSTORE",
+              "PLAY_STORE"
+            ]
+          },
+          "displayName": {
+            "type": "string",
+            "description": "Display name of the app."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the app."
+          },
+          "homepageUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "Homepage URL."
+          },
+          "permissions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Permissions requested by the app."
+          },
+          "browserDeviceCount": {
+            "type": "string",
+            "format": "int64",
+            "description": "Number of browsers with this app installed."
+          },
+          "osUserCount": {
+            "type": "string",
+            "format": "int64",
+            "description": "Number of ChromeOS users with this app installed."
+          },
+          "disabled": {
+            "type": "boolean",
+            "description": "Whether the app is disabled by policy."
+          }
+        }
+      }
+    },
+    "nextPageToken": {
+      "type": "string",
+      "description": "Token for the next page of results."
+    },
+    "totalSize": {
+      "type": "integer",
+      "description": "Total number of installed apps."
+    }
+  }
+}

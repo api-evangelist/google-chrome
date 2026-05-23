@@ -1,0 +1,396 @@
+{
+  "provider": "Google Chrome",
+  "providerId": "google-chrome",
+  "kind": "json-structure",
+  "description": "Structural overview of the Google Chrome API surface; extracted from openapi/.",
+  "schemaCount": 37,
+  "operationCount": 18,
+  "schemas": [
+    {
+      "name": "GoogleRpcStatus",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "TelemetryDevice",
+      "type": "object",
+      "propertyCount": 23,
+      "required": []
+    },
+    {
+      "name": "CpuInfo",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "CpuStatusReport",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "MemoryInfo",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "MemoryStatusReport",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "NetworkInfo",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "NetworkStatusReport",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "OsUpdateStatus",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "StorageInfo",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "StorageStatusReport",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "BatteryInfo",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "BatteryStatusReport",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "GraphicsInfo",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "GraphicsStatusReport",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "AudioStatusReport",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "PeripheralsReport",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "BootPerformanceReport",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "HeartbeatStatusReport",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "NetworkDiagnosticsReport",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "TelemetryEvent",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "TelemetryUser",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "TelemetryNotificationConfig",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ChromeAppInfo",
+      "type": "object",
+      "propertyCount": 21,
+      "required": []
+    },
+    {
+      "name": "AndroidAppInfo",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "WebAppInfo",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ListTelemetryDevicesResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ListTelemetryEventsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ListTelemetryUsersResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ListTelemetryNotificationConfigsResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "CountChromeVersionsResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CountInstalledAppsResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "FindInstalledAppDevicesResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CountChromeDevicesReachingAutoExpirationDateResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CountChromeBrowsersNeedingAttentionResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "CountChromeDevicesThatNeedOsUpdateResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "CountChromeHardwareFleetDevicesResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/telemetry/devices",
+      "operationId": "listTelemetryDevices",
+      "summary": "List telemetry devices",
+      "tags": [
+        "Telemetry Devices"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/telemetry/devices/{deviceId}",
+      "operationId": "getTelemetryDevice",
+      "summary": "Get a telemetry device",
+      "tags": [
+        "Telemetry Devices"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/telemetry/events",
+      "operationId": "listTelemetryEvents",
+      "summary": "List telemetry events",
+      "tags": [
+        "Telemetry Events"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/telemetry/users",
+      "operationId": "listTelemetryUsers",
+      "summary": "List telemetry users",
+      "tags": [
+        "Telemetry Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/telemetry/users/{userId}",
+      "operationId": "getTelemetryUser",
+      "summary": "Get a telemetry user",
+      "tags": [
+        "Telemetry Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/telemetry/notificationConfigs",
+      "operationId": "listTelemetryNotificationConfigs",
+      "summary": "List telemetry notification configs",
+      "tags": [
+        "Telemetry Notification Configs"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/customers/{customerId}/telemetry/notificationConfigs",
+      "operationId": "createTelemetryNotificationConfig",
+      "summary": "Create a telemetry notification config",
+      "tags": [
+        "Telemetry Notification Configs"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/{customerId}/telemetry/notificationConfigs/{configId}",
+      "operationId": "deleteTelemetryNotificationConfig",
+      "summary": "Delete a telemetry notification config",
+      "tags": [
+        "Telemetry Notification Configs"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/apps/chrome/{appId}",
+      "operationId": "getChromeAppInfo",
+      "summary": "Get Chrome app details",
+      "tags": [
+        "App Details"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/apps/android/{appId}",
+      "operationId": "getAndroidAppInfo",
+      "summary": "Get Android app details",
+      "tags": [
+        "App Details"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/apps/web/{appId}",
+      "operationId": "getWebAppInfo",
+      "summary": "Get web app details",
+      "tags": [
+        "App Details"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/reports:countChromeVersions",
+      "operationId": "countChromeVersions",
+      "summary": "Count Chrome browser versions",
+      "tags": [
+        "Reports"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/reports:countInstalledApps",
+      "operationId": "countInstalledApps",
+      "summary": "Count installed apps and extensions",
+      "tags": [
+        "Reports"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/reports:findInstalledAppDevices",
+      "operationId": "findInstalledAppDevices",
+      "summary": "Find devices with a specific app installed",
+      "tags": [
+        "Reports"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/reports:countChromeDevicesReachingAutoExpirationDate",
+      "operationId": "countChromeDevicesReachingAutoExpirationDate",
+      "summary": "Count ChromeOS devices reaching auto-update expiration",
+      "tags": [
+        "Reports"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/reports:countChromeBrowsersNeedingAttention",
+      "operationId": "countChromeBrowsersNeedingAttention",
+      "summary": "Count Chrome browsers needing attention",
+      "tags": [
+        "Reports"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/reports:countChromeDevicesThatNeedOsUpdate",
+      "operationId": "countChromeDevicesThatNeedOsUpdate",
+      "summary": "Count ChromeOS devices needing OS update",
+      "tags": [
+        "Reports"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}/reports:countChromeHardwareFleetDevices",
+      "operationId": "countChromeHardwareFleetDevices",
+      "summary": "Count ChromeOS hardware fleet devices",
+      "tags": [
+        "Reports"
+      ]
+    }
+  ]
+}

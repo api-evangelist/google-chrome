@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CountChromeVersionsResponse",
+  "title": "CountChromeVersionsResponse",
+  "type": "object",
+  "description": "Response containing counts of Chrome browser versions.",
+  "properties": {
+    "browserVersions": {
+      "type": "array",
+      "description": "Chrome browser version counts.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string",
+            "description": "Full version string (e.g., 120.0.6099.109)."
+          },
+          "count": {
+            "type": "string",
+            "format": "int64",
+            "description": "Number of browsers running this version."
+          },
+          "channel": {
+            "type": "string",
+            "description": "Release channel (STABLE, BETA, DEV, CANARY).",
+            "enum": [
+              "RELEASE_CHANNEL_UNSPECIFIED",
+              "STABLE",
+              "BETA",
+              "DEV",
+              "CANARY"
+            ]
+          },
+          "system": {
+            "type": "string",
+            "description": "Operating system platform.",
+            "enum": [
+              "DEVICE_SYSTEM_UNSPECIFIED",
+              "SYSTEM_OTHER",
+              "SYSTEM_ANDROID",
+              "SYSTEM_IOS",
+              "SYSTEM_CROS",
+              "SYSTEM_WINDOWS",
+              "SYSTEM_MAC",
+              "SYSTEM_LINUX"
+            ]
+          },
+          "deviceOsVersion": {
+            "type": "string",
+            "description": "Operating system version."
+          }
+        }
+      }
+    },
+    "nextPageToken": {
+      "type": "string",
+      "description": "Token for the next page of results."
+    },
+    "totalSize": {
+      "type": "integer",
+      "description": "Total number of browser version entries."
+    }
+  }
+}

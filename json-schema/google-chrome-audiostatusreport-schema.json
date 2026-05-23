@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AudioStatusReport",
+  "title": "AudioStatusReport",
+  "type": "object",
+  "description": "Audio device status report.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the report."
+    },
+    "inputMute": {
+      "type": "boolean",
+      "description": "Whether the audio input is muted."
+    },
+    "outputMute": {
+      "type": "boolean",
+      "description": "Whether the audio output is muted."
+    },
+    "inputGain": {
+      "type": "integer",
+      "description": "Input gain level."
+    },
+    "outputVolume": {
+      "type": "integer",
+      "description": "Output volume level."
+    },
+    "inputDevice": {
+      "type": "string",
+      "description": "Name of the active input audio device."
+    },
+    "outputDevice": {
+      "type": "string",
+      "description": "Name of the active output audio device."
+    }
+  }
+}

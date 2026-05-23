@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HeartbeatStatusReport",
+  "title": "HeartbeatStatusReport",
+  "type": "object",
+  "description": "Heartbeat status indicating the device is online.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the heartbeat."
+    },
+    "state": {
+      "type": "string",
+      "description": "Device state.",
+      "enum": [
+        "STATE_UNSPECIFIED",
+        "UNKNOWN",
+        "ONLINE",
+        "OFFLINE"
+      ]
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TelemetryNotificationConfig",
+  "title": "TelemetryNotificationConfig",
+  "type": "object",
+  "description": "Configuration for telemetry push notifications.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Resource name of the notification config."
+    },
+    "customer": {
+      "type": "string",
+      "description": "Google Workspace customer resource name."
+    },
+    "filter": {
+      "type": "object",
+      "description": "Filter to specify which events trigger notifications.",
+      "properties": {
+        "deviceId": {
+          "type": "string",
+          "description": "Device ID filter."
+        },
+        "deviceOrgUnitId": {
+          "type": "string",
+          "description": "Organizational unit ID filter."
+        },
+        "userEmail": {
+          "type": "string",
+          "description": "User email filter."
+        },
+        "userOrgUnitId": {
+          "type": "string",
+          "description": "User organizational unit ID filter."
+        },
+        "telemetryEventNotificationFilter": {
+          "type": "object",
+          "description": "Telemetry event type filter.",
+          "properties": {
+            "eventTypes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Event types to receive notifications for."
+            }
+          }
+        }
+      }
+    },
+    "googleCloudPubsubTopic": {
+      "type": "string",
+      "description": "Google Cloud Pub/Sub topic to deliver notifications to. Format: projects/{project}/topics/{topic}"
+    }
+  }
+}

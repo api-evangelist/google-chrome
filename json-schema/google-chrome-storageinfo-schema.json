@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StorageInfo",
+  "title": "StorageInfo",
+  "type": "object",
+  "description": "Storage hardware specifications.",
+  "properties": {
+    "totalDiskBytes": {
+      "type": "string",
+      "format": "int64",
+      "description": "Total disk space in bytes."
+    },
+    "availableDiskBytes": {
+      "type": "string",
+      "format": "int64",
+      "description": "Available disk space in bytes."
+    },
+    "volume": {
+      "type": "array",
+      "description": "Disk volumes and partitions.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "volumeId": {
+            "type": "string",
+            "description": "Volume identifier."
+          },
+          "storageTotalBytes": {
+            "type": "string",
+            "format": "int64",
+            "description": "Total storage of the volume in bytes."
+          },
+          "storageFreeBytes": {
+            "type": "string",
+            "format": "int64",
+            "description": "Free storage of the volume in bytes."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CountChromeDevicesThatNeedOsUpdateResponse",
+  "title": "CountChromeDevicesThatNeedOsUpdateResponse",
+  "type": "object",
+  "description": "Response containing counts of devices needing OS updates.",
+  "properties": {
+    "deviceOsNeedUpdateCount": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "osVersion": {
+            "type": "string",
+            "description": "ChromeOS version."
+          },
+          "count": {
+            "type": "string",
+            "format": "int64",
+            "description": "Number of devices running this version."
+          }
+        }
+      }
+    }
+  }
+}

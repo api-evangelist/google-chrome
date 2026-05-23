@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TelemetryUser",
+  "title": "TelemetryUser",
+  "type": "object",
+  "description": "Telemetry information for a managed user.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Resource name of the telemetry user."
+    },
+    "customer": {
+      "type": "string",
+      "description": "Google Workspace customer resource name."
+    },
+    "orgUnitId": {
+      "type": "string",
+      "description": "Organizational unit ID of the user."
+    },
+    "userEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the managed user."
+    },
+    "userId": {
+      "type": "string",
+      "description": "Directory API user ID."
+    },
+    "userDevice": {
+      "type": "array",
+      "description": "Devices associated with this user and their telemetry data.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "deviceId": {
+            "type": "string",
+            "description": "Device identifier."
+          },
+          "audioStatusReport": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AudioStatusReport"
+            }
+          },
+          "peripheralsReport": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PeripheralsReport"
+            }
+          },
+          "networkBandwidthReport": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reportTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "downloadSpeedKbps": {
+                  "type": "string",
+                  "format": "int64"
+                },
+                "uploadSpeedKbps": {
+                  "type": "string",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "appReport": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reportTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "usageDuration": {
+                  "type": "string"
+                },
+                "appId": {
+                  "type": "string"
+                },
+                "appType": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

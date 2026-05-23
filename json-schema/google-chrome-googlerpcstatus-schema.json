@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GoogleRpcStatus",
+  "title": "GoogleRpcStatus",
+  "type": "object",
+  "description": "Standard Google API error response following the google.rpc.Status format.",
+  "properties": {
+    "code": {
+      "type": "integer",
+      "description": "The HTTP status code."
+    },
+    "message": {
+      "type": "string",
+      "description": "A developer-facing error message."
+    },
+    "details": {
+      "type": "array",
+      "description": "A list of messages carrying error details.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

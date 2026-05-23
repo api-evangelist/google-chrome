@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CountChromeBrowsersNeedingAttentionResponse",
+  "title": "CountChromeBrowsersNeedingAttentionResponse",
+  "type": "object",
+  "description": "Response with counts of Chrome browsers needing attention.",
+  "properties": {
+    "pendingBrowserUpdateCount": {
+      "type": "string",
+      "format": "int64",
+      "description": "Number of browsers with a pending update."
+    },
+    "recentlyEnrolledCount": {
+      "type": "string",
+      "format": "int64",
+      "description": "Number of browsers recently enrolled."
+    },
+    "noRecentActivityCount": {
+      "type": "string",
+      "format": "int64",
+      "description": "Number of browsers with no recent activity."
+    },
+    "notRecentlyConnectedCount": {
+      "type": "string",
+      "format": "int64",
+      "description": "Number of browsers that have not recently synced policy."
+    }
+  }
+}

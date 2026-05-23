@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MemoryInfo",
+  "title": "MemoryInfo",
+  "type": "object",
+  "description": "Memory hardware specifications.",
+  "properties": {
+    "totalRamBytes": {
+      "type": "string",
+      "format": "int64",
+      "description": "Total RAM in bytes."
+    },
+    "availableRamBytes": {
+      "type": "string",
+      "format": "int64",
+      "description": "Available RAM in bytes."
+    },
+    "totalInternalStorageBytes": {
+      "type": "string",
+      "format": "int64",
+      "description": "Total internal storage in bytes."
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ListTelemetryNotificationConfigsResponse",
+  "title": "ListTelemetryNotificationConfigsResponse",
+  "type": "object",
+  "description": "Response containing a list of telemetry notification configurations.",
+  "properties": {
+    "telemetryNotificationConfigs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/TelemetryNotificationConfig"
+      }
+    },
+    "nextPageToken": {
+      "type": "string",
+      "description": "Token for retrieving the next page of results."
+    }
+  }
+}

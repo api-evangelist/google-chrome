@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TelemetryEvent",
+  "title": "TelemetryEvent",
+  "type": "object",
+  "description": "A telemetry event from a managed ChromeOS device.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Resource name of the telemetry event."
+    },
+    "device": {
+      "type": "string",
+      "description": "Resource name of the device that generated the event."
+    },
+    "user": {
+      "type": "string",
+      "description": "Resource name of the user associated with the event."
+    },
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the event."
+    },
+    "eventType": {
+      "type": "string",
+      "description": "Type of the telemetry event.",
+      "enum": [
+        "EVENT_TYPE_UNSPECIFIED",
+        "AUDIO_SEVERE_UNDERRUN",
+        "USB_ADDED",
+        "USB_REMOVED",
+        "NETWORK_HTTPS_LATENCY_CHANGE",
+        "WIFI_SIGNAL_STRENGTH_LOW",
+        "WIFI_SIGNAL_STRENGTH_RECOVERED",
+        "VPN_CONNECTION_STATE_CHANGE",
+        "APP_INSTALLED",
+        "APP_UNINSTALLED",
+        "APP_LAUNCHED",
+        "OS_CRASH"
+      ]
+    },
+    "audioSevereUnderrunEvent": {
+      "type": "object",
+      "description": "Details of an audio severe underrun event."
+    },
+    "usbPeripheralsEvent": {
+      "type": "object",
+      "description": "Details of a USB peripheral event.",
+      "properties": {
+        "usbPeripheralReport": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "vendor": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "pid": {
+                "type": "integer"
+              },
+              "vid": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "networkStateChangeEvent": {
+      "type": "object",
+      "description": "Details of a network state change event.",
+      "properties": {
+        "connectionState": {
+          "type": "string"
+        }
+      }
+    },
+    "httpsLatencyChangeEvent": {
+      "type": "object",
+      "description": "Details of an HTTPS latency change event.",
+      "properties": {
+        "httpsLatencyState": {
+          "type": "string"
+        },
+        "httpsLatencyRoutineData": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FindInstalledAppDevicesResponse",
+  "title": "FindInstalledAppDevicesResponse",
+  "type": "object",
+  "description": "Response listing devices with a specific app installed.",
+  "properties": {
+    "devices": {
+      "type": "array",
+      "description": "Devices with the specified app installed.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "deviceId": {
+            "type": "string",
+            "description": "Device identifier."
+          },
+          "machine": {
+            "type": "string",
+            "description": "Machine name."
+          },
+          "appVersion": {
+            "type": "string",
+            "description": "Version of the app installed on this device."
+          }
+        }
+      }
+    },
+    "nextPageToken": {
+      "type": "string",
+      "description": "Token for the next page of results."
+    },
+    "totalSize": {
+      "type": "integer",
+      "description": "Total number of devices with the app."
+    }
+  }
+}

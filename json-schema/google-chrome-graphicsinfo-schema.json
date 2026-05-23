@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GraphicsInfo",
+  "title": "GraphicsInfo",
+  "type": "object",
+  "description": "Graphics adapter information.",
+  "properties": {
+    "adapterInfo": {
+      "type": "object",
+      "description": "Graphics adapter details.",
+      "properties": {
+        "adapter": {
+          "type": "string",
+          "description": "Graphics adapter name."
+        },
+        "driverVersion": {
+          "type": "string",
+          "description": "Graphics driver version."
+        },
+        "deviceId": {
+          "type": "string",
+          "format": "int64",
+          "description": "PCI device ID."
+        },
+        "vendorId": {
+          "type": "string",
+          "format": "int64",
+          "description": "PCI vendor ID."
+        }
+      }
+    },
+    "displayDevices": {
+      "type": "array",
+      "description": "Connected display devices.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "description": "Display name."
+          },
+          "displayWidthMm": {
+            "type": "integer",
+            "description": "Display width in millimeters."
+          },
+          "displayHeightMm": {
+            "type": "integer",
+            "description": "Display height in millimeters."
+          },
+          "internal": {
+            "type": "boolean",
+            "description": "Whether the display is internal."
+          },
+          "manufacturerId": {
+            "type": "string",
+            "description": "Display manufacturer ID."
+          },
+          "modelId": {
+            "type": "integer",
+            "description": "Display model ID."
+          },
+          "manufactureYear": {
+            "type": "integer",
+            "description": "Year the display was manufactured."
+          }
+        }
+      }
+    }
+  }
+}

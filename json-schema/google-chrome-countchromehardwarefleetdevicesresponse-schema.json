@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CountChromeHardwareFleetDevicesResponse",
+  "title": "CountChromeHardwareFleetDevicesResponse",
+  "type": "object",
+  "description": "Response containing hardware fleet device counts.",
+  "properties": {
+    "cpuReports": {
+      "type": "array",
+      "description": "CPU model distribution.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reportValue": {
+            "type": "string"
+          },
+          "count": {
+            "type": "string",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "memoryReports": {
+      "type": "array",
+      "description": "Memory capacity distribution.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reportValue": {
+            "type": "string"
+          },
+          "count": {
+            "type": "string",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "modelReports": {
+      "type": "array",
+      "description": "Device model distribution.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reportValue": {
+            "type": "string"
+          },
+          "count": {
+            "type": "string",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "storageReports": {
+      "type": "array",
+      "description": "Storage capacity distribution.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reportValue": {
+            "type": "string"
+          },
+          "count": {
+            "type": "string",
+            "format": "int64"
+          }
+        }
+      }
+    }
+  }
+}

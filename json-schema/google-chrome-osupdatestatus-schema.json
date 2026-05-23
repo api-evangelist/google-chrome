@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OsUpdateStatus",
+  "title": "OsUpdateStatus",
+  "type": "object",
+  "description": "ChromeOS update status.",
+  "properties": {
+    "updateState": {
+      "type": "string",
+      "description": "Current OS update state.",
+      "enum": [
+        "OS_UPDATE_STATUS_UNSPECIFIED",
+        "OS_UPDATE_NEED_REBOOT",
+        "OS_UPDATE_NOT_STARTED",
+        "OS_UPDATE_DOWNLOADING",
+        "OS_UPDATE_UPDATE_AVAILABLE"
+      ]
+    },
+    "newPlatformVersion": {
+      "type": "string",
+      "description": "New platform version of the pending update."
+    },
+    "newRequestedPlatformVersion": {
+      "type": "string",
+      "description": "New platform version of the requested update."
+    },
+    "lastUpdateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last update check."
+    },
+    "lastUpdateCheckTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last update check."
+    },
+    "lastRebootTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last device reboot."
+    }
+  }
+}

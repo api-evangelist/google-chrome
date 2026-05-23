@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkDiagnosticsReport",
+  "title": "NetworkDiagnosticsReport",
+  "type": "object",
+  "description": "Network diagnostics report with latency and HTTPS test results.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the report."
+    },
+    "httpsLatencyData": {
+      "type": "object",
+      "description": "HTTPS latency test data.",
+      "properties": {
+        "latency": {
+          "type": "string",
+          "description": "Measured HTTPS latency."
+        },
+        "problem": {
+          "type": "string",
+          "description": "Problem type if the HTTPS latency test encountered an issue.",
+          "enum": [
+            "HTTPS_LATENCY_PROBLEM_UNSPECIFIED",
+            "FAILED_DNS_RESOLUTIONS",
+            "FAILED_CONNECTIONS",
+            "FAILED_HTTPS_REQUESTS",
+            "HIGH_LATENCY",
+            "VERY_HIGH_LATENCY"
+          ]
+        }
+      }
+    }
+  }
+}

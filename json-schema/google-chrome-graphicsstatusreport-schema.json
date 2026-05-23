@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GraphicsStatusReport",
+  "title": "GraphicsStatusReport",
+  "type": "object",
+  "description": "Graphics status report.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the report."
+    },
+    "displays": {
+      "type": "array",
+      "description": "Display status information.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "description": "Display name."
+          },
+          "resolutionWidth": {
+            "type": "integer",
+            "description": "Resolution width in pixels."
+          },
+          "resolutionHeight": {
+            "type": "integer",
+            "description": "Resolution height in pixels."
+          },
+          "refreshRate": {
+            "type": "integer",
+            "description": "Refresh rate in Hertz."
+          }
+        }
+      }
+    }
+  }
+}

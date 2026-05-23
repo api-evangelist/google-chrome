@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CpuStatusReport",
+  "title": "CpuStatusReport",
+  "type": "object",
+  "description": "CPU usage and temperature report at a point in time.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the report."
+    },
+    "cpuUtilizationPct": {
+      "type": "integer",
+      "description": "CPU utilization percentage (0-100)."
+    },
+    "cpuTemperatureInfo": {
+      "type": "array",
+      "description": "Temperature readings from CPU sensors.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "temperatureCelsius": {
+            "type": "integer",
+            "description": "CPU temperature in Celsius."
+          },
+          "label": {
+            "type": "string",
+            "description": "Temperature sensor label."
+          }
+        }
+      }
+    },
+    "sampleFrequency": {
+      "type": "string",
+      "description": "Sampling frequency of the report."
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChromeAppInfo",
+  "title": "ChromeAppInfo",
+  "type": "object",
+  "description": "Information about a Chrome app or extension.",
+  "properties": {
+    "displayName": {
+      "type": "string",
+      "description": "Display name of the app or extension."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the app or extension."
+    },
+    "appId": {
+      "type": "string",
+      "description": "Chrome Web Store app ID."
+    },
+    "revisionId": {
+      "type": "string",
+      "description": "Current published revision."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of Chrome app.",
+      "enum": [
+        "APP_ITEM_TYPE_UNSPECIFIED",
+        "CHROME",
+        "ANDROID",
+        "WEB"
+      ]
+    },
+    "iconUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the app icon."
+    },
+    "detailUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the app detail page in the Chrome Web Store."
+    },
+    "firstPublishTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the app was first published."
+    },
+    "latestPublishTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the app was last published."
+    },
+    "publisher": {
+      "type": "string",
+      "description": "Publisher of the app."
+    },
+    "homepageUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "Homepage URL of the app."
+    },
+    "privacyPolicyUri": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the app's privacy policy."
+    },
+    "reviewNumber": {
+      "type": "string",
+      "format": "int64",
+      "description": "Number of user reviews."
+    },
+    "reviewRating": {
+      "type": "number",
+      "description": "Average user review rating (0-5)."
+    },
+    "serviceError": {
+      "$ref": "#/components/schemas/GoogleRpcStatus"
+    },
+    "isTheme": {
+      "type": "boolean",
+      "description": "Whether the app is a Chrome theme."
+    },
+    "isCwsHosted": {
+      "type": "boolean",
+      "description": "Whether the app is hosted in the Chrome Web Store."
+    },
+    "kioskEnabled": {
+      "type": "boolean",
+      "description": "Whether the app supports kiosk mode."
+    },
+    "supportEnabled": {
+      "type": "boolean",
+      "description": "Whether the app has a support page."
+    },
+    "chromeAppPermissions": {
+      "type": "array",
+      "description": "Permissions requested by the Chrome app.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Permission type."
+          },
+          "documentationUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to documentation about the permission."
+          },
+          "accessUserData": {
+            "type": "boolean",
+            "description": "Whether the permission accesses user data."
+          }
+        }
+      }
+    },
+    "siteAccess": {
+      "type": "array",
+      "description": "Host permissions requested by the app.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hostMatch": {
+            "type": "string",
+            "description": "Host match pattern."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MemoryStatusReport",
+  "title": "MemoryStatusReport",
+  "type": "object",
+  "description": "Memory usage report at a point in time.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the report."
+    },
+    "systemRamFreeBytes": {
+      "type": "string",
+      "format": "int64",
+      "description": "Free system RAM in bytes."
+    },
+    "pageFaults": {
+      "type": "integer",
+      "description": "Number of page faults since the last report."
+    },
+    "sampleFrequency": {
+      "type": "string",
+      "description": "Sampling frequency of the report."
+    }
+  }
+}

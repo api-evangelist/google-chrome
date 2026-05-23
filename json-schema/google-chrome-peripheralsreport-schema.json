@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PeripheralsReport",
+  "title": "PeripheralsReport",
+  "type": "object",
+  "description": "Connected USB peripheral report.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the report."
+    },
+    "usbPeripheralReport": {
+      "type": "array",
+      "description": "List of USB peripherals connected to the device.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "vendor": {
+            "type": "string",
+            "description": "USB vendor name."
+          },
+          "name": {
+            "type": "string",
+            "description": "USB device name."
+          },
+          "pid": {
+            "type": "integer",
+            "description": "USB product ID."
+          },
+          "vid": {
+            "type": "integer",
+            "description": "USB vendor ID."
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "USB device categories."
+          },
+          "firmwareVersion": {
+            "type": "string",
+            "description": "Firmware version of the USB device."
+          }
+        }
+      }
+    }
+  }
+}

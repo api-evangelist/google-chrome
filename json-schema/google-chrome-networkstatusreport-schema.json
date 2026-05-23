@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NetworkStatusReport",
+  "title": "NetworkStatusReport",
+  "type": "object",
+  "description": "Network status report at a point in time.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the report."
+    },
+    "connectionState": {
+      "type": "string",
+      "description": "Current network connection state.",
+      "enum": [
+        "ONLINE",
+        "CONNECTED",
+        "PORTAL",
+        "CONNECTING",
+        "NOT_CONNECTED",
+        "CONNECTION_STATE_UNSPECIFIED"
+      ]
+    },
+    "connectionType": {
+      "type": "string",
+      "description": "Type of network connection.",
+      "enum": [
+        "WIFI",
+        "ETHERNET",
+        "CELLULAR",
+        "NETWORK_TYPE_UNSPECIFIED"
+      ]
+    },
+    "signalStrengthDbm": {
+      "type": "integer",
+      "description": "Signal strength in dBm."
+    },
+    "gatewayIpAddress": {
+      "type": "string",
+      "description": "Gateway IP address."
+    },
+    "lanIpAddress": {
+      "type": "string",
+      "description": "LAN IP address of the device."
+    },
+    "transmissionBitRateMbps": {
+      "type": "string",
+      "format": "int64",
+      "description": "Transmission speed in Mbps."
+    },
+    "receivingBitRateMbps": {
+      "type": "string",
+      "format": "int64",
+      "description": "Receiving speed in Mbps."
+    },
+    "wifiLinkQuality": {
+      "type": "string",
+      "description": "WiFi link quality percentage."
+    },
+    "wifiPowerManagementEnabled": {
+      "type": "boolean",
+      "description": "Whether WiFi power management is enabled."
+    },
+    "sampleFrequency": {
+      "type": "string",
+      "description": "Sampling frequency of the report."
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CountChromeDevicesReachingAutoExpirationDateResponse",
+  "title": "CountChromeDevicesReachingAutoExpirationDateResponse",
+  "type": "object",
+  "description": "Response containing counts of ChromeOS devices by auto-update expiration date.",
+  "properties": {
+    "deviceAueCountReports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "Device model name."
+          },
+          "count": {
+            "type": "string",
+            "format": "int64",
+            "description": "Number of devices with this model."
+          },
+          "aueMonth": {
+            "type": "string",
+            "description": "Auto-update expiration month (YYYY-MM)."
+          },
+          "aueYear": {
+            "type": "string",
+            "description": "Auto-update expiration year."
+          },
+          "expired": {
+            "type": "boolean",
+            "description": "Whether the AUE date has passed."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BatteryInfo",
+  "title": "BatteryInfo",
+  "type": "object",
+  "description": "Battery hardware information.",
+  "properties": {
+    "serialNumber": {
+      "type": "string",
+      "description": "Battery serial number."
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "Battery manufacturer."
+    },
+    "designCapacity": {
+      "type": "string",
+      "format": "int64",
+      "description": "Design capacity in milliamp hours."
+    },
+    "designMinVoltage": {
+      "type": "integer",
+      "description": "Designed minimum voltage in millivolts."
+    },
+    "manufactureDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Battery manufacture date."
+    },
+    "technology": {
+      "type": "string",
+      "description": "Battery technology (e.g., Li-ion)."
+    }
+  }
+}

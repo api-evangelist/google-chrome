@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BatteryStatusReport",
+  "title": "BatteryStatusReport",
+  "type": "object",
+  "description": "Battery status report at a point in time.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the report."
+    },
+    "batteryHealth": {
+      "type": "string",
+      "description": "Battery health status.",
+      "enum": [
+        "BATTERY_HEALTH_UNSPECIFIED",
+        "BATTERY_HEALTH_NORMAL",
+        "BATTERY_REPLACE_SOON",
+        "BATTERY_REPLACE_NOW"
+      ]
+    },
+    "cycleCount": {
+      "type": "integer",
+      "description": "Number of battery charge cycles."
+    },
+    "fullChargeCapacity": {
+      "type": "string",
+      "format": "int64",
+      "description": "Full charge capacity in milliamp hours."
+    },
+    "chargeRate": {
+      "type": "integer",
+      "description": "Charge rate in milliwatts."
+    },
+    "dischargeRate": {
+      "type": "integer",
+      "description": "Discharge rate in milliwatts."
+    },
+    "voltage": {
+      "type": "string",
+      "format": "double",
+      "description": "Battery voltage in volts."
+    },
+    "sample_frequency": {
+      "type": "string",
+      "description": "Sampling frequency of the report."
+    }
+  }
+}

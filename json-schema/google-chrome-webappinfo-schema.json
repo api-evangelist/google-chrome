@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebAppInfo",
+  "title": "WebAppInfo",
+  "type": "object",
+  "description": "Information about a web app.",
+  "properties": {
+    "displayName": {
+      "type": "string",
+      "description": "Display name of the web app."
+    },
+    "appId": {
+      "type": "string",
+      "description": "Web app identifier."
+    }
+  }
+}

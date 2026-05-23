@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StorageStatusReport",
+  "title": "StorageStatusReport",
+  "type": "object",
+  "description": "Storage usage report at a point in time.",
+  "properties": {
+    "reportTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the report."
+    },
+    "disk": {
+      "type": "array",
+      "description": "Disk information for each disk on the device.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "bytesReadThisSession": {
+            "type": "string",
+            "format": "int64",
+            "description": "Bytes read this session."
+          },
+          "bytesWrittenThisSession": {
+            "type": "string",
+            "format": "int64",
+            "description": "Bytes written this session."
+          },
+          "readTimeThisSession": {
+            "type": "string",
+            "description": "Time spent reading this session."
+          },
+          "writeTimeThisSession": {
+            "type": "string",
+            "description": "Time spent writing this session."
+          },
+          "ioTimeThisSession": {
+            "type": "string",
+            "description": "Time spent on I/O operations this session."
+          },
+          "discardTimeThisSession": {
+            "type": "string",
+            "description": "Time spent on discard operations this session."
+          },
+          "volumeIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Volume IDs associated with this disk."
+          },
+          "health": {
+            "type": "string",
+            "description": "Disk health state."
+          }
+        }
+      }
+    }
+  }
+}
