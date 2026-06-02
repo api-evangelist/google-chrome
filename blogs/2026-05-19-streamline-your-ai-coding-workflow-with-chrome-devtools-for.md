@@ -1,0 +1,7 @@
+---
+title: "Streamline your AI coding workflow with Chrome DevTools for agents 1.0"
+url: "https://developer.chrome.com/blog/devtools-for-agents-v1?hl=en"
+date: "2026-05-19"
+feed_url: "https://developer.chrome.com/blog/feed.xml"
+---
+Chrome DevTools for agents provides your coding agent with the visibility it needs to verify, debug, and optimize code in real time.

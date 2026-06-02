@@ -2,18 +2,34 @@
   "repo": "google-chrome",
   "feeds": [
     {
-      "source": "https://developer.chrome.com/blog/",
+      "source": "https://developer.chrome.com/blog/feed.xml",
       "feed_url": "https://developer.chrome.com/blog/feed.xml",
-      "title": "developer.chrome.com: Blog",
-      "saved": 7
+      "title": "",
+      "saved": 0,
+      "method": "feed"
     },
     {
-      "source": "https://developer.chrome.com/blog/cws-api-v2",
+      "source": "https://developer.chrome.com/feed.xml",
       "feed_url": "https://developer.chrome.com/feed.xml",
-      "title": "developer.chrome.com: Blog",
-      "saved": 0
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://developer.chrome.com/docs/webstore/using-api",
+      "feed_url": "https://developer.chrome.com/docs/webstore/using-api",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://developer.chrome.com/",
+      "feed_url": "https://developer.chrome.com/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
     }
   ],
-  "post_count": 30,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 38,
+  "fetched": "2026-06-01T23:35:02Z"
 }
