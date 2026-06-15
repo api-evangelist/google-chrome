@@ -1,0 +1,710 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Chrome Management API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Telemetry Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List telemetry devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/devices",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Maximum and default value is 100."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token to specify next page in the result set."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter to restrict results. Supports filtering by serial number, device ID, org unit, and timestamps. Example: serial_number=ABC123 AND timestamp>2024-01-01T00:00:00Z"
+              },
+              {
+                "name": "readMask",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response. Use this to request specific telemetry data categories such as cpuInfo, cpuStatusReport, memoryInfo, memoryStatusReport, networkInfo, osUpdateStatus, storageInfo, storageStatusReport, batteryInfo, batteryStatusReport, networkDiagnosticsReport, and more."
+              }
+            ]
+          },
+          "docs": "Lists all telemetry devices for a customer. Retrieves device-level telemetry data including hardware specifications, operating system version, CPU, memory, storage, network interfaces, battery status, and peripheral information for managed ChromeOS devices."
+        },
+        {
+          "info": {
+            "name": "Get a telemetry device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/devices/:deviceId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the telemetry device."
+              },
+              {
+                "name": "readMask",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response."
+              }
+            ]
+          },
+          "docs": "Retrieves a single telemetry device by its resource name. Returns detailed telemetry data for the specified managed ChromeOS device."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Telemetry Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List telemetry events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/events",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Maximum value is 1000."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token to specify next page in the result set."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter to restrict results. Supports filtering by event type, device, user, and timestamp."
+              },
+              {
+                "name": "readMask",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response. Supported event types: audioSevereUnderrunEvent, usbPeripheralsEvent, networkStateChangeEvent, httpsLatencyChangeEvent, wifiSignalStrengthEvent, vpnConnectionStateChangeEvent, appInstallEvent, appUninstallEvent, appLaunchEvent."
+              }
+            ]
+          },
+          "docs": "Lists telemetry events for a customer. Events include USB peripherals added or removed, audio severe underrun, network state changes, hardware status changes, and other device-level events. Events are retained for a limited time."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Telemetry Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List telemetry users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/users",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token to specify next page in the result set."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter to restrict results. Supports filtering by user email and org unit."
+              },
+              {
+                "name": "readMask",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response."
+              }
+            ]
+          },
+          "docs": "Lists all telemetry users for a customer. Retrieves user-level telemetry data including user email, user devices, and user activity information on managed ChromeOS devices."
+        },
+        {
+          "info": {
+            "name": "Get a telemetry user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/users/:userId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the telemetry user."
+              },
+              {
+                "name": "readMask",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response."
+              }
+            ]
+          },
+          "docs": "Retrieves a single telemetry user by their resource name. Returns detailed user-level telemetry data for the specified managed user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Telemetry Notification Configs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List telemetry notification configs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/notificationConfigs",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token to specify next page in the result set."
+              }
+            ]
+          },
+          "docs": "Lists all telemetry notification configurations for a customer. Notification configs define which telemetry events trigger push notifications to the specified Google Cloud Pub/Sub topic."
+        },
+        {
+          "info": {
+            "name": "Create a telemetry notification config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/notificationConfigs",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a telemetry notification configuration for a customer. The configuration specifies which telemetry events trigger push notifications and the Google Cloud Pub/Sub topic to deliver them to."
+        },
+        {
+          "info": {
+            "name": "Delete a telemetry notification config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/notificationConfigs/:configId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "configId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the notification config to delete."
+              }
+            ]
+          },
+          "docs": "Deletes a telemetry notification configuration for a customer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "App Details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Chrome app details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/apps/chrome/:appId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The Chrome Web Store app ID."
+              }
+            ]
+          },
+          "docs": "Retrieves specific information about a Chrome app or extension by its app ID. Returns metadata including name, description, permissions, icons, type, and store information."
+        },
+        {
+          "info": {
+            "name": "Get Android app details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/apps/android/:appId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The Android app package name."
+              }
+            ]
+          },
+          "docs": "Retrieves specific information about an Android app by its package name. Returns metadata for apps available on managed ChromeOS devices through Google Play."
+        },
+        {
+          "info": {
+            "name": "Get web app details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/apps/web/:appId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The web app identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves specific information about a web app. Returns metadata for progressive web apps or web links available to managed ChromeOS devices."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Count Chrome browser versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/reports:countChromeVersions",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "orgUnitId",
+                "value": "",
+                "type": "query",
+                "description": "The organizational unit ID. If omitted, returns data for all org units."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter string for narrowing results. Supports filtering by version, channel, platform, and last active date."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for pagination."
+              }
+            ]
+          },
+          "docs": "Generates a count report of Chrome browser versions installed across all managed browsers. Useful for tracking update adoption and identifying outdated browser installations."
+        },
+        {
+          "info": {
+            "name": "Count installed apps and extensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/reports:countInstalledApps",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "orgUnitId",
+                "value": "",
+                "type": "query",
+                "description": "The organizational unit ID."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter string. Supports filtering by app name, app ID, app type, install type, and permissions."
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by. Supported fields: app_name, install_type, machine_count, and permission_count."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for pagination."
+              }
+            ]
+          },
+          "docs": "Generates a report of installed apps and extensions across all managed browsers and devices. Provides counts and details for each app or extension including version, install type, and number of installations."
+        },
+        {
+          "info": {
+            "name": "Find devices with a specific app installed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/reports:findInstalledAppDevices",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "appId",
+                "value": "",
+                "type": "query",
+                "description": "The app ID to search for."
+              },
+              {
+                "name": "appType",
+                "value": "",
+                "type": "query",
+                "description": "Type of the app. Values include EXTENSION, APP, THEME, HOSTED_APP."
+              },
+              {
+                "name": "orgUnitId",
+                "value": "",
+                "type": "query",
+                "description": "The organizational unit ID."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter string for narrowing results."
+              },
+              {
+                "name": "orderBy",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for pagination."
+              }
+            ]
+          },
+          "docs": "Generates a report listing all managed browsers and devices that have a specified app or extension installed. Useful for tracking distribution and compliance of specific applications."
+        },
+        {
+          "info": {
+            "name": "Count ChromeOS devices reaching auto-update expiration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/reports:countChromeDevicesReachingAutoExpirationDate",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "orgUnitId",
+                "value": "",
+                "type": "query",
+                "description": "The organizational unit ID."
+              },
+              {
+                "name": "minAueDate",
+                "value": "",
+                "type": "query",
+                "description": "Minimum auto-update expiration date filter (inclusive) in yyyy-mm-dd format."
+              },
+              {
+                "name": "maxAueDate",
+                "value": "",
+                "type": "query",
+                "description": "Maximum auto-update expiration date filter (inclusive) in yyyy-mm-dd format."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for pagination."
+              }
+            ]
+          },
+          "docs": "Generates a report counting ChromeOS devices grouped by their auto-update expiration date. Helps administrators plan for hardware refresh cycles and identify devices that will lose security update support."
+        },
+        {
+          "info": {
+            "name": "Count Chrome browsers needing attention",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/reports:countChromeBrowsersNeedingAttention",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "orgUnitId",
+                "value": "",
+                "type": "query",
+                "description": "The organizational unit ID."
+              }
+            ]
+          },
+          "docs": "Generates a report counting managed Chrome browsers that need administrator attention. Categories include browsers with pending updates, browsers recently not active, browsers with no recent policy sync, and browsers that recently enrolled."
+        },
+        {
+          "info": {
+            "name": "Count ChromeOS devices needing OS update",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/reports:countChromeDevicesThatNeedOsUpdate",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "orgUnitId",
+                "value": "",
+                "type": "query",
+                "description": "The organizational unit ID."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for pagination."
+              }
+            ]
+          },
+          "docs": "Generates a report counting ChromeOS devices that need an operating system update, grouped by OS version and update status."
+        },
+        {
+          "info": {
+            "name": "Count ChromeOS hardware fleet devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/reports:countChromeHardwareFleetDevices",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "orgUnitId",
+                "value": "",
+                "type": "query",
+                "description": "The organizational unit ID."
+              },
+              {
+                "name": "readMask",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response. Options include cpuReports, memoryReports, modelReports, storageReports."
+              }
+            ]
+          },
+          "docs": "Generates a report counting ChromeOS devices grouped by hardware specifications such as model, CPU, and storage capacity. Provides a fleet-level view of hardware diversity."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
