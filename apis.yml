@@ -57,7 +57,7 @@ apis:
       - type: Resources
         url: https://github.com/ChromeDevTools/awesome-chrome-devtools
     contact:
-      - type: GitHub Issues
+      - type: GitHubIssues
         url: https://github.com/ChromeDevTools/devtools-protocol/issues
   - name: Chrome Web Store API
     description: API for publishing and managing extensions in the Chrome Web Store.
