@@ -258,6 +258,8 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com/
 common:
+  - type: OAuthScopes
+    url: scopes/google-chrome-scopes.yml
   - type: LinkedIn
     url: https://www.linkedin.com/showcase/google-chrome
   - type: DeveloperPortal
