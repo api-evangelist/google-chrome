@@ -1,0 +1,280 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/google-chrome-management-api-openapi.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 18
+  by_action_class:
+    connected: 16
+    acting: 2
+  by_consequence:
+    read: 16
+    write: 2
+  human_in_the_loop_required: 0
+operations:
+- path: /customers/{customerId}/telemetry/devices
+  method: get
+  operationId: listTelemetryDevices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/telemetry/devices/{deviceId}
+  method: get
+  operationId: getTelemetryDevice
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/telemetry/events
+  method: get
+  operationId: listTelemetryEvents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/telemetry/users
+  method: get
+  operationId: listTelemetryUsers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/telemetry/users/{userId}
+  method: get
+  operationId: getTelemetryUser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/telemetry/notificationConfigs
+  method: get
+  operationId: listTelemetryNotificationConfigs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/telemetry/notificationConfigs
+  method: post
+  operationId: createTelemetryNotificationConfig
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/telemetry/notificationConfigs/{configId}
+  method: delete
+  operationId: deleteTelemetryNotificationConfig
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/apps/chrome/{appId}
+  method: get
+  operationId: getChromeAppInfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/apps/android/{appId}
+  method: get
+  operationId: getAndroidAppInfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/apps/web/{appId}
+  method: get
+  operationId: getWebAppInfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/reports:countChromeVersions
+  method: get
+  operationId: countChromeVersions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/reports:countInstalledApps
+  method: get
+  operationId: countInstalledApps
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/reports:findInstalledAppDevices
+  method: get
+  operationId: findInstalledAppDevices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/reports:countChromeDevicesReachingAutoExpirationDate
+  method: get
+  operationId: countChromeDevicesReachingAutoExpirationDate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/reports:countChromeBrowsersNeedingAttention
+  method: get
+  operationId: countChromeBrowsersNeedingAttention
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/reports:countChromeDevicesThatNeedOsUpdate
+  method: get
+  operationId: countChromeDevicesThatNeedOsUpdate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+- path: /customers/{customerId}/reports:countChromeHardwareFleetDevices
+  method: get
+  operationId: countChromeHardwareFleetDevices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+    - https://www.googleapis.com/auth/chrome.management.reports.readonly
+    - https://www.googleapis.com/auth/chrome.management.telemetry.readonly

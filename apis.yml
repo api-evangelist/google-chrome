@@ -258,6 +258,8 @@ maintainers:
     email: kin@apievangelist.com
     url: https://apievangelist.com/
 common:
+  - type: AgenticAccess
+    url: agentic-access/google-chrome-agentic-access.yml
   - type: DomainSecurity
     url: security/google-chrome-domain-security.yml
   - type: Authentication
