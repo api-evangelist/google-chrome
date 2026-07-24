@@ -1,0 +1,590 @@
+openapi: 3.1.0
+info:
+  title: Google Chrome Management App Details Reports API
+  description: The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.
+  version: v1
+  contact:
+    name: Google Chrome Enterprise Support
+    url: https://support.google.com/chrome/a/
+  license:
+    name: Google APIs Terms of Service
+    url: https://developers.google.com/terms
+  x-logo:
+    url: https://www.google.com/chrome/static/images/chrome-logo.svg
+servers:
+- url: https://chromemanagement.googleapis.com/v1
+  description: Google Chrome Management API production endpoint
+security:
+- oauth2:
+  - https://www.googleapis.com/auth/chrome.management.reports.readonly
+  - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+  - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+tags:
+- name: Reports
+  description: Operations for generating reports about browsers, devices, installed apps, extensions, and app usage within the enterprise.
+paths:
+  /customers/{customerId}/reports:countChromeVersions:
+    get:
+      operationId: countChromeVersions
+      summary: Count Chrome browser versions
+      description: Generates a count report of Chrome browser versions installed across all managed browsers. Useful for tracking update adoption and identifying outdated browser installations.
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: orgUnitId
+        in: query
+        description: The organizational unit ID. If omitted, returns data for all org units.
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Filter string for narrowing results. Supports filtering by version, channel, platform, and last active date.
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Maximum number of results to return.
+        schema:
+          type: integer
+          maximum: 100
+      - name: pageToken
+        in: query
+        description: Token for pagination.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with Chrome version counts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountChromeVersionsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /customers/{customerId}/reports:countInstalledApps:
+    get:
+      operationId: countInstalledApps
+      summary: Count installed apps and extensions
+      description: Generates a report of installed apps and extensions across all managed browsers and devices. Provides counts and details for each app or extension including version, install type, and number of installations.
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: orgUnitId
+        in: query
+        description: The organizational unit ID.
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Filter string. Supports filtering by app name, app ID, app type, install type, and permissions.
+        schema:
+          type: string
+      - name: orderBy
+        in: query
+        description: 'Field to sort results by. Supported fields: app_name, install_type, machine_count, and permission_count.'
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Maximum number of results to return.
+        schema:
+          type: integer
+          maximum: 100
+      - name: pageToken
+        in: query
+        description: Token for pagination.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with installed app counts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountInstalledAppsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /customers/{customerId}/reports:findInstalledAppDevices:
+    get:
+      operationId: findInstalledAppDevices
+      summary: Find devices with a specific app installed
+      description: Generates a report listing all managed browsers and devices that have a specified app or extension installed. Useful for tracking distribution and compliance of specific applications.
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: appId
+        in: query
+        description: The app ID to search for.
+        schema:
+          type: string
+      - name: appType
+        in: query
+        description: Type of the app. Values include EXTENSION, APP, THEME, HOSTED_APP.
+        schema:
+          type: string
+          enum:
+          - EXTENSION
+          - APP
+          - THEME
+          - HOSTED_APP
+      - name: orgUnitId
+        in: query
+        description: The organizational unit ID.
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Filter string for narrowing results.
+        schema:
+          type: string
+      - name: orderBy
+        in: query
+        description: Field to sort results by.
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Maximum number of results to return.
+        schema:
+          type: integer
+          maximum: 100
+      - name: pageToken
+        in: query
+        description: Token for pagination.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with devices that have the specified app installed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindInstalledAppDevicesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /customers/{customerId}/reports:countChromeDevicesReachingAutoExpirationDate:
+    get:
+      operationId: countChromeDevicesReachingAutoExpirationDate
+      summary: Count ChromeOS devices reaching auto-update expiration
+      description: Generates a report counting ChromeOS devices grouped by their auto-update expiration date. Helps administrators plan for hardware refresh cycles and identify devices that will lose security update support.
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: orgUnitId
+        in: query
+        description: The organizational unit ID.
+        schema:
+          type: string
+      - name: minAueDate
+        in: query
+        description: Minimum auto-update expiration date filter (inclusive) in yyyy-mm-dd format.
+        schema:
+          type: string
+          format: date
+      - name: maxAueDate
+        in: query
+        description: Maximum auto-update expiration date filter (inclusive) in yyyy-mm-dd format.
+        schema:
+          type: string
+          format: date
+      - name: pageSize
+        in: query
+        description: Maximum number of results to return.
+        schema:
+          type: integer
+      - name: pageToken
+        in: query
+        description: Token for pagination.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with device counts by auto-update expiration date
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountChromeDevicesReachingAutoExpirationDateResponse'
+  /customers/{customerId}/reports:countChromeBrowsersNeedingAttention:
+    get:
+      operationId: countChromeBrowsersNeedingAttention
+      summary: Count Chrome browsers needing attention
+      description: Generates a report counting managed Chrome browsers that need administrator attention. Categories include browsers with pending updates, browsers recently not active, browsers with no recent policy sync, and browsers that recently enrolled.
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: orgUnitId
+        in: query
+        description: The organizational unit ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with browser attention counts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountChromeBrowsersNeedingAttentionResponse'
+  /customers/{customerId}/reports:countChromeDevicesThatNeedOsUpdate:
+    get:
+      operationId: countChromeDevicesThatNeedOsUpdate
+      summary: Count ChromeOS devices needing OS update
+      description: Generates a report counting ChromeOS devices that need an operating system update, grouped by OS version and update status.
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: orgUnitId
+        in: query
+        description: The organizational unit ID.
+        schema:
+          type: string
+      - name: pageSize
+        in: query
+        description: Maximum number of results to return.
+        schema:
+          type: integer
+      - name: pageToken
+        in: query
+        description: Token for pagination.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with device counts needing OS updates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountChromeDevicesThatNeedOsUpdateResponse'
+  /customers/{customerId}/reports:countChromeHardwareFleetDevices:
+    get:
+      operationId: countChromeHardwareFleetDevices
+      summary: Count ChromeOS hardware fleet devices
+      description: Generates a report counting ChromeOS devices grouped by hardware specifications such as model, CPU, and storage capacity. Provides a fleet-level view of hardware diversity.
+      tags:
+      - Reports
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: orgUnitId
+        in: query
+        description: The organizational unit ID.
+        schema:
+          type: string
+      - name: readMask
+        in: query
+        description: Fields to include in the response. Options include cpuReports, memoryReports, modelReports, storageReports.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with hardware fleet counts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CountChromeHardwareFleetDevicesResponse'
+components:
+  schemas:
+    CountChromeDevicesReachingAutoExpirationDateResponse:
+      type: object
+      description: Response containing counts of ChromeOS devices by auto-update expiration date.
+      properties:
+        deviceAueCountReports:
+          type: array
+          items:
+            type: object
+            properties:
+              model:
+                type: string
+                description: Device model name.
+              count:
+                type: string
+                format: int64
+                description: Number of devices with this model.
+              aueMonth:
+                type: string
+                description: Auto-update expiration month (YYYY-MM).
+              aueYear:
+                type: string
+                description: Auto-update expiration year.
+              expired:
+                type: boolean
+                description: Whether the AUE date has passed.
+    CountChromeBrowsersNeedingAttentionResponse:
+      type: object
+      description: Response with counts of Chrome browsers needing attention.
+      properties:
+        pendingBrowserUpdateCount:
+          type: string
+          format: int64
+          description: Number of browsers with a pending update.
+        recentlyEnrolledCount:
+          type: string
+          format: int64
+          description: Number of browsers recently enrolled.
+        noRecentActivityCount:
+          type: string
+          format: int64
+          description: Number of browsers with no recent activity.
+        notRecentlyConnectedCount:
+          type: string
+          format: int64
+          description: Number of browsers that have not recently synced policy.
+    CountChromeHardwareFleetDevicesResponse:
+      type: object
+      description: Response containing hardware fleet device counts.
+      properties:
+        cpuReports:
+          type: array
+          description: CPU model distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
+        memoryReports:
+          type: array
+          description: Memory capacity distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
+        modelReports:
+          type: array
+          description: Device model distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
+        storageReports:
+          type: array
+          description: Storage capacity distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
+    FindInstalledAppDevicesResponse:
+      type: object
+      description: Response listing devices with a specific app installed.
+      properties:
+        devices:
+          type: array
+          description: Devices with the specified app installed.
+          items:
+            type: object
+            properties:
+              deviceId:
+                type: string
+                description: Device identifier.
+              machine:
+                type: string
+                description: Machine name.
+              appVersion:
+                type: string
+                description: Version of the app installed on this device.
+        nextPageToken:
+          type: string
+          description: Token for the next page of results.
+        totalSize:
+          type: integer
+          description: Total number of devices with the app.
+    CountChromeVersionsResponse:
+      type: object
+      description: Response containing counts of Chrome browser versions.
+      properties:
+        browserVersions:
+          type: array
+          description: Chrome browser version counts.
+          items:
+            type: object
+            properties:
+              version:
+                type: string
+                description: Full version string (e.g., 120.0.6099.109).
+              count:
+                type: string
+                format: int64
+                description: Number of browsers running this version.
+              channel:
+                type: string
+                description: Release channel (STABLE, BETA, DEV, CANARY).
+                enum:
+                - RELEASE_CHANNEL_UNSPECIFIED
+                - STABLE
+                - BETA
+                - DEV
+                - CANARY
+              system:
+                type: string
+                description: Operating system platform.
+                enum:
+                - DEVICE_SYSTEM_UNSPECIFIED
+                - SYSTEM_OTHER
+                - SYSTEM_ANDROID
+                - SYSTEM_IOS
+                - SYSTEM_CROS
+                - SYSTEM_WINDOWS
+                - SYSTEM_MAC
+                - SYSTEM_LINUX
+              deviceOsVersion:
+                type: string
+                description: Operating system version.
+        nextPageToken:
+          type: string
+          description: Token for the next page of results.
+        totalSize:
+          type: integer
+          description: Total number of browser version entries.
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
+    CountChromeDevicesThatNeedOsUpdateResponse:
+      type: object
+      description: Response containing counts of devices needing OS updates.
+      properties:
+        deviceOsNeedUpdateCount:
+          type: array
+          items:
+            type: object
+            properties:
+              osVersion:
+                type: string
+                description: ChromeOS version.
+              count:
+                type: string
+                format: int64
+                description: Number of devices running this version.
+    CountInstalledAppsResponse:
+      type: object
+      description: Response containing counts of installed apps and extensions.
+      properties:
+        installedApps:
+          type: array
+          description: Installed app counts.
+          items:
+            type: object
+            properties:
+              appId:
+                type: string
+                description: App identifier.
+              appType:
+                type: string
+                description: Type of the app.
+                enum:
+                - APP_TYPE_UNSPECIFIED
+                - EXTENSION
+                - APP
+                - THEME
+                - HOSTED_APP
+                - ANDROID_APP
+              appInstallType:
+                type: string
+                description: How the app was installed.
+                enum:
+                - APP_INSTALL_TYPE_UNSPECIFIED
+                - MULTIPLE
+                - NORMAL
+                - ADMIN
+                - DEVELOPMENT
+                - SIDELOAD
+                - OTHER
+              appSource:
+                type: string
+                description: Source of the app.
+                enum:
+                - APP_SOURCE_UNSPECIFIED
+                - CHROME_WEBSTORE
+                - PLAY_STORE
+              displayName:
+                type: string
+                description: Display name of the app.
+              description:
+                type: string
+                description: Description of the app.
+              homepageUri:
+                type: string
+                format: uri
+                description: Homepage URL.
+              permissions:
+                type: array
+                items:
+                  type: string
+                description: Permissions requested by the app.
+              browserDeviceCount:
+                type: string
+                format: int64
+                description: Number of browsers with this app installed.
+              osUserCount:
+                type: string
+                format: int64
+                description: Number of ChromeOS users with this app installed.
+              disabled:
+                type: boolean
+                description: Whether the app is disabled by policy.
+        nextPageToken:
+          type: string
+          description: Token for the next page of results.
+        totalSize:
+          type: integer
+          description: Total number of installed apps.
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: Google OAuth 2.0 authentication. Requires appropriate Chrome Management API scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/chrome.management.reports.readonly: View Chrome browser and device reports
+            https://www.googleapis.com/auth/chrome.management.telemetry.readonly: View Chrome telemetry data
+            https://www.googleapis.com/auth/chrome.management.appdetails.readonly: View Chrome app details

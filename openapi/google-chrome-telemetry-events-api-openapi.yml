@@ -1,0 +1,198 @@
+openapi: 3.1.0
+info:
+  title: Google Chrome Management App Details Telemetry Events API
+  description: The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.
+  version: v1
+  contact:
+    name: Google Chrome Enterprise Support
+    url: https://support.google.com/chrome/a/
+  license:
+    name: Google APIs Terms of Service
+    url: https://developers.google.com/terms
+  x-logo:
+    url: https://www.google.com/chrome/static/images/chrome-logo.svg
+servers:
+- url: https://chromemanagement.googleapis.com/v1
+  description: Google Chrome Management API production endpoint
+security:
+- oauth2:
+  - https://www.googleapis.com/auth/chrome.management.reports.readonly
+  - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+  - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+tags:
+- name: Telemetry Events
+  description: Operations for listing telemetry events from managed ChromeOS devices such as USB peripherals, audio, network state changes, and hardware status events.
+paths:
+  /customers/{customerId}/telemetry/events:
+    get:
+      operationId: listTelemetryEvents
+      summary: List telemetry events
+      description: Lists telemetry events for a customer. Events include USB peripherals added or removed, audio severe underrun, network state changes, hardware status changes, and other device-level events. Events are retained for a limited time.
+      tags:
+      - Telemetry Events
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: pageSize
+        in: query
+        description: Maximum number of results to return. Maximum value is 1000.
+        schema:
+          type: integer
+          maximum: 1000
+      - name: pageToken
+        in: query
+        description: Token to specify next page in the result set.
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Filter to restrict results. Supports filtering by event type, device, user, and timestamp.
+        schema:
+          type: string
+      - name: readMask
+        in: query
+        description: 'Fields to include in the response. Supported event types: audioSevereUnderrunEvent, usbPeripheralsEvent, networkStateChangeEvent, httpsLatencyChangeEvent, wifiSignalStrengthEvent, vpnConnectionStateChangeEvent, appInstallEvent, appUninstallEvent, appLaunchEvent.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with list of telemetry events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTelemetryEventsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  schemas:
+    ListTelemetryEventsResponse:
+      type: object
+      description: Response containing a list of telemetry events.
+      properties:
+        telemetryEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelemetryEvent'
+        nextPageToken:
+          type: string
+          description: Token for retrieving the next page of results.
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
+    TelemetryEvent:
+      type: object
+      description: A telemetry event from a managed ChromeOS device.
+      properties:
+        name:
+          type: string
+          description: Resource name of the telemetry event.
+        device:
+          type: string
+          description: Resource name of the device that generated the event.
+        user:
+          type: string
+          description: Resource name of the user associated with the event.
+        reportTime:
+          type: string
+          format: date-time
+          description: Timestamp of the event.
+        eventType:
+          type: string
+          description: Type of the telemetry event.
+          enum:
+          - EVENT_TYPE_UNSPECIFIED
+          - AUDIO_SEVERE_UNDERRUN
+          - USB_ADDED
+          - USB_REMOVED
+          - NETWORK_HTTPS_LATENCY_CHANGE
+          - WIFI_SIGNAL_STRENGTH_LOW
+          - WIFI_SIGNAL_STRENGTH_RECOVERED
+          - VPN_CONNECTION_STATE_CHANGE
+          - APP_INSTALLED
+          - APP_UNINSTALLED
+          - APP_LAUNCHED
+          - OS_CRASH
+        audioSevereUnderrunEvent:
+          type: object
+          description: Details of an audio severe underrun event.
+        usbPeripheralsEvent:
+          type: object
+          description: Details of a USB peripheral event.
+          properties:
+            usbPeripheralReport:
+              type: array
+              items:
+                type: object
+                properties:
+                  vendor:
+                    type: string
+                  name:
+                    type: string
+                  pid:
+                    type: integer
+                  vid:
+                    type: integer
+        networkStateChangeEvent:
+          type: object
+          description: Details of a network state change event.
+          properties:
+            connectionState:
+              type: string
+        httpsLatencyChangeEvent:
+          type: object
+          description: Details of an HTTPS latency change event.
+          properties:
+            httpsLatencyState:
+              type: string
+            httpsLatencyRoutineData:
+              type: object
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+    Forbidden:
+      description: The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: Google OAuth 2.0 authentication. Requires appropriate Chrome Management API scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/chrome.management.reports.readonly: View Chrome browser and device reports
+            https://www.googleapis.com/auth/chrome.management.telemetry.readonly: View Chrome telemetry data
+            https://www.googleapis.com/auth/chrome.management.appdetails.readonly: View Chrome app details

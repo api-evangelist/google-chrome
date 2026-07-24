@@ -1,0 +1,201 @@
+openapi: 3.1.0
+info:
+  title: Google Chrome Management App Details Telemetry Notification Configs API
+  description: The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.
+  version: v1
+  contact:
+    name: Google Chrome Enterprise Support
+    url: https://support.google.com/chrome/a/
+  license:
+    name: Google APIs Terms of Service
+    url: https://developers.google.com/terms
+  x-logo:
+    url: https://www.google.com/chrome/static/images/chrome-logo.svg
+servers:
+- url: https://chromemanagement.googleapis.com/v1
+  description: Google Chrome Management API production endpoint
+security:
+- oauth2:
+  - https://www.googleapis.com/auth/chrome.management.reports.readonly
+  - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+  - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+tags:
+- name: Telemetry Notification Configs
+  description: Operations for managing telemetry notification configurations that enable push notifications for telemetry events.
+paths:
+  /customers/{customerId}/telemetry/notificationConfigs:
+    get:
+      operationId: listTelemetryNotificationConfigs
+      summary: List telemetry notification configs
+      description: Lists all telemetry notification configurations for a customer. Notification configs define which telemetry events trigger push notifications to the specified Google Cloud Pub/Sub topic.
+      tags:
+      - Telemetry Notification Configs
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: pageSize
+        in: query
+        description: Maximum number of results to return.
+        schema:
+          type: integer
+      - name: pageToken
+        in: query
+        description: Token to specify next page in the result set.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with list of notification configs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTelemetryNotificationConfigsResponse'
+    post:
+      operationId: createTelemetryNotificationConfig
+      summary: Create a telemetry notification config
+      description: Creates a telemetry notification configuration for a customer. The configuration specifies which telemetry events trigger push notifications and the Google Cloud Pub/Sub topic to deliver them to.
+      tags:
+      - Telemetry Notification Configs
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelemetryNotificationConfig'
+      responses:
+        '200':
+          description: Successfully created notification config
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryNotificationConfig'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /customers/{customerId}/telemetry/notificationConfigs/{configId}:
+    delete:
+      operationId: deleteTelemetryNotificationConfig
+      summary: Delete a telemetry notification config
+      description: Deletes a telemetry notification configuration for a customer.
+      tags:
+      - Telemetry Notification Configs
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: configId
+        in: path
+        required: true
+        description: Identifier of the notification config to delete.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successfully deleted notification config
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    ListTelemetryNotificationConfigsResponse:
+      type: object
+      description: Response containing a list of telemetry notification configurations.
+      properties:
+        telemetryNotificationConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelemetryNotificationConfig'
+        nextPageToken:
+          type: string
+          description: Token for retrieving the next page of results.
+    TelemetryNotificationConfig:
+      type: object
+      description: Configuration for telemetry push notifications.
+      properties:
+        name:
+          type: string
+          description: Resource name of the notification config.
+        customer:
+          type: string
+          description: Google Workspace customer resource name.
+        filter:
+          type: object
+          description: Filter to specify which events trigger notifications.
+          properties:
+            deviceId:
+              type: string
+              description: Device ID filter.
+            deviceOrgUnitId:
+              type: string
+              description: Organizational unit ID filter.
+            userEmail:
+              type: string
+              description: User email filter.
+            userOrgUnitId:
+              type: string
+              description: User organizational unit ID filter.
+            telemetryEventNotificationFilter:
+              type: object
+              description: Telemetry event type filter.
+              properties:
+                eventTypes:
+                  type: array
+                  items:
+                    type: string
+                  description: Event types to receive notifications for.
+        googleCloudPubsubTopic:
+          type: string
+          description: 'Google Cloud Pub/Sub topic to deliver notifications to. Format: projects/{project}/topics/{topic}'
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: Google OAuth 2.0 authentication. Requires appropriate Chrome Management API scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/chrome.management.reports.readonly: View Chrome browser and device reports
+            https://www.googleapis.com/auth/chrome.management.telemetry.readonly: View Chrome telemetry data
+            https://www.googleapis.com/auth/chrome.management.appdetails.readonly: View Chrome app details

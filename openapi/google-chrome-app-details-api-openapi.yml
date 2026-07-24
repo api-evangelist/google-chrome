@@ -1,0 +1,271 @@
+openapi: 3.1.0
+info:
+  title: Google Chrome Management App Details API
+  description: The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.
+  version: v1
+  contact:
+    name: Google Chrome Enterprise Support
+    url: https://support.google.com/chrome/a/
+  license:
+    name: Google APIs Terms of Service
+    url: https://developers.google.com/terms
+  x-logo:
+    url: https://www.google.com/chrome/static/images/chrome-logo.svg
+servers:
+- url: https://chromemanagement.googleapis.com/v1
+  description: Google Chrome Management API production endpoint
+security:
+- oauth2:
+  - https://www.googleapis.com/auth/chrome.management.reports.readonly
+  - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+  - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+tags:
+- name: App Details
+  description: Operations for retrieving information about Chrome apps, extensions, and Android apps available to managed devices.
+paths:
+  /customers/{customerId}/apps/chrome/{appId}:
+    get:
+      operationId: getChromeAppInfo
+      summary: Get Chrome app details
+      description: Retrieves specific information about a Chrome app or extension by its app ID. Returns metadata including name, description, permissions, icons, type, and store information.
+      tags:
+      - App Details
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: appId
+        in: path
+        required: true
+        description: The Chrome Web Store app ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with Chrome app details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChromeAppInfo'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{customerId}/apps/android/{appId}:
+    get:
+      operationId: getAndroidAppInfo
+      summary: Get Android app details
+      description: Retrieves specific information about an Android app by its package name. Returns metadata for apps available on managed ChromeOS devices through Google Play.
+      tags:
+      - App Details
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: appId
+        in: path
+        required: true
+        description: The Android app package name.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with Android app details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AndroidAppInfo'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{customerId}/apps/web/{appId}:
+    get:
+      operationId: getWebAppInfo
+      summary: Get web app details
+      description: Retrieves specific information about a web app. Returns metadata for progressive web apps or web links available to managed ChromeOS devices.
+      tags:
+      - App Details
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: appId
+        in: path
+        required: true
+        description: The web app identifier.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with web app details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebAppInfo'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
+    AndroidAppInfo:
+      type: object
+      description: Information about an Android app available on managed ChromeOS devices.
+      properties:
+        displayName:
+          type: string
+          description: Display name of the Android app.
+        appId:
+          type: string
+          description: Android app package name.
+        permissions:
+          type: array
+          description: Permissions requested by the Android app.
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Permission type.
+    WebAppInfo:
+      type: object
+      description: Information about a web app.
+      properties:
+        displayName:
+          type: string
+          description: Display name of the web app.
+        appId:
+          type: string
+          description: Web app identifier.
+    ChromeAppInfo:
+      type: object
+      description: Information about a Chrome app or extension.
+      properties:
+        displayName:
+          type: string
+          description: Display name of the app or extension.
+        description:
+          type: string
+          description: Description of the app or extension.
+        appId:
+          type: string
+          description: Chrome Web Store app ID.
+        revisionId:
+          type: string
+          description: Current published revision.
+        type:
+          type: string
+          description: Type of Chrome app.
+          enum:
+          - APP_ITEM_TYPE_UNSPECIFIED
+          - CHROME
+          - ANDROID
+          - WEB
+        iconUri:
+          type: string
+          format: uri
+          description: URL to the app icon.
+        detailUri:
+          type: string
+          format: uri
+          description: URL to the app detail page in the Chrome Web Store.
+        firstPublishTime:
+          type: string
+          format: date-time
+          description: When the app was first published.
+        latestPublishTime:
+          type: string
+          format: date-time
+          description: When the app was last published.
+        publisher:
+          type: string
+          description: Publisher of the app.
+        homepageUri:
+          type: string
+          format: uri
+          description: Homepage URL of the app.
+        privacyPolicyUri:
+          type: string
+          format: uri
+          description: URL to the app's privacy policy.
+        reviewNumber:
+          type: string
+          format: int64
+          description: Number of user reviews.
+        reviewRating:
+          type: number
+          description: Average user review rating (0-5).
+        serviceError:
+          $ref: '#/components/schemas/GoogleRpcStatus'
+        isTheme:
+          type: boolean
+          description: Whether the app is a Chrome theme.
+        isCwsHosted:
+          type: boolean
+          description: Whether the app is hosted in the Chrome Web Store.
+        kioskEnabled:
+          type: boolean
+          description: Whether the app supports kiosk mode.
+        supportEnabled:
+          type: boolean
+          description: Whether the app has a support page.
+        chromeAppPermissions:
+          type: array
+          description: Permissions requested by the Chrome app.
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Permission type.
+              documentationUri:
+                type: string
+                format: uri
+                description: URL to documentation about the permission.
+              accessUserData:
+                type: boolean
+                description: Whether the permission accesses user data.
+        siteAccess:
+          type: array
+          description: Host permissions requested by the app.
+          items:
+            type: object
+            properties:
+              hostMatch:
+                type: string
+                description: Host match pattern.
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: Google OAuth 2.0 authentication. Requires appropriate Chrome Management API scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/chrome.management.reports.readonly: View Chrome browser and device reports
+            https://www.googleapis.com/auth/chrome.management.telemetry.readonly: View Chrome telemetry data
+            https://www.googleapis.com/auth/chrome.management.appdetails.readonly: View Chrome app details

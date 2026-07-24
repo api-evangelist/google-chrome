@@ -1,0 +1,291 @@
+openapi: 3.1.0
+info:
+  title: Google Chrome Management App Details Telemetry Users API
+  description: The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.
+  version: v1
+  contact:
+    name: Google Chrome Enterprise Support
+    url: https://support.google.com/chrome/a/
+  license:
+    name: Google APIs Terms of Service
+    url: https://developers.google.com/terms
+  x-logo:
+    url: https://www.google.com/chrome/static/images/chrome-logo.svg
+servers:
+- url: https://chromemanagement.googleapis.com/v1
+  description: Google Chrome Management API production endpoint
+security:
+- oauth2:
+  - https://www.googleapis.com/auth/chrome.management.reports.readonly
+  - https://www.googleapis.com/auth/chrome.management.telemetry.readonly
+  - https://www.googleapis.com/auth/chrome.management.appdetails.readonly
+tags:
+- name: Telemetry Users
+  description: Operations for retrieving telemetry information associated with managed users on ChromeOS devices.
+paths:
+  /customers/{customerId}/telemetry/users:
+    get:
+      operationId: listTelemetryUsers
+      summary: List telemetry users
+      description: Lists all telemetry users for a customer. Retrieves user-level telemetry data including user email, user devices, and user activity information on managed ChromeOS devices.
+      tags:
+      - Telemetry Users
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: pageSize
+        in: query
+        description: Maximum number of results to return.
+        schema:
+          type: integer
+          maximum: 100
+      - name: pageToken
+        in: query
+        description: Token to specify next page in the result set.
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: Filter to restrict results. Supports filtering by user email and org unit.
+        schema:
+          type: string
+      - name: readMask
+        in: query
+        description: Fields to include in the response.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with list of telemetry users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTelemetryUsersResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /customers/{customerId}/telemetry/users/{userId}:
+    get:
+      operationId: getTelemetryUser
+      summary: Get a telemetry user
+      description: Retrieves a single telemetry user by their resource name. Returns detailed user-level telemetry data for the specified managed user.
+      tags:
+      - Telemetry Users
+      parameters:
+      - $ref: '#/components/parameters/customerId'
+      - name: userId
+        in: path
+        required: true
+        description: Unique identifier of the telemetry user.
+        schema:
+          type: string
+      - name: readMask
+        in: query
+        description: Fields to include in the response.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response with the telemetry user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryUser'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    TelemetryUser:
+      type: object
+      description: Telemetry information for a managed user.
+      properties:
+        name:
+          type: string
+          description: Resource name of the telemetry user.
+        customer:
+          type: string
+          description: Google Workspace customer resource name.
+        orgUnitId:
+          type: string
+          description: Organizational unit ID of the user.
+        userEmail:
+          type: string
+          format: email
+          description: Email address of the managed user.
+        userId:
+          type: string
+          description: Directory API user ID.
+        userDevice:
+          type: array
+          description: Devices associated with this user and their telemetry data.
+          items:
+            type: object
+            properties:
+              deviceId:
+                type: string
+                description: Device identifier.
+              audioStatusReport:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AudioStatusReport'
+              peripheralsReport:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PeripheralsReport'
+              networkBandwidthReport:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportTime:
+                      type: string
+                      format: date-time
+                    downloadSpeedKbps:
+                      type: string
+                      format: int64
+                    uploadSpeedKbps:
+                      type: string
+                      format: int64
+              appReport:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reportTime:
+                      type: string
+                      format: date-time
+                    usageDuration:
+                      type: string
+                    appId:
+                      type: string
+                    appType:
+                      type: string
+    PeripheralsReport:
+      type: object
+      description: Connected USB peripheral report.
+      properties:
+        reportTime:
+          type: string
+          format: date-time
+          description: Timestamp of the report.
+        usbPeripheralReport:
+          type: array
+          description: List of USB peripherals connected to the device.
+          items:
+            type: object
+            properties:
+              vendor:
+                type: string
+                description: USB vendor name.
+              name:
+                type: string
+                description: USB device name.
+              pid:
+                type: integer
+                description: USB product ID.
+              vid:
+                type: integer
+                description: USB vendor ID.
+              categories:
+                type: array
+                items:
+                  type: string
+                description: USB device categories.
+              firmwareVersion:
+                type: string
+                description: Firmware version of the USB device.
+    AudioStatusReport:
+      type: object
+      description: Audio device status report.
+      properties:
+        reportTime:
+          type: string
+          format: date-time
+          description: Timestamp of the report.
+        inputMute:
+          type: boolean
+          description: Whether the audio input is muted.
+        outputMute:
+          type: boolean
+          description: Whether the audio output is muted.
+        inputGain:
+          type: integer
+          description: Input gain level.
+        outputVolume:
+          type: integer
+          description: Output volume level.
+        inputDevice:
+          type: string
+          description: Name of the active input audio device.
+        outputDevice:
+          type: string
+          description: Name of the active output audio device.
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
+    ListTelemetryUsersResponse:
+      type: object
+      description: Response containing a list of telemetry users.
+      properties:
+        telemetryUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelemetryUser'
+        nextPageToken:
+          type: string
+          description: Token for retrieving the next page of results.
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+    Forbidden:
+      description: The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
+      schema:
+        type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: Google OAuth 2.0 authentication. Requires appropriate Chrome Management API scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            https://www.googleapis.com/auth/chrome.management.reports.readonly: View Chrome browser and device reports
+            https://www.googleapis.com/auth/chrome.management.telemetry.readonly: View Chrome telemetry data
+            https://www.googleapis.com/auth/chrome.management.appdetails.readonly: View Chrome app details
