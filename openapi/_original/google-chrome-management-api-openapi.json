@@ -1,0 +1,2610 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Google Chrome Management API",
+    "description": "The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.",
+    "version": "v1",
+    "contact": {
+      "name": "Google Chrome Enterprise Support",
+      "url": "https://support.google.com/chrome/a/"
+    },
+    "license": {
+      "name": "Google APIs Terms of Service",
+      "url": "https://developers.google.com/terms"
+    },
+    "x-logo": {
+      "url": "https://www.google.com/chrome/static/images/chrome-logo.svg"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://chromemanagement.googleapis.com/v1",
+      "description": "Google Chrome Management API production endpoint"
+    }
+  ],
+  "security": [
+    {
+      "oauth2": [
+        "https://www.googleapis.com/auth/chrome.management.reports.readonly",
+        "https://www.googleapis.com/auth/chrome.management.telemetry.readonly",
+        "https://www.googleapis.com/auth/chrome.management.appdetails.readonly"
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "Telemetry Devices",
+      "description": "Operations for retrieving telemetry data from managed ChromeOS devices including hardware specs, OS version, CPU, memory, storage, and network information."
+    },
+    {
+      "name": "Telemetry Events",
+      "description": "Operations for listing telemetry events from managed ChromeOS devices such as USB peripherals, audio, network state changes, and hardware status events."
+    },
+    {
+      "name": "Telemetry Users",
+      "description": "Operations for retrieving telemetry information associated with managed users on ChromeOS devices."
+    },
+    {
+      "name": "Telemetry Notification Configs",
+      "description": "Operations for managing telemetry notification configurations that enable push notifications for telemetry events."
+    },
+    {
+      "name": "App Details",
+      "description": "Operations for retrieving information about Chrome apps, extensions, and Android apps available to managed devices."
+    },
+    {
+      "name": "Reports",
+      "description": "Operations for generating reports about browsers, devices, installed apps, extensions, and app usage within the enterprise."
+    }
+  ],
+  "paths": {
+    "/customers/{customerId}/telemetry/devices": {
+      "get": {
+        "operationId": "listTelemetryDevices",
+        "summary": "List telemetry devices",
+        "description": "Lists all telemetry devices for a customer. Retrieves device-level telemetry data including hardware specifications, operating system version, CPU, memory, storage, network interfaces, battery status, and peripheral information for managed ChromeOS devices.",
+        "tags": ["Telemetry Devices"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Maximum number of results to return. Maximum and default value is 100.",
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "default": 100
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "description": "Token to specify next page in the result set.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter to restrict results. Supports filtering by serial number, device ID, org unit, and timestamps. Example: serial_number=ABC123 AND timestamp>2024-01-01T00:00:00Z",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "description": "Fields to include in the response. Use this to request specific telemetry data categories such as cpuInfo, cpuStatusReport, memoryInfo, memoryStatusReport, networkInfo, osUpdateStatus, storageInfo, storageStatusReport, batteryInfo, batteryStatusReport, networkDiagnosticsReport, and more.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of telemetry devices",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListTelemetryDevicesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/telemetry/devices/{deviceId}": {
+      "get": {
+        "operationId": "getTelemetryDevice",
+        "summary": "Get a telemetry device",
+        "description": "Retrieves a single telemetry device by its resource name. Returns detailed telemetry data for the specified managed ChromeOS device.",
+        "tags": ["Telemetry Devices"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "deviceId",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier of the telemetry device.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "description": "Fields to include in the response.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the telemetry device",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TelemetryDevice"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/telemetry/events": {
+      "get": {
+        "operationId": "listTelemetryEvents",
+        "summary": "List telemetry events",
+        "description": "Lists telemetry events for a customer. Events include USB peripherals added or removed, audio severe underrun, network state changes, hardware status changes, and other device-level events. Events are retained for a limited time.",
+        "tags": ["Telemetry Events"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Maximum number of results to return. Maximum value is 1000.",
+            "schema": {
+              "type": "integer",
+              "maximum": 1000
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "description": "Token to specify next page in the result set.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter to restrict results. Supports filtering by event type, device, user, and timestamp.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "description": "Fields to include in the response. Supported event types: audioSevereUnderrunEvent, usbPeripheralsEvent, networkStateChangeEvent, httpsLatencyChangeEvent, wifiSignalStrengthEvent, vpnConnectionStateChangeEvent, appInstallEvent, appUninstallEvent, appLaunchEvent.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of telemetry events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListTelemetryEventsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/telemetry/users": {
+      "get": {
+        "operationId": "listTelemetryUsers",
+        "summary": "List telemetry users",
+        "description": "Lists all telemetry users for a customer. Retrieves user-level telemetry data including user email, user devices, and user activity information on managed ChromeOS devices.",
+        "tags": ["Telemetry Users"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "type": "integer",
+              "maximum": 100
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "description": "Token to specify next page in the result set.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter to restrict results. Supports filtering by user email and org unit.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "description": "Fields to include in the response.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of telemetry users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListTelemetryUsersResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/telemetry/users/{userId}": {
+      "get": {
+        "operationId": "getTelemetryUser",
+        "summary": "Get a telemetry user",
+        "description": "Retrieves a single telemetry user by their resource name. Returns detailed user-level telemetry data for the specified managed user.",
+        "tags": ["Telemetry Users"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier of the telemetry user.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "description": "Fields to include in the response.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the telemetry user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TelemetryUser"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/telemetry/notificationConfigs": {
+      "get": {
+        "operationId": "listTelemetryNotificationConfigs",
+        "summary": "List telemetry notification configs",
+        "description": "Lists all telemetry notification configurations for a customer. Notification configs define which telemetry events trigger push notifications to the specified Google Cloud Pub/Sub topic.",
+        "tags": ["Telemetry Notification Configs"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "description": "Token to specify next page in the result set.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of notification configs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListTelemetryNotificationConfigsResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createTelemetryNotificationConfig",
+        "summary": "Create a telemetry notification config",
+        "description": "Creates a telemetry notification configuration for a customer. The configuration specifies which telemetry events trigger push notifications and the Google Cloud Pub/Sub topic to deliver them to.",
+        "tags": ["Telemetry Notification Configs"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TelemetryNotificationConfig"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully created notification config",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TelemetryNotificationConfig"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/telemetry/notificationConfigs/{configId}": {
+      "delete": {
+        "operationId": "deleteTelemetryNotificationConfig",
+        "summary": "Delete a telemetry notification config",
+        "description": "Deletes a telemetry notification configuration for a customer.",
+        "tags": ["Telemetry Notification Configs"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "configId",
+            "in": "path",
+            "required": true,
+            "description": "Identifier of the notification config to delete.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted notification config",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/apps/chrome/{appId}": {
+      "get": {
+        "operationId": "getChromeAppInfo",
+        "summary": "Get Chrome app details",
+        "description": "Retrieves specific information about a Chrome app or extension by its app ID. Returns metadata including name, description, permissions, icons, type, and store information.",
+        "tags": ["App Details"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "description": "The Chrome Web Store app ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with Chrome app details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChromeAppInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/apps/android/{appId}": {
+      "get": {
+        "operationId": "getAndroidAppInfo",
+        "summary": "Get Android app details",
+        "description": "Retrieves specific information about an Android app by its package name. Returns metadata for apps available on managed ChromeOS devices through Google Play.",
+        "tags": ["App Details"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "description": "The Android app package name.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with Android app details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AndroidAppInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/apps/web/{appId}": {
+      "get": {
+        "operationId": "getWebAppInfo",
+        "summary": "Get web app details",
+        "description": "Retrieves specific information about a web app. Returns metadata for progressive web apps or web links available to managed ChromeOS devices.",
+        "tags": ["App Details"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "appId",
+            "in": "path",
+            "required": true,
+            "description": "The web app identifier.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with web app details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebAppInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/reports:countChromeVersions": {
+      "get": {
+        "operationId": "countChromeVersions",
+        "summary": "Count Chrome browser versions",
+        "description": "Generates a count report of Chrome browser versions installed across all managed browsers. Useful for tracking update adoption and identifying outdated browser installations.",
+        "tags": ["Reports"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "orgUnitId",
+            "in": "query",
+            "description": "The organizational unit ID. If omitted, returns data for all org units.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter string for narrowing results. Supports filtering by version, channel, platform, and last active date.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "type": "integer",
+              "maximum": 100
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "description": "Token for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with Chrome version counts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountChromeVersionsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/reports:countInstalledApps": {
+      "get": {
+        "operationId": "countInstalledApps",
+        "summary": "Count installed apps and extensions",
+        "description": "Generates a report of installed apps and extensions across all managed browsers and devices. Provides counts and details for each app or extension including version, install type, and number of installations.",
+        "tags": ["Reports"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "orgUnitId",
+            "in": "query",
+            "description": "The organizational unit ID.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter string. Supports filtering by app name, app ID, app type, install type, and permissions.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "Field to sort results by. Supported fields: app_name, install_type, machine_count, and permission_count.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "type": "integer",
+              "maximum": 100
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "description": "Token for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with installed app counts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountInstalledAppsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/reports:findInstalledAppDevices": {
+      "get": {
+        "operationId": "findInstalledAppDevices",
+        "summary": "Find devices with a specific app installed",
+        "description": "Generates a report listing all managed browsers and devices that have a specified app or extension installed. Useful for tracking distribution and compliance of specific applications.",
+        "tags": ["Reports"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "appId",
+            "in": "query",
+            "description": "The app ID to search for.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "appType",
+            "in": "query",
+            "description": "Type of the app. Values include EXTENSION, APP, THEME, HOSTED_APP.",
+            "schema": {
+              "type": "string",
+              "enum": ["EXTENSION", "APP", "THEME", "HOSTED_APP"]
+            }
+          },
+          {
+            "name": "orgUnitId",
+            "in": "query",
+            "description": "The organizational unit ID.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter string for narrowing results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "Field to sort results by.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "type": "integer",
+              "maximum": 100
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "description": "Token for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with devices that have the specified app installed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindInstalledAppDevicesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/reports:countChromeDevicesReachingAutoExpirationDate": {
+      "get": {
+        "operationId": "countChromeDevicesReachingAutoExpirationDate",
+        "summary": "Count ChromeOS devices reaching auto-update expiration",
+        "description": "Generates a report counting ChromeOS devices grouped by their auto-update expiration date. Helps administrators plan for hardware refresh cycles and identify devices that will lose security update support.",
+        "tags": ["Reports"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "orgUnitId",
+            "in": "query",
+            "description": "The organizational unit ID.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minAueDate",
+            "in": "query",
+            "description": "Minimum auto-update expiration date filter (inclusive) in yyyy-mm-dd format.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "maxAueDate",
+            "in": "query",
+            "description": "Maximum auto-update expiration date filter (inclusive) in yyyy-mm-dd format.",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "description": "Token for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with device counts by auto-update expiration date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountChromeDevicesReachingAutoExpirationDateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/reports:countChromeBrowsersNeedingAttention": {
+      "get": {
+        "operationId": "countChromeBrowsersNeedingAttention",
+        "summary": "Count Chrome browsers needing attention",
+        "description": "Generates a report counting managed Chrome browsers that need administrator attention. Categories include browsers with pending updates, browsers recently not active, browsers with no recent policy sync, and browsers that recently enrolled.",
+        "tags": ["Reports"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "orgUnitId",
+            "in": "query",
+            "description": "The organizational unit ID.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with browser attention counts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountChromeBrowsersNeedingAttentionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/reports:countChromeDevicesThatNeedOsUpdate": {
+      "get": {
+        "operationId": "countChromeDevicesThatNeedOsUpdate",
+        "summary": "Count ChromeOS devices needing OS update",
+        "description": "Generates a report counting ChromeOS devices that need an operating system update, grouped by OS version and update status.",
+        "tags": ["Reports"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "orgUnitId",
+            "in": "query",
+            "description": "The organizational unit ID.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "description": "Token for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with device counts needing OS updates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountChromeDevicesThatNeedOsUpdateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{customerId}/reports:countChromeHardwareFleetDevices": {
+      "get": {
+        "operationId": "countChromeHardwareFleetDevices",
+        "summary": "Count ChromeOS hardware fleet devices",
+        "description": "Generates a report counting ChromeOS devices grouped by hardware specifications such as model, CPU, and storage capacity. Provides a fleet-level view of hardware diversity.",
+        "tags": ["Reports"],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/customerId"
+          },
+          {
+            "name": "orgUnitId",
+            "in": "query",
+            "description": "The organizational unit ID.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "readMask",
+            "in": "query",
+            "description": "Fields to include in the response. Options include cpuReports, memoryReports, modelReports, storageReports.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with hardware fleet counts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CountChromeHardwareFleetDevicesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "Google OAuth 2.0 authentication. Requires appropriate Chrome Management API scopes.",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+            "tokenUrl": "https://oauth2.googleapis.com/token",
+            "scopes": {
+              "https://www.googleapis.com/auth/chrome.management.reports.readonly": "View Chrome browser and device reports",
+              "https://www.googleapis.com/auth/chrome.management.telemetry.readonly": "View Chrome telemetry data",
+              "https://www.googleapis.com/auth/chrome.management.appdetails.readonly": "View Chrome app details"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "customerId": {
+        "name": "customerId",
+        "in": "path",
+        "required": true,
+        "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "The request was invalid. Check the filter syntax, field names, and parameter values.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GoogleRpcStatus"
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "The request lacks valid authentication credentials. Ensure a valid OAuth 2.0 access token is provided.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GoogleRpcStatus"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GoogleRpcStatus"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "The requested resource was not found.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GoogleRpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "GoogleRpcStatus": {
+        "type": "object",
+        "description": "Standard Google API error response following the google.rpc.Status format.",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "The HTTP status code."
+          },
+          "message": {
+            "type": "string",
+            "description": "A developer-facing error message."
+          },
+          "details": {
+            "type": "array",
+            "description": "A list of messages carrying error details.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@type": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "TelemetryDevice": {
+        "type": "object",
+        "description": "Telemetry data for a single managed ChromeOS device, including hardware, OS, network, storage, and peripheral information.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Resource name of the telemetry device. Format: customers/{customer}/telemetry/devices/{device}"
+          },
+          "customer": {
+            "type": "string",
+            "description": "Google Workspace customer resource name."
+          },
+          "orgUnitId": {
+            "type": "string",
+            "description": "Organizational unit ID of the device."
+          },
+          "deviceId": {
+            "type": "string",
+            "description": "Unique device identifier from the Directory API."
+          },
+          "serialNumber": {
+            "type": "string",
+            "description": "Serial number of the device."
+          },
+          "cpuInfo": {
+            "type": "array",
+            "description": "CPU information for the device.",
+            "items": {
+              "$ref": "#/components/schemas/CpuInfo"
+            }
+          },
+          "cpuStatusReport": {
+            "type": "array",
+            "description": "CPU status reports with usage and temperature data.",
+            "items": {
+              "$ref": "#/components/schemas/CpuStatusReport"
+            }
+          },
+          "memoryInfo": {
+            "$ref": "#/components/schemas/MemoryInfo"
+          },
+          "memoryStatusReport": {
+            "type": "array",
+            "description": "Memory status reports with usage data.",
+            "items": {
+              "$ref": "#/components/schemas/MemoryStatusReport"
+            }
+          },
+          "networkInfo": {
+            "$ref": "#/components/schemas/NetworkInfo"
+          },
+          "networkStatusReport": {
+            "type": "array",
+            "description": "Network connection status reports.",
+            "items": {
+              "$ref": "#/components/schemas/NetworkStatusReport"
+            }
+          },
+          "osUpdateStatus": {
+            "type": "array",
+            "description": "ChromeOS update status information.",
+            "items": {
+              "$ref": "#/components/schemas/OsUpdateStatus"
+            }
+          },
+          "storageInfo": {
+            "$ref": "#/components/schemas/StorageInfo"
+          },
+          "storageStatusReport": {
+            "type": "array",
+            "description": "Storage status reports with disk usage data.",
+            "items": {
+              "$ref": "#/components/schemas/StorageStatusReport"
+            }
+          },
+          "batteryInfo": {
+            "type": "array",
+            "description": "Battery information and health data.",
+            "items": {
+              "$ref": "#/components/schemas/BatteryInfo"
+            }
+          },
+          "batteryStatusReport": {
+            "type": "array",
+            "description": "Battery status reports with charge level and cycle counts.",
+            "items": {
+              "$ref": "#/components/schemas/BatteryStatusReport"
+            }
+          },
+          "graphicsInfo": {
+            "$ref": "#/components/schemas/GraphicsInfo"
+          },
+          "graphicsStatusReport": {
+            "type": "array",
+            "description": "Graphics adapter and display status reports.",
+            "items": {
+              "$ref": "#/components/schemas/GraphicsStatusReport"
+            }
+          },
+          "audioStatusReport": {
+            "type": "array",
+            "description": "Audio device status reports.",
+            "items": {
+              "$ref": "#/components/schemas/AudioStatusReport"
+            }
+          },
+          "peripheralsReport": {
+            "type": "array",
+            "description": "Connected USB peripheral reports.",
+            "items": {
+              "$ref": "#/components/schemas/PeripheralsReport"
+            }
+          },
+          "bootPerformanceReport": {
+            "type": "array",
+            "description": "Device boot performance reports.",
+            "items": {
+              "$ref": "#/components/schemas/BootPerformanceReport"
+            }
+          },
+          "heartbeatStatusReport": {
+            "type": "array",
+            "description": "Heartbeat status reports with timestamps indicating the device is online.",
+            "items": {
+              "$ref": "#/components/schemas/HeartbeatStatusReport"
+            }
+          },
+          "networkDiagnosticsReport": {
+            "type": "array",
+            "description": "Network diagnostics reports with latency and HTTPS test results.",
+            "items": {
+              "$ref": "#/components/schemas/NetworkDiagnosticsReport"
+            }
+          }
+        }
+      },
+      "CpuInfo": {
+        "type": "object",
+        "description": "CPU hardware information.",
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "CPU model name."
+          },
+          "architecture": {
+            "type": "string",
+            "description": "CPU architecture (e.g., x86_64, ARM).",
+            "enum": ["X86_64", "ARM", "ARCHITECTURE_UNSPECIFIED"]
+          },
+          "maxClockSpeed": {
+            "type": "integer",
+            "description": "Maximum clock speed in kilohertz."
+          },
+          "keylockerSupported": {
+            "type": "boolean",
+            "description": "Whether Key Locker is supported."
+          },
+          "keylockerConfigured": {
+            "type": "boolean",
+            "description": "Whether Key Locker is configured."
+          }
+        }
+      },
+      "CpuStatusReport": {
+        "type": "object",
+        "description": "CPU usage and temperature report at a point in time.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the report."
+          },
+          "cpuUtilizationPct": {
+            "type": "integer",
+            "description": "CPU utilization percentage (0-100)."
+          },
+          "cpuTemperatureInfo": {
+            "type": "array",
+            "description": "Temperature readings from CPU sensors.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "temperatureCelsius": {
+                  "type": "integer",
+                  "description": "CPU temperature in Celsius."
+                },
+                "label": {
+                  "type": "string",
+                  "description": "Temperature sensor label."
+                }
+              }
+            }
+          },
+          "sampleFrequency": {
+            "type": "string",
+            "description": "Sampling frequency of the report."
+          }
+        }
+      },
+      "MemoryInfo": {
+        "type": "object",
+        "description": "Memory hardware specifications.",
+        "properties": {
+          "totalRamBytes": {
+            "type": "string",
+            "format": "int64",
+            "description": "Total RAM in bytes."
+          },
+          "availableRamBytes": {
+            "type": "string",
+            "format": "int64",
+            "description": "Available RAM in bytes."
+          },
+          "totalInternalStorageBytes": {
+            "type": "string",
+            "format": "int64",
+            "description": "Total internal storage in bytes."
+          }
+        }
+      },
+      "MemoryStatusReport": {
+        "type": "object",
+        "description": "Memory usage report at a point in time.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the report."
+          },
+          "systemRamFreeBytes": {
+            "type": "string",
+            "format": "int64",
+            "description": "Free system RAM in bytes."
+          },
+          "pageFaults": {
+            "type": "integer",
+            "description": "Number of page faults since the last report."
+          },
+          "sampleFrequency": {
+            "type": "string",
+            "description": "Sampling frequency of the report."
+          }
+        }
+      },
+      "NetworkInfo": {
+        "type": "object",
+        "description": "Network hardware and configuration information.",
+        "properties": {
+          "networkDevices": {
+            "type": "array",
+            "description": "List of network devices and their properties.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Network device type.",
+                  "enum": ["WIFI", "ETHERNET", "CELLULAR", "NETWORK_DEVICE_TYPE_UNSPECIFIED"]
+                },
+                "macAddress": {
+                  "type": "string",
+                  "description": "MAC address of the device."
+                },
+                "meid": {
+                  "type": "string",
+                  "description": "MEID of the cellular device."
+                },
+                "imei": {
+                  "type": "string",
+                  "description": "IMEI of the cellular device."
+                },
+                "iccid": {
+                  "type": "string",
+                  "description": "ICCID of the SIM card."
+                },
+                "mdn": {
+                  "type": "string",
+                  "description": "MDN (phone number) of the cellular device."
+                }
+              }
+            }
+          }
+        }
+      },
+      "NetworkStatusReport": {
+        "type": "object",
+        "description": "Network status report at a point in time.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the report."
+          },
+          "connectionState": {
+            "type": "string",
+            "description": "Current network connection state.",
+            "enum": ["ONLINE", "CONNECTED", "PORTAL", "CONNECTING", "NOT_CONNECTED", "CONNECTION_STATE_UNSPECIFIED"]
+          },
+          "connectionType": {
+            "type": "string",
+            "description": "Type of network connection.",
+            "enum": ["WIFI", "ETHERNET", "CELLULAR", "NETWORK_TYPE_UNSPECIFIED"]
+          },
+          "signalStrengthDbm": {
+            "type": "integer",
+            "description": "Signal strength in dBm."
+          },
+          "gatewayIpAddress": {
+            "type": "string",
+            "description": "Gateway IP address."
+          },
+          "lanIpAddress": {
+            "type": "string",
+            "description": "LAN IP address of the device."
+          },
+          "transmissionBitRateMbps": {
+            "type": "string",
+            "format": "int64",
+            "description": "Transmission speed in Mbps."
+          },
+          "receivingBitRateMbps": {
+            "type": "string",
+            "format": "int64",
+            "description": "Receiving speed in Mbps."
+          },
+          "wifiLinkQuality": {
+            "type": "string",
+            "description": "WiFi link quality percentage."
+          },
+          "wifiPowerManagementEnabled": {
+            "type": "boolean",
+            "description": "Whether WiFi power management is enabled."
+          },
+          "sampleFrequency": {
+            "type": "string",
+            "description": "Sampling frequency of the report."
+          }
+        }
+      },
+      "OsUpdateStatus": {
+        "type": "object",
+        "description": "ChromeOS update status.",
+        "properties": {
+          "updateState": {
+            "type": "string",
+            "description": "Current OS update state.",
+            "enum": [
+              "OS_UPDATE_STATUS_UNSPECIFIED",
+              "OS_UPDATE_NEED_REBOOT",
+              "OS_UPDATE_NOT_STARTED",
+              "OS_UPDATE_DOWNLOADING",
+              "OS_UPDATE_UPDATE_AVAILABLE"
+            ]
+          },
+          "newPlatformVersion": {
+            "type": "string",
+            "description": "New platform version of the pending update."
+          },
+          "newRequestedPlatformVersion": {
+            "type": "string",
+            "description": "New platform version of the requested update."
+          },
+          "lastUpdateTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the last update check."
+          },
+          "lastUpdateCheckTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the last update check."
+          },
+          "lastRebootTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the last device reboot."
+          }
+        }
+      },
+      "StorageInfo": {
+        "type": "object",
+        "description": "Storage hardware specifications.",
+        "properties": {
+          "totalDiskBytes": {
+            "type": "string",
+            "format": "int64",
+            "description": "Total disk space in bytes."
+          },
+          "availableDiskBytes": {
+            "type": "string",
+            "format": "int64",
+            "description": "Available disk space in bytes."
+          },
+          "volume": {
+            "type": "array",
+            "description": "Disk volumes and partitions.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "volumeId": {
+                  "type": "string",
+                  "description": "Volume identifier."
+                },
+                "storageTotalBytes": {
+                  "type": "string",
+                  "format": "int64",
+                  "description": "Total storage of the volume in bytes."
+                },
+                "storageFreeBytes": {
+                  "type": "string",
+                  "format": "int64",
+                  "description": "Free storage of the volume in bytes."
+                }
+              }
+            }
+          }
+        }
+      },
+      "StorageStatusReport": {
+        "type": "object",
+        "description": "Storage usage report at a point in time.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the report."
+          },
+          "disk": {
+            "type": "array",
+            "description": "Disk information for each disk on the device.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "bytesReadThisSession": {
+                  "type": "string",
+                  "format": "int64",
+                  "description": "Bytes read this session."
+                },
+                "bytesWrittenThisSession": {
+                  "type": "string",
+                  "format": "int64",
+                  "description": "Bytes written this session."
+                },
+                "readTimeThisSession": {
+                  "type": "string",
+                  "description": "Time spent reading this session."
+                },
+                "writeTimeThisSession": {
+                  "type": "string",
+                  "description": "Time spent writing this session."
+                },
+                "ioTimeThisSession": {
+                  "type": "string",
+                  "description": "Time spent on I/O operations this session."
+                },
+                "discardTimeThisSession": {
+                  "type": "string",
+                  "description": "Time spent on discard operations this session."
+                },
+                "volumeIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Volume IDs associated with this disk."
+                },
+                "health": {
+                  "type": "string",
+                  "description": "Disk health state."
+                }
+              }
+            }
+          }
+        }
+      },
+      "BatteryInfo": {
+        "type": "object",
+        "description": "Battery hardware information.",
+        "properties": {
+          "serialNumber": {
+            "type": "string",
+            "description": "Battery serial number."
+          },
+          "manufacturer": {
+            "type": "string",
+            "description": "Battery manufacturer."
+          },
+          "designCapacity": {
+            "type": "string",
+            "format": "int64",
+            "description": "Design capacity in milliamp hours."
+          },
+          "designMinVoltage": {
+            "type": "integer",
+            "description": "Designed minimum voltage in millivolts."
+          },
+          "manufactureDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Battery manufacture date."
+          },
+          "technology": {
+            "type": "string",
+            "description": "Battery technology (e.g., Li-ion)."
+          }
+        }
+      },
+      "BatteryStatusReport": {
+        "type": "object",
+        "description": "Battery status report at a point in time.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the report."
+          },
+          "batteryHealth": {
+            "type": "string",
+            "description": "Battery health status.",
+            "enum": ["BATTERY_HEALTH_UNSPECIFIED", "BATTERY_HEALTH_NORMAL", "BATTERY_REPLACE_SOON", "BATTERY_REPLACE_NOW"]
+          },
+          "cycleCount": {
+            "type": "integer",
+            "description": "Number of battery charge cycles."
+          },
+          "fullChargeCapacity": {
+            "type": "string",
+            "format": "int64",
+            "description": "Full charge capacity in milliamp hours."
+          },
+          "chargeRate": {
+            "type": "integer",
+            "description": "Charge rate in milliwatts."
+          },
+          "dischargeRate": {
+            "type": "integer",
+            "description": "Discharge rate in milliwatts."
+          },
+          "voltage": {
+            "type": "string",
+            "format": "double",
+            "description": "Battery voltage in volts."
+          },
+          "sample_frequency": {
+            "type": "string",
+            "description": "Sampling frequency of the report."
+          }
+        }
+      },
+      "GraphicsInfo": {
+        "type": "object",
+        "description": "Graphics adapter information.",
+        "properties": {
+          "adapterInfo": {
+            "type": "object",
+            "description": "Graphics adapter details.",
+            "properties": {
+              "adapter": {
+                "type": "string",
+                "description": "Graphics adapter name."
+              },
+              "driverVersion": {
+                "type": "string",
+                "description": "Graphics driver version."
+              },
+              "deviceId": {
+                "type": "string",
+                "format": "int64",
+                "description": "PCI device ID."
+              },
+              "vendorId": {
+                "type": "string",
+                "format": "int64",
+                "description": "PCI vendor ID."
+              }
+            }
+          },
+          "displayDevices": {
+            "type": "array",
+            "description": "Connected display devices.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "displayName": {
+                  "type": "string",
+                  "description": "Display name."
+                },
+                "displayWidthMm": {
+                  "type": "integer",
+                  "description": "Display width in millimeters."
+                },
+                "displayHeightMm": {
+                  "type": "integer",
+                  "description": "Display height in millimeters."
+                },
+                "internal": {
+                  "type": "boolean",
+                  "description": "Whether the display is internal."
+                },
+                "manufacturerId": {
+                  "type": "string",
+                  "description": "Display manufacturer ID."
+                },
+                "modelId": {
+                  "type": "integer",
+                  "description": "Display model ID."
+                },
+                "manufactureYear": {
+                  "type": "integer",
+                  "description": "Year the display was manufactured."
+                }
+              }
+            }
+          }
+        }
+      },
+      "GraphicsStatusReport": {
+        "type": "object",
+        "description": "Graphics status report.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the report."
+          },
+          "displays": {
+            "type": "array",
+            "description": "Display status information.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "displayName": {
+                  "type": "string",
+                  "description": "Display name."
+                },
+                "resolutionWidth": {
+                  "type": "integer",
+                  "description": "Resolution width in pixels."
+                },
+                "resolutionHeight": {
+                  "type": "integer",
+                  "description": "Resolution height in pixels."
+                },
+                "refreshRate": {
+                  "type": "integer",
+                  "description": "Refresh rate in Hertz."
+                }
+              }
+            }
+          }
+        }
+      },
+      "AudioStatusReport": {
+        "type": "object",
+        "description": "Audio device status report.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the report."
+          },
+          "inputMute": {
+            "type": "boolean",
+            "description": "Whether the audio input is muted."
+          },
+          "outputMute": {
+            "type": "boolean",
+            "description": "Whether the audio output is muted."
+          },
+          "inputGain": {
+            "type": "integer",
+            "description": "Input gain level."
+          },
+          "outputVolume": {
+            "type": "integer",
+            "description": "Output volume level."
+          },
+          "inputDevice": {
+            "type": "string",
+            "description": "Name of the active input audio device."
+          },
+          "outputDevice": {
+            "type": "string",
+            "description": "Name of the active output audio device."
+          }
+        }
+      },
+      "PeripheralsReport": {
+        "type": "object",
+        "description": "Connected USB peripheral report.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the report."
+          },
+          "usbPeripheralReport": {
+            "type": "array",
+            "description": "List of USB peripherals connected to the device.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "vendor": {
+                  "type": "string",
+                  "description": "USB vendor name."
+                },
+                "name": {
+                  "type": "string",
+                  "description": "USB device name."
+                },
+                "pid": {
+                  "type": "integer",
+                  "description": "USB product ID."
+                },
+                "vid": {
+                  "type": "integer",
+                  "description": "USB vendor ID."
+                },
+                "categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "USB device categories."
+                },
+                "firmwareVersion": {
+                  "type": "string",
+                  "description": "Firmware version of the USB device."
+                }
+              }
+            }
+          }
+        }
+      },
+      "BootPerformanceReport": {
+        "type": "object",
+        "description": "Boot performance report.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the report."
+          },
+          "bootUpDuration": {
+            "type": "string",
+            "description": "Duration of boot-up in seconds."
+          },
+          "bootUpTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the device booted up."
+          },
+          "shutdownDuration": {
+            "type": "string",
+            "description": "Duration of shutdown in seconds."
+          },
+          "shutdownTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the device shut down."
+          },
+          "shutdownReason": {
+            "type": "string",
+            "description": "Reason for the last shutdown.",
+            "enum": ["SHUTDOWN_REASON_UNSPECIFIED", "USER_REQUEST", "SYSTEM_UPDATE", "LOW_BATTERY", "OTHER"]
+          }
+        }
+      },
+      "HeartbeatStatusReport": {
+        "type": "object",
+        "description": "Heartbeat status indicating the device is online.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the heartbeat."
+          },
+          "state": {
+            "type": "string",
+            "description": "Device state.",
+            "enum": ["STATE_UNSPECIFIED", "UNKNOWN", "ONLINE", "OFFLINE"]
+          }
+        }
+      },
+      "NetworkDiagnosticsReport": {
+        "type": "object",
+        "description": "Network diagnostics report with latency and HTTPS test results.",
+        "properties": {
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the report."
+          },
+          "httpsLatencyData": {
+            "type": "object",
+            "description": "HTTPS latency test data.",
+            "properties": {
+              "latency": {
+                "type": "string",
+                "description": "Measured HTTPS latency."
+              },
+              "problem": {
+                "type": "string",
+                "description": "Problem type if the HTTPS latency test encountered an issue.",
+                "enum": ["HTTPS_LATENCY_PROBLEM_UNSPECIFIED", "FAILED_DNS_RESOLUTIONS", "FAILED_CONNECTIONS", "FAILED_HTTPS_REQUESTS", "HIGH_LATENCY", "VERY_HIGH_LATENCY"]
+              }
+            }
+          }
+        }
+      },
+      "TelemetryEvent": {
+        "type": "object",
+        "description": "A telemetry event from a managed ChromeOS device.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Resource name of the telemetry event."
+          },
+          "device": {
+            "type": "string",
+            "description": "Resource name of the device that generated the event."
+          },
+          "user": {
+            "type": "string",
+            "description": "Resource name of the user associated with the event."
+          },
+          "reportTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the event."
+          },
+          "eventType": {
+            "type": "string",
+            "description": "Type of the telemetry event.",
+            "enum": [
+              "EVENT_TYPE_UNSPECIFIED",
+              "AUDIO_SEVERE_UNDERRUN",
+              "USB_ADDED",
+              "USB_REMOVED",
+              "NETWORK_HTTPS_LATENCY_CHANGE",
+              "WIFI_SIGNAL_STRENGTH_LOW",
+              "WIFI_SIGNAL_STRENGTH_RECOVERED",
+              "VPN_CONNECTION_STATE_CHANGE",
+              "APP_INSTALLED",
+              "APP_UNINSTALLED",
+              "APP_LAUNCHED",
+              "OS_CRASH"
+            ]
+          },
+          "audioSevereUnderrunEvent": {
+            "type": "object",
+            "description": "Details of an audio severe underrun event."
+          },
+          "usbPeripheralsEvent": {
+            "type": "object",
+            "description": "Details of a USB peripheral event.",
+            "properties": {
+              "usbPeripheralReport": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "vendor": { "type": "string" },
+                    "name": { "type": "string" },
+                    "pid": { "type": "integer" },
+                    "vid": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "networkStateChangeEvent": {
+            "type": "object",
+            "description": "Details of a network state change event.",
+            "properties": {
+              "connectionState": { "type": "string" }
+            }
+          },
+          "httpsLatencyChangeEvent": {
+            "type": "object",
+            "description": "Details of an HTTPS latency change event.",
+            "properties": {
+              "httpsLatencyState": { "type": "string" },
+              "httpsLatencyRoutineData": { "type": "object" }
+            }
+          }
+        }
+      },
+      "TelemetryUser": {
+        "type": "object",
+        "description": "Telemetry information for a managed user.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Resource name of the telemetry user."
+          },
+          "customer": {
+            "type": "string",
+            "description": "Google Workspace customer resource name."
+          },
+          "orgUnitId": {
+            "type": "string",
+            "description": "Organizational unit ID of the user."
+          },
+          "userEmail": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address of the managed user."
+          },
+          "userId": {
+            "type": "string",
+            "description": "Directory API user ID."
+          },
+          "userDevice": {
+            "type": "array",
+            "description": "Devices associated with this user and their telemetry data.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "deviceId": {
+                  "type": "string",
+                  "description": "Device identifier."
+                },
+                "audioStatusReport": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/AudioStatusReport" }
+                },
+                "peripheralsReport": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PeripheralsReport" }
+                },
+                "networkBandwidthReport": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "reportTime": { "type": "string", "format": "date-time" },
+                      "downloadSpeedKbps": { "type": "string", "format": "int64" },
+                      "uploadSpeedKbps": { "type": "string", "format": "int64" }
+                    }
+                  }
+                },
+                "appReport": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "reportTime": { "type": "string", "format": "date-time" },
+                      "usageDuration": { "type": "string" },
+                      "appId": { "type": "string" },
+                      "appType": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "TelemetryNotificationConfig": {
+        "type": "object",
+        "description": "Configuration for telemetry push notifications.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Resource name of the notification config."
+          },
+          "customer": {
+            "type": "string",
+            "description": "Google Workspace customer resource name."
+          },
+          "filter": {
+            "type": "object",
+            "description": "Filter to specify which events trigger notifications.",
+            "properties": {
+              "deviceId": {
+                "type": "string",
+                "description": "Device ID filter."
+              },
+              "deviceOrgUnitId": {
+                "type": "string",
+                "description": "Organizational unit ID filter."
+              },
+              "userEmail": {
+                "type": "string",
+                "description": "User email filter."
+              },
+              "userOrgUnitId": {
+                "type": "string",
+                "description": "User organizational unit ID filter."
+              },
+              "telemetryEventNotificationFilter": {
+                "type": "object",
+                "description": "Telemetry event type filter.",
+                "properties": {
+                  "eventTypes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Event types to receive notifications for."
+                  }
+                }
+              }
+            }
+          },
+          "googleCloudPubsubTopic": {
+            "type": "string",
+            "description": "Google Cloud Pub/Sub topic to deliver notifications to. Format: projects/{project}/topics/{topic}"
+          }
+        }
+      },
+      "ChromeAppInfo": {
+        "type": "object",
+        "description": "Information about a Chrome app or extension.",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "description": "Display name of the app or extension."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the app or extension."
+          },
+          "appId": {
+            "type": "string",
+            "description": "Chrome Web Store app ID."
+          },
+          "revisionId": {
+            "type": "string",
+            "description": "Current published revision."
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of Chrome app.",
+            "enum": ["APP_ITEM_TYPE_UNSPECIFIED", "CHROME", "ANDROID", "WEB"]
+          },
+          "iconUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the app icon."
+          },
+          "detailUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the app detail page in the Chrome Web Store."
+          },
+          "firstPublishTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the app was first published."
+          },
+          "latestPublishTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the app was last published."
+          },
+          "publisher": {
+            "type": "string",
+            "description": "Publisher of the app."
+          },
+          "homepageUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "Homepage URL of the app."
+          },
+          "privacyPolicyUri": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the app's privacy policy."
+          },
+          "reviewNumber": {
+            "type": "string",
+            "format": "int64",
+            "description": "Number of user reviews."
+          },
+          "reviewRating": {
+            "type": "number",
+            "description": "Average user review rating (0-5)."
+          },
+          "serviceError": {
+            "$ref": "#/components/schemas/GoogleRpcStatus"
+          },
+          "isTheme": {
+            "type": "boolean",
+            "description": "Whether the app is a Chrome theme."
+          },
+          "isCwsHosted": {
+            "type": "boolean",
+            "description": "Whether the app is hosted in the Chrome Web Store."
+          },
+          "kioskEnabled": {
+            "type": "boolean",
+            "description": "Whether the app supports kiosk mode."
+          },
+          "supportEnabled": {
+            "type": "boolean",
+            "description": "Whether the app has a support page."
+          },
+          "chromeAppPermissions": {
+            "type": "array",
+            "description": "Permissions requested by the Chrome app.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Permission type."
+                },
+                "documentationUri": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "URL to documentation about the permission."
+                },
+                "accessUserData": {
+                  "type": "boolean",
+                  "description": "Whether the permission accesses user data."
+                }
+              }
+            }
+          },
+          "siteAccess": {
+            "type": "array",
+            "description": "Host permissions requested by the app.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "hostMatch": {
+                  "type": "string",
+                  "description": "Host match pattern."
+                }
+              }
+            }
+          }
+        }
+      },
+      "AndroidAppInfo": {
+        "type": "object",
+        "description": "Information about an Android app available on managed ChromeOS devices.",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "description": "Display name of the Android app."
+          },
+          "appId": {
+            "type": "string",
+            "description": "Android app package name."
+          },
+          "permissions": {
+            "type": "array",
+            "description": "Permissions requested by the Android app.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Permission type."
+                }
+              }
+            }
+          }
+        }
+      },
+      "WebAppInfo": {
+        "type": "object",
+        "description": "Information about a web app.",
+        "properties": {
+          "displayName": {
+            "type": "string",
+            "description": "Display name of the web app."
+          },
+          "appId": {
+            "type": "string",
+            "description": "Web app identifier."
+          }
+        }
+      },
+      "ListTelemetryDevicesResponse": {
+        "type": "object",
+        "description": "Response containing a list of telemetry devices.",
+        "properties": {
+          "devices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TelemetryDevice"
+            }
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Token for retrieving the next page of results."
+          }
+        }
+      },
+      "ListTelemetryEventsResponse": {
+        "type": "object",
+        "description": "Response containing a list of telemetry events.",
+        "properties": {
+          "telemetryEvents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TelemetryEvent"
+            }
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Token for retrieving the next page of results."
+          }
+        }
+      },
+      "ListTelemetryUsersResponse": {
+        "type": "object",
+        "description": "Response containing a list of telemetry users.",
+        "properties": {
+          "telemetryUsers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TelemetryUser"
+            }
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Token for retrieving the next page of results."
+          }
+        }
+      },
+      "ListTelemetryNotificationConfigsResponse": {
+        "type": "object",
+        "description": "Response containing a list of telemetry notification configurations.",
+        "properties": {
+          "telemetryNotificationConfigs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TelemetryNotificationConfig"
+            }
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Token for retrieving the next page of results."
+          }
+        }
+      },
+      "CountChromeVersionsResponse": {
+        "type": "object",
+        "description": "Response containing counts of Chrome browser versions.",
+        "properties": {
+          "browserVersions": {
+            "type": "array",
+            "description": "Chrome browser version counts.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "version": {
+                  "type": "string",
+                  "description": "Full version string (e.g., 120.0.6099.109)."
+                },
+                "count": {
+                  "type": "string",
+                  "format": "int64",
+                  "description": "Number of browsers running this version."
+                },
+                "channel": {
+                  "type": "string",
+                  "description": "Release channel (STABLE, BETA, DEV, CANARY).",
+                  "enum": ["RELEASE_CHANNEL_UNSPECIFIED", "STABLE", "BETA", "DEV", "CANARY"]
+                },
+                "system": {
+                  "type": "string",
+                  "description": "Operating system platform.",
+                  "enum": ["DEVICE_SYSTEM_UNSPECIFIED", "SYSTEM_OTHER", "SYSTEM_ANDROID", "SYSTEM_IOS", "SYSTEM_CROS", "SYSTEM_WINDOWS", "SYSTEM_MAC", "SYSTEM_LINUX"]
+                },
+                "deviceOsVersion": {
+                  "type": "string",
+                  "description": "Operating system version."
+                }
+              }
+            }
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Token for the next page of results."
+          },
+          "totalSize": {
+            "type": "integer",
+            "description": "Total number of browser version entries."
+          }
+        }
+      },
+      "CountInstalledAppsResponse": {
+        "type": "object",
+        "description": "Response containing counts of installed apps and extensions.",
+        "properties": {
+          "installedApps": {
+            "type": "array",
+            "description": "Installed app counts.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "appId": {
+                  "type": "string",
+                  "description": "App identifier."
+                },
+                "appType": {
+                  "type": "string",
+                  "description": "Type of the app.",
+                  "enum": ["APP_TYPE_UNSPECIFIED", "EXTENSION", "APP", "THEME", "HOSTED_APP", "ANDROID_APP"]
+                },
+                "appInstallType": {
+                  "type": "string",
+                  "description": "How the app was installed.",
+                  "enum": ["APP_INSTALL_TYPE_UNSPECIFIED", "MULTIPLE", "NORMAL", "ADMIN", "DEVELOPMENT", "SIDELOAD", "OTHER"]
+                },
+                "appSource": {
+                  "type": "string",
+                  "description": "Source of the app.",
+                  "enum": ["APP_SOURCE_UNSPECIFIED", "CHROME_WEBSTORE", "PLAY_STORE"]
+                },
+                "displayName": {
+                  "type": "string",
+                  "description": "Display name of the app."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description of the app."
+                },
+                "homepageUri": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Homepage URL."
+                },
+                "permissions": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Permissions requested by the app."
+                },
+                "browserDeviceCount": {
+                  "type": "string",
+                  "format": "int64",
+                  "description": "Number of browsers with this app installed."
+                },
+                "osUserCount": {
+                  "type": "string",
+                  "format": "int64",
+                  "description": "Number of ChromeOS users with this app installed."
+                },
+                "disabled": {
+                  "type": "boolean",
+                  "description": "Whether the app is disabled by policy."
+                }
+              }
+            }
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Token for the next page of results."
+          },
+          "totalSize": {
+            "type": "integer",
+            "description": "Total number of installed apps."
+          }
+        }
+      },
+      "FindInstalledAppDevicesResponse": {
+        "type": "object",
+        "description": "Response listing devices with a specific app installed.",
+        "properties": {
+          "devices": {
+            "type": "array",
+            "description": "Devices with the specified app installed.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "deviceId": {
+                  "type": "string",
+                  "description": "Device identifier."
+                },
+                "machine": {
+                  "type": "string",
+                  "description": "Machine name."
+                },
+                "appVersion": {
+                  "type": "string",
+                  "description": "Version of the app installed on this device."
+                }
+              }
+            }
+          },
+          "nextPageToken": {
+            "type": "string",
+            "description": "Token for the next page of results."
+          },
+          "totalSize": {
+            "type": "integer",
+            "description": "Total number of devices with the app."
+          }
+        }
+      },
+      "CountChromeDevicesReachingAutoExpirationDateResponse": {
+        "type": "object",
+        "description": "Response containing counts of ChromeOS devices by auto-update expiration date.",
+        "properties": {
+          "deviceAueCountReports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "model": {
+                  "type": "string",
+                  "description": "Device model name."
+                },
+                "count": {
+                  "type": "string",
+                  "format": "int64",
+                  "description": "Number of devices with this model."
+                },
+                "aueMonth": {
+                  "type": "string",
+                  "description": "Auto-update expiration month (YYYY-MM)."
+                },
+                "aueYear": {
+                  "type": "string",
+                  "description": "Auto-update expiration year."
+                },
+                "expired": {
+                  "type": "boolean",
+                  "description": "Whether the AUE date has passed."
+                }
+              }
+            }
+          }
+        }
+      },
+      "CountChromeBrowsersNeedingAttentionResponse": {
+        "type": "object",
+        "description": "Response with counts of Chrome browsers needing attention.",
+        "properties": {
+          "pendingBrowserUpdateCount": {
+            "type": "string",
+            "format": "int64",
+            "description": "Number of browsers with a pending update."
+          },
+          "recentlyEnrolledCount": {
+            "type": "string",
+            "format": "int64",
+            "description": "Number of browsers recently enrolled."
+          },
+          "noRecentActivityCount": {
+            "type": "string",
+            "format": "int64",
+            "description": "Number of browsers with no recent activity."
+          },
+          "notRecentlyConnectedCount": {
+            "type": "string",
+            "format": "int64",
+            "description": "Number of browsers that have not recently synced policy."
+          }
+        }
+      },
+      "CountChromeDevicesThatNeedOsUpdateResponse": {
+        "type": "object",
+        "description": "Response containing counts of devices needing OS updates.",
+        "properties": {
+          "deviceOsNeedUpdateCount": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "osVersion": {
+                  "type": "string",
+                  "description": "ChromeOS version."
+                },
+                "count": {
+                  "type": "string",
+                  "format": "int64",
+                  "description": "Number of devices running this version."
+                }
+              }
+            }
+          }
+        }
+      },
+      "CountChromeHardwareFleetDevicesResponse": {
+        "type": "object",
+        "description": "Response containing hardware fleet device counts.",
+        "properties": {
+          "cpuReports": {
+            "type": "array",
+            "description": "CPU model distribution.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reportValue": { "type": "string" },
+                "count": { "type": "string", "format": "int64" }
+              }
+            }
+          },
+          "memoryReports": {
+            "type": "array",
+            "description": "Memory capacity distribution.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reportValue": { "type": "string" },
+                "count": { "type": "string", "format": "int64" }
+              }
+            }
+          },
+          "modelReports": {
+            "type": "array",
+            "description": "Device model distribution.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reportValue": { "type": "string" },
+                "count": { "type": "string", "format": "int64" }
+              }
+            }
+          },
+          "storageReports": {
+            "type": "array",
+            "description": "Storage capacity distribution.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "reportValue": { "type": "string" },
+                "count": { "type": "string", "format": "int64" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

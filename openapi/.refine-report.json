@@ -1,0 +1,24 @@
+{
+  "provider": "google-chrome",
+  "sources": [
+    "google-chrome-app-details-api-openapi.yml",
+    "google-chrome-reports-api-openapi.yml",
+    "google-chrome-telemetry-devices-api-openapi.yml",
+    "google-chrome-telemetry-events-api-openapi.yml",
+    "google-chrome-telemetry-notification-configs-api-openapi.yml",
+    "google-chrome-telemetry-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "google-chrome-app-details-api-openapi.yml",
+    "google-chrome-reports-api-openapi.yml",
+    "google-chrome-telemetry-devices-api-openapi.yml",
+    "google-chrome-telemetry-events-api-openapi.yml",
+    "google-chrome-telemetry-notification-configs-api-openapi.yml",
+    "google-chrome-telemetry-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
