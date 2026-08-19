@@ -17,7 +17,7 @@ accessModel:
 image: https://www.google.com/chrome/static/images/chrome-logo.svg
 url: https://www.google.com/chrome/
 type: Index
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
   - Browser
   - Chrome Extensions
