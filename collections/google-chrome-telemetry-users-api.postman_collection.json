@@ -1,0 +1,532 @@
+{
+  "item": [
+    {
+      "id": "e002a883-a5a8-4947-a79e-84596d830237",
+      "name": "Telemetry Users",
+      "description": {
+        "content": "Operations for retrieving telemetry information associated with managed users on ChromeOS devices.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "43608f49-1ae5-474d-9796-65b22b983ced",
+          "name": "List telemetry users",
+          "request": {
+            "name": "List telemetry users",
+            "description": {
+              "content": "Lists all telemetry users for a customer. Retrieves user-level telemetry data including user email, user devices, and user activity information on managed ChromeOS devices.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "telemetry",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Token to specify next page in the result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter to restrict results. Supports filtering by user email and org unit."
+                },
+                {
+                  "disabled": false,
+                  "key": "readMask",
+                  "value": "<string>",
+                  "description": "Fields to include in the response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88b7cb08-d34b-4153-b421-e73942504a0b",
+              "name": "Successful response with list of telemetry users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"telemetryUsers\": [\n    {\n      \"name\": \"string\",\n      \"customer\": \"string\",\n      \"orgUnitId\": \"string\",\n      \"userEmail\": \"5gdBtQrUwV@n.ksxs\",\n      \"userId\": \"string\",\n      \"userDevice\": [\n        {\n          \"deviceId\": \"string\",\n          \"audioStatusReport\": [\n            {\n              \"reportTime\": \"1957-06-07T10:15:59.953Z\",\n              \"inputMute\": false,\n              \"outputMute\": true,\n              \"inputGain\": 8368,\n              \"outputVolume\": 986,\n              \"inputDevice\": \"string\",\n              \"outputDevice\": \"string\"\n            },\n            {\n              \"reportTime\": \"1972-01-31T20:55:50.596Z\",\n              \"inputMute\": true,\n              \"outputMute\": false,\n              \"inputGain\": 2262,\n              \"outputVolume\": 913,\n              \"inputDevice\": \"string\",\n              \"outputDevice\": \"string\"\n            }\n          ],\n          \"peripheralsReport\": [\n            {\n              \"reportTime\": \"1987-11-15T17:54:27.468Z\",\n              \"usbPeripheralReport\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            },\n            {\n              \"reportTime\": \"2003-09-10T04:13:02.422Z\",\n              \"usbPeripheralReport\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          ],\n          \"networkBandwidthReport\": [\n            {\n              \"reportTime\": \"2010-11-23T04:49:29.837Z\",\n              \"downloadSpeedKbps\": \"string\",\n              \"uploadSpeedKbps\": \"string\"\n            },\n            {\n              \"reportTime\": \"1957-07-08T02:11:06.270Z\",\n              \"downloadSpeedKbps\": \"string\",\n              \"uploadSpeedKbps\": \"string\"\n            }\n          ],\n          \"appReport\": [\n            {\n              \"reportTime\": \"1997-02-09T10:35:01.820Z\",\n              \"usageDuration\": \"string\",\n              \"appId\": \"string\",\n              \"appType\": \"string\"\n            },\n            {\n              \"reportTime\": \"1956-11-18T23:09:27.618Z\",\n              \"usageDuration\": \"string\",\n              \"appId\": \"string\",\n              \"appType\": \"string\"\n            }\n          ]\n        },\n        {\n          \"deviceId\": \"string\",\n          \"audioStatusReport\": [\n            {\n              \"reportTime\": \"2001-01-04T21:59:42.481Z\",\n              \"inputMute\": true,\n              \"outputMute\": true,\n              \"inputGain\": 7809,\n              \"outputVolume\": 1304,\n              \"inputDevice\": \"string\",\n              \"outputDevice\": \"string\"\n            },\n            {\n              \"reportTime\": \"1983-06-29T08:50:56.246Z\",\n              \"inputMute\": false,\n              \"outputMute\": true,\n              \"inputGain\": 7082,\n              \"outputVolume\": 6396,\n              \"inputDevice\": \"string\",\n              \"outputDevice\": \"string\"\n            }\n          ],\n          \"peripheralsReport\": [\n            {\n              \"reportTime\": \"1952-02-07T19:59:41.178Z\",\n              \"usbPeripheralReport\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            },\n            {\n              \"reportTime\": \"1990-10-31T07:31:03.267Z\",\n              \"usbPeripheralReport\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          ],\n          \"networkBandwidthReport\": [\n            {\n              \"reportTime\": \"1961-07-28T08:38:29.883Z\",\n              \"downloadSpeedKbps\": \"string\",\n              \"uploadSpeedKbps\": \"string\"\n            },\n            {\n              \"reportTime\": \"2010-03-08T22:08:14.880Z\",\n              \"downloadSpeedKbps\": \"string\",\n              \"uploadSpeedKbps\": \"string\"\n            }\n          ],\n          \"appReport\": [\n            {\n              \"reportTime\": \"1951-08-15T13:13:46.440Z\",\n              \"usageDuration\": \"string\",\n              \"appId\": \"string\",\n              \"appType\": \"string\"\n            },\n            {\n              \"reportTime\": \"1986-06-02T02:28:05.677Z\",\n              \"usageDuration\": \"string\",\n              \"appId\": \"string\",\n              \"appType\": \"string\"\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"name\": \"string\",\n      \"customer\": \"string\",\n      \"orgUnitId\": \"string\",\n      \"userEmail\": \"LPDded@icNwLEIDJqUMxNfSUTWIznlTfoWtffu.ji\",\n      \"userId\": \"string\",\n      \"userDevice\": [\n        {\n          \"deviceId\": \"string\",\n          \"audioStatusReport\": [\n            {\n              \"reportTime\": \"2000-10-21T21:43:20.740Z\",\n              \"inputMute\": false,\n              \"outputMute\": true,\n              \"inputGain\": 9990,\n              \"outputVolume\": 471,\n              \"inputDevice\": \"string\",\n              \"outputDevice\": \"string\"\n            },\n            {\n              \"reportTime\": \"1949-06-19T16:52:08.695Z\",\n              \"inputMute\": false,\n              \"outputMute\": false,\n              \"inputGain\": 3606,\n              \"outputVolume\": 1587,\n              \"inputDevice\": \"string\",\n              \"outputDevice\": \"string\"\n            }\n          ],\n          \"peripheralsReport\": [\n            {\n              \"reportTime\": \"1977-11-26T01:11:13.866Z\",\n              \"usbPeripheralReport\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            },\n            {\n              \"reportTime\": \"2011-11-10T06:43:17.367Z\",\n              \"usbPeripheralReport\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          ],\n          \"networkBandwidthReport\": [\n            {\n              \"reportTime\": \"2004-11-10T12:49:45.621Z\",\n              \"downloadSpeedKbps\": \"string\",\n              \"uploadSpeedKbps\": \"string\"\n            },\n            {\n              \"reportTime\": \"2012-08-18T16:25:17.694Z\",\n              \"downloadSpeedKbps\": \"string\",\n              \"uploadSpeedKbps\": \"string\"\n            }\n          ],\n          \"appReport\": [\n            {\n              \"reportTime\": \"1947-04-08T23:18:18.923Z\",\n              \"usageDuration\": \"string\",\n              \"appId\": \"string\",\n              \"appType\": \"string\"\n            },\n            {\n              \"reportTime\": \"2005-12-19T15:34:26.778Z\",\n              \"usageDuration\": \"string\",\n              \"appId\": \"string\",\n              \"appType\": \"string\"\n            }\n          ]\n        },\n        {\n          \"deviceId\": \"string\",\n          \"audioStatusReport\": [\n            {\n              \"reportTime\": \"1946-09-15T02:10:01.334Z\",\n              \"inputMute\": true,\n              \"outputMute\": false,\n              \"inputGain\": 9008,\n              \"outputVolume\": 7180,\n              \"inputDevice\": \"string\",\n              \"outputDevice\": \"string\"\n            },\n            {\n              \"reportTime\": \"1972-05-14T14:31:37.860Z\",\n              \"inputMute\": true,\n              \"outputMute\": false,\n              \"inputGain\": 3790,\n              \"outputVolume\": 7653,\n              \"inputDevice\": \"string\",\n              \"outputDevice\": \"string\"\n            }\n          ],\n          \"peripheralsReport\": [\n            {\n              \"reportTime\": \"2015-04-22T06:13:16.542Z\",\n              \"usbPeripheralReport\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            },\n            {\n              \"reportTime\": \"1995-07-07T20:29:29.784Z\",\n              \"usbPeripheralReport\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ]\n            }\n          ],\n          \"networkBandwidthReport\": [\n            {\n              \"reportTime\": \"1983-05-11T21:28:28.757Z\",\n              \"downloadSpeedKbps\": \"string\",\n              \"uploadSpeedKbps\": \"string\"\n            },\n            {\n              \"reportTime\": \"1953-11-08T04:59:46.245Z\",\n              \"downloadSpeedKbps\": \"string\",\n              \"uploadSpeedKbps\": \"string\"\n            }\n          ],\n          \"appReport\": [\n            {\n              \"reportTime\": \"1972-09-25T18:36:47.514Z\",\n              \"usageDuration\": \"string\",\n              \"appId\": \"string\",\n              \"appType\": \"string\"\n            },\n            {\n              \"reportTime\": \"1980-03-11T14:25:28.513Z\",\n              \"usageDuration\": \"string\",\n              \"appId\": \"string\",\n              \"appType\": \"string\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14dfc79a-7ada-4d72-a346-07544d5a0d60",
+              "name": "The request was invalid. Check the filter syntax, field names, and parameter values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9506,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 7222,\n      \"key_1\": 2377.928811208576\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f408e901-3bfd-4312-9337-4ab71f648586",
+              "name": "The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9506,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 7222,\n      \"key_1\": 2377.928811208576\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ebb35c1a-f378-4d05-b7f1-8f1745a6342b",
+          "name": "Get a telemetry user",
+          "request": {
+            "name": "Get a telemetry user",
+            "description": {
+              "content": "Retrieves a single telemetry user by their resource name. Returns detailed user-level telemetry data for the specified managed user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "telemetry",
+                "users",
+                ":userId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "readMask",
+                  "value": "<string>",
+                  "description": "Fields to include in the response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "userId",
+                  "description": "(Required) Unique identifier of the telemetry user."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81ea533b-bf77-42e4-bb2b-5ac369015e17",
+              "name": "Successful response with the telemetry user",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Unique identifier of the telemetry user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"customer\": \"string\",\n  \"orgUnitId\": \"string\",\n  \"userEmail\": \"cfnhLauVAmoM5n4@VdKJDyLjXmbrhOmSPRvO.cfyo\",\n  \"userId\": \"string\",\n  \"userDevice\": [\n    {\n      \"deviceId\": \"string\",\n      \"audioStatusReport\": [\n        {\n          \"reportTime\": \"1994-02-05T08:34:33.114Z\",\n          \"inputMute\": true,\n          \"outputMute\": true,\n          \"inputGain\": 5055,\n          \"outputVolume\": 473,\n          \"inputDevice\": \"string\",\n          \"outputDevice\": \"string\"\n        },\n        {\n          \"reportTime\": \"2008-09-07T16:03:52.096Z\",\n          \"inputMute\": false,\n          \"outputMute\": false,\n          \"inputGain\": 9385,\n          \"outputVolume\": 4339,\n          \"inputDevice\": \"string\",\n          \"outputDevice\": \"string\"\n        }\n      ],\n      \"peripheralsReport\": [\n        {\n          \"reportTime\": \"1980-07-14T02:09:08.786Z\",\n          \"usbPeripheralReport\": [\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 5516,\n              \"vid\": 915,\n              \"categories\": [\n                \"string\",\n                \"string\"\n              ],\n              \"firmwareVersion\": \"string\"\n            },\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 7375,\n              \"vid\": 6210,\n              \"categories\": [\n                \"string\",\n                \"string\"\n              ],\n              \"firmwareVersion\": \"string\"\n            }\n          ]\n        },\n        {\n          \"reportTime\": \"1968-04-29T20:47:16.345Z\",\n          \"usbPeripheralReport\": [\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 5932,\n              \"vid\": 5950,\n              \"categories\": [\n                \"string\",\n                \"string\"\n              ],\n              \"firmwareVersion\": \"string\"\n            },\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 3579,\n              \"vid\": 2022,\n              \"categories\": [\n                \"string\",\n                \"string\"\n              ],\n              \"firmwareVersion\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"networkBandwidthReport\": [\n        {\n          \"reportTime\": \"1984-12-05T12:42:56.069Z\",\n          \"downloadSpeedKbps\": \"string\",\n          \"uploadSpeedKbps\": \"string\"\n        },\n        {\n          \"reportTime\": \"1984-02-22T19:26:39.874Z\",\n          \"downloadSpeedKbps\": \"string\",\n          \"uploadSpeedKbps\": \"string\"\n        }\n      ],\n      \"appReport\": [\n        {\n          \"reportTime\": \"2020-01-06T21:44:01.345Z\",\n          \"usageDuration\": \"string\",\n          \"appId\": \"string\",\n          \"appType\": \"string\"\n        },\n        {\n          \"reportTime\": \"2008-07-09T05:15:37.399Z\",\n          \"usageDuration\": \"string\",\n          \"appId\": \"string\",\n          \"appType\": \"string\"\n        }\n      ]\n    },\n    {\n      \"deviceId\": \"string\",\n      \"audioStatusReport\": [\n        {\n          \"reportTime\": \"1997-08-11T04:19:22.047Z\",\n          \"inputMute\": false,\n          \"outputMute\": false,\n          \"inputGain\": 9023,\n          \"outputVolume\": 3609,\n          \"inputDevice\": \"string\",\n          \"outputDevice\": \"string\"\n        },\n        {\n          \"reportTime\": \"1953-08-12T20:16:53.344Z\",\n          \"inputMute\": true,\n          \"outputMute\": true,\n          \"inputGain\": 8348,\n          \"outputVolume\": 878,\n          \"inputDevice\": \"string\",\n          \"outputDevice\": \"string\"\n        }\n      ],\n      \"peripheralsReport\": [\n        {\n          \"reportTime\": \"2012-01-31T08:59:10.850Z\",\n          \"usbPeripheralReport\": [\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 4257,\n              \"vid\": 6817,\n              \"categories\": [\n                \"string\",\n                \"string\"\n              ],\n              \"firmwareVersion\": \"string\"\n            },\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 2277,\n              \"vid\": 908,\n              \"categories\": [\n                \"string\",\n                \"string\"\n              ],\n              \"firmwareVersion\": \"string\"\n            }\n          ]\n        },\n        {\n          \"reportTime\": \"2026-04-16T20:43:01.347Z\",\n          \"usbPeripheralReport\": [\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 2291,\n              \"vid\": 7935,\n              \"categories\": [\n                \"string\",\n                \"string\"\n              ],\n              \"firmwareVersion\": \"string\"\n            },\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 8570,\n              \"vid\": 8818,\n              \"categories\": [\n                \"string\",\n                \"string\"\n              ],\n              \"firmwareVersion\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"networkBandwidthReport\": [\n        {\n          \"reportTime\": \"1969-02-05T21:44:37.808Z\",\n          \"downloadSpeedKbps\": \"string\",\n          \"uploadSpeedKbps\": \"string\"\n        },\n        {\n          \"reportTime\": \"1991-12-23T11:00:04.290Z\",\n          \"downloadSpeedKbps\": \"string\",\n          \"uploadSpeedKbps\": \"string\"\n        }\n      ],\n      \"appReport\": [\n        {\n          \"reportTime\": \"2021-01-08T23:44:47.330Z\",\n          \"usageDuration\": \"string\",\n          \"appId\": \"string\",\n          \"appType\": \"string\"\n        },\n        {\n          \"reportTime\": \"1961-07-16T01:35:02.504Z\",\n          \"usageDuration\": \"string\",\n          \"appId\": \"string\",\n          \"appType\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77d8ce55-ebc2-4d33-a8d8-90b769eee0f7",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "users",
+                    ":userId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "userId",
+                      "description": "(Required) Unique identifier of the telemetry user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9506,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 7222,\n      \"key_1\": 2377.928811208576\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://chromemanagement.googleapis.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/chrome.management.reports.readonly https://www.googleapis.com/auth/chrome.management.telemetry.readonly https://www.googleapis.com/auth/chrome.management.appdetails.readonly"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/v2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c3b6e015-8f44-4575-abc5-aee42edd1fa7",
+    "name": "Google Chrome Management App Details Telemetry Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.\n\nContact Support:\n Name: Google Chrome Enterprise Support",
+      "type": "text/plain"
+    }
+  }
+}

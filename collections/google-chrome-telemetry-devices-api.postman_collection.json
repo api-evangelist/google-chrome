@@ -1,0 +1,603 @@
+{
+  "item": [
+    {
+      "id": "bedc8cba-3d5d-4c36-b7c7-b99e1d1ad840",
+      "name": "Telemetry Devices",
+      "description": {
+        "content": "Operations for retrieving telemetry data from managed ChromeOS devices including hardware specs, OS version, CPU, memory, storage, and network information.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "12039d50-d2bb-4508-8788-f82f7fb0e846",
+          "name": "List telemetry devices",
+          "request": {
+            "name": "List telemetry devices",
+            "description": {
+              "content": "Lists all telemetry devices for a customer. Retrieves device-level telemetry data including hardware specifications, operating system version, CPU, memory, storage, network interfaces, battery status, and peripheral information for managed ChromeOS devices.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "telemetry",
+                "devices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100",
+                  "description": "Maximum number of results to return. Maximum and default value is 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Token to specify next page in the result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter to restrict results. Supports filtering by serial number, device ID, org unit, and timestamps. Example: serial_number=ABC123 AND timestamp>2024-01-01T00:00:00Z"
+                },
+                {
+                  "disabled": false,
+                  "key": "readMask",
+                  "value": "<string>",
+                  "description": "Fields to include in the response. Use this to request specific telemetry data categories such as cpuInfo, cpuStatusReport, memoryInfo, memoryStatusReport, networkInfo, osUpdateStatus, storageInfo, storageStatusReport, batteryInfo, batteryStatusReport, networkDiagnosticsReport, and more."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "740aa397-a5b1-4e17-b3ce-cfc539e9229e",
+              "name": "Successful response with list of telemetry devices",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"devices\": [\n    {\n      \"name\": \"string\",\n      \"customer\": \"string\",\n      \"orgUnitId\": \"string\",\n      \"deviceId\": \"string\",\n      \"serialNumber\": \"string\",\n      \"cpuInfo\": [\n        {\n          \"model\": \"string\",\n          \"architecture\": \"ARM\",\n          \"maxClockSpeed\": 6010,\n          \"keylockerSupported\": false,\n          \"keylockerConfigured\": true\n        },\n        {\n          \"model\": \"string\",\n          \"architecture\": \"ARM\",\n          \"maxClockSpeed\": 5561,\n          \"keylockerSupported\": true,\n          \"keylockerConfigured\": false\n        }\n      ],\n      \"cpuStatusReport\": [\n        {\n          \"reportTime\": \"1982-04-29T08:49:59.102Z\",\n          \"cpuUtilizationPct\": 3360,\n          \"cpuTemperatureInfo\": [\n            {\n              \"temperatureCelsius\": 6226,\n              \"label\": \"string\"\n            },\n            {\n              \"temperatureCelsius\": 4705,\n              \"label\": \"string\"\n            }\n          ],\n          \"sampleFrequency\": \"string\"\n        },\n        {\n          \"reportTime\": \"1994-12-14T23:42:30.750Z\",\n          \"cpuUtilizationPct\": 8295,\n          \"cpuTemperatureInfo\": [\n            {\n              \"temperatureCelsius\": 6783,\n              \"label\": \"string\"\n            },\n            {\n              \"temperatureCelsius\": 1246,\n              \"label\": \"string\"\n            }\n          ],\n          \"sampleFrequency\": \"string\"\n        }\n      ],\n      \"memoryInfo\": {\n        \"totalRamBytes\": \"string\",\n        \"availableRamBytes\": \"string\",\n        \"totalInternalStorageBytes\": \"string\"\n      },\n      \"memoryStatusReport\": [\n        {\n          \"reportTime\": \"1980-08-23T19:17:12.224Z\",\n          \"systemRamFreeBytes\": \"string\",\n          \"pageFaults\": 5255,\n          \"sampleFrequency\": \"string\"\n        },\n        {\n          \"reportTime\": \"2021-10-25T12:46:58.904Z\",\n          \"systemRamFreeBytes\": \"string\",\n          \"pageFaults\": 4934,\n          \"sampleFrequency\": \"string\"\n        }\n      ],\n      \"networkInfo\": {\n        \"networkDevices\": [\n          {\n            \"type\": \"NETWORK_DEVICE_TYPE_UNSPECIFIED\",\n            \"macAddress\": \"string\",\n            \"meid\": \"string\",\n            \"imei\": \"string\",\n            \"iccid\": \"string\",\n            \"mdn\": \"string\"\n          },\n          {\n            \"type\": \"CELLULAR\",\n            \"macAddress\": \"string\",\n            \"meid\": \"string\",\n            \"imei\": \"string\",\n            \"iccid\": \"string\",\n            \"mdn\": \"string\"\n          }\n        ]\n      },\n      \"networkStatusReport\": [\n        {\n          \"reportTime\": \"1984-09-14T17:31:46.006Z\",\n          \"connectionState\": \"NOT_CONNECTED\",\n          \"connectionType\": \"ETHERNET\",\n          \"signalStrengthDbm\": 8322,\n          \"gatewayIpAddress\": \"string\",\n          \"lanIpAddress\": \"string\",\n          \"transmissionBitRateMbps\": \"string\",\n          \"receivingBitRateMbps\": \"string\",\n          \"wifiLinkQuality\": \"string\",\n          \"wifiPowerManagementEnabled\": false,\n          \"sampleFrequency\": \"string\"\n        },\n        {\n          \"reportTime\": \"1999-08-17T03:25:08.963Z\",\n          \"connectionState\": \"CONNECTING\",\n          \"connectionType\": \"CELLULAR\",\n          \"signalStrengthDbm\": 8137,\n          \"gatewayIpAddress\": \"string\",\n          \"lanIpAddress\": \"string\",\n          \"transmissionBitRateMbps\": \"string\",\n          \"receivingBitRateMbps\": \"string\",\n          \"wifiLinkQuality\": \"string\",\n          \"wifiPowerManagementEnabled\": true,\n          \"sampleFrequency\": \"string\"\n        }\n      ],\n      \"osUpdateStatus\": [\n        {\n          \"updateState\": \"OS_UPDATE_NOT_STARTED\",\n          \"newPlatformVersion\": \"string\",\n          \"newRequestedPlatformVersion\": \"string\",\n          \"lastUpdateTime\": \"1961-06-05T15:20:00.002Z\",\n          \"lastUpdateCheckTime\": \"1986-12-04T23:59:02.257Z\",\n          \"lastRebootTime\": \"1966-10-26T06:15:59.819Z\"\n        },\n        {\n          \"updateState\": \"OS_UPDATE_DOWNLOADING\",\n          \"newPlatformVersion\": \"string\",\n          \"newRequestedPlatformVersion\": \"string\",\n          \"lastUpdateTime\": \"1999-07-22T10:29:34.187Z\",\n          \"lastUpdateCheckTime\": \"2019-11-16T12:15:20.184Z\",\n          \"lastRebootTime\": \"2014-06-20T11:54:09.519Z\"\n        }\n      ],\n      \"storageInfo\": {\n        \"totalDiskBytes\": \"string\",\n        \"availableDiskBytes\": \"string\",\n        \"volume\": [\n          {\n            \"volumeId\": \"string\",\n            \"storageTotalBytes\": \"string\",\n            \"storageFreeBytes\": \"string\"\n          },\n          {\n            \"volumeId\": \"string\",\n            \"storageTotalBytes\": \"string\",\n            \"storageFreeBytes\": \"string\"\n          }\n        ]\n      },\n      \"storageStatusReport\": [\n        {\n          \"reportTime\": \"1994-12-12T17:08:02.946Z\",\n          \"disk\": [\n            {\n              \"bytesReadThisSession\": \"string\",\n              \"bytesWrittenThisSession\": \"string\",\n              \"readTimeThisSession\": \"string\",\n              \"writeTimeThisSession\": \"string\",\n              \"ioTimeThisSession\": \"string\",\n              \"discardTimeThisSession\": \"string\",\n              \"volumeIds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"health\": \"string\"\n            },\n            {\n              \"bytesReadThisSession\": \"string\",\n              \"bytesWrittenThisSession\": \"string\",\n              \"readTimeThisSession\": \"string\",\n              \"writeTimeThisSession\": \"string\",\n              \"ioTimeThisSession\": \"string\",\n              \"discardTimeThisSession\": \"string\",\n              \"volumeIds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"health\": \"string\"\n            }\n          ]\n        },\n        {\n          \"reportTime\": \"2025-05-04T17:54:55.468Z\",\n          \"disk\": [\n            {\n              \"bytesReadThisSession\": \"string\",\n              \"bytesWrittenThisSession\": \"string\",\n              \"readTimeThisSession\": \"string\",\n              \"writeTimeThisSession\": \"string\",\n              \"ioTimeThisSession\": \"string\",\n              \"discardTimeThisSession\": \"string\",\n              \"volumeIds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"health\": \"string\"\n            },\n            {\n              \"bytesReadThisSession\": \"string\",\n              \"bytesWrittenThisSession\": \"string\",\n              \"readTimeThisSession\": \"string\",\n              \"writeTimeThisSession\": \"string\",\n              \"ioTimeThisSession\": \"string\",\n              \"discardTimeThisSession\": \"string\",\n              \"volumeIds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"health\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"batteryInfo\": [\n        {\n          \"serialNumber\": \"string\",\n          \"manufacturer\": \"string\",\n          \"designCapacity\": \"string\",\n          \"designMinVoltage\": 3421,\n          \"manufactureDate\": \"1999-12-14\",\n          \"technology\": \"string\"\n        },\n        {\n          \"serialNumber\": \"string\",\n          \"manufacturer\": \"string\",\n          \"designCapacity\": \"string\",\n          \"designMinVoltage\": 2948,\n          \"manufactureDate\": \"1971-07-09\",\n          \"technology\": \"string\"\n        }\n      ],\n      \"batteryStatusReport\": [\n        {\n          \"reportTime\": \"1969-01-26T10:24:30.521Z\",\n          \"batteryHealth\": \"BATTERY_REPLACE_SOON\",\n          \"cycleCount\": 2909,\n          \"fullChargeCapacity\": \"string\",\n          \"chargeRate\": 4040,\n          \"dischargeRate\": 6769,\n          \"voltage\": \"string\",\n          \"sample_frequency\": \"string\"\n        },\n        {\n          \"reportTime\": \"1966-12-08T02:02:44.506Z\",\n          \"batteryHealth\": \"BATTERY_REPLACE_SOON\",\n          \"cycleCount\": 2925,\n          \"fullChargeCapacity\": \"string\",\n          \"chargeRate\": 8975,\n          \"dischargeRate\": 357,\n          \"voltage\": \"string\",\n          \"sample_frequency\": \"string\"\n        }\n      ],\n      \"graphicsInfo\": {\n        \"adapterInfo\": {\n          \"adapter\": \"string\",\n          \"driverVersion\": \"string\",\n          \"deviceId\": \"string\",\n          \"vendorId\": \"string\"\n        },\n        \"displayDevices\": [\n          {\n            \"displayName\": \"string\",\n            \"displayWidthMm\": 1571,\n            \"displayHeightMm\": 1986,\n            \"internal\": true,\n            \"manufacturerId\": \"string\",\n            \"modelId\": 8370,\n            \"manufactureYear\": 3106\n          },\n          {\n            \"displayName\": \"string\",\n            \"displayWidthMm\": 8232,\n            \"displayHeightMm\": 878,\n            \"internal\": true,\n            \"manufacturerId\": \"string\",\n            \"modelId\": 7121,\n            \"manufactureYear\": 1308\n          }\n        ]\n      },\n      \"graphicsStatusReport\": [\n        {\n          \"reportTime\": \"2020-03-07T09:47:13.241Z\",\n          \"displays\": [\n            {\n              \"displayName\": \"string\",\n              \"resolutionWidth\": 1294,\n              \"resolutionHeight\": 9777,\n              \"refreshRate\": 9386\n            },\n            {\n              \"displayName\": \"string\",\n              \"resolutionWidth\": 1026,\n              \"resolutionHeight\": 3469,\n              \"refreshRate\": 4324\n            }\n          ]\n        },\n        {\n          \"reportTime\": \"1964-02-09T23:52:49.115Z\",\n          \"displays\": [\n            {\n              \"displayName\": \"string\",\n              \"resolutionWidth\": 7265,\n              \"resolutionHeight\": 8206,\n              \"refreshRate\": 6068\n            },\n            {\n              \"displayName\": \"string\",\n              \"resolutionWidth\": 4311,\n              \"resolutionHeight\": 7226,\n              \"refreshRate\": 6384\n            }\n          ]\n        }\n      ],\n      \"audioStatusReport\": [\n        {\n          \"reportTime\": \"1955-08-23T02:30:59.185Z\",\n          \"inputMute\": false,\n          \"outputMute\": false,\n          \"inputGain\": 3541,\n          \"outputVolume\": 834,\n          \"inputDevice\": \"string\",\n          \"outputDevice\": \"string\"\n        },\n        {\n          \"reportTime\": \"1986-09-19T10:04:38.018Z\",\n          \"inputMute\": true,\n          \"outputMute\": false,\n          \"inputGain\": 8358,\n          \"outputVolume\": 9364,\n          \"inputDevice\": \"string\",\n          \"outputDevice\": \"string\"\n        }\n      ],\n      \"peripheralsReport\": [\n        {\n          \"reportTime\": \"2024-12-12T14:15:16.394Z\",\n          \"usbPeripheralReport\": [\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 6570,\n              \"vid\": 2480,\n              \"categories\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"firmwareVersion\": \"string\"\n            },\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 9929,\n              \"vid\": 9982,\n              \"categories\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"firmwareVersion\": \"string\"\n            }\n          ]\n        },\n        {\n          \"reportTime\": \"1965-03-28T13:30:36.776Z\",\n          \"usbPeripheralReport\": [\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 3703,\n              \"vid\": 7901,\n              \"categories\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"firmwareVersion\": \"string\"\n            },\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 3262,\n              \"vid\": 8341,\n              \"categories\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"firmwareVersion\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"bootPerformanceReport\": [\n        {\n          \"reportTime\": \"1999-06-24T12:01:03.830Z\",\n          \"bootUpDuration\": \"string\",\n          \"bootUpTime\": \"2022-04-05T23:07:37.597Z\",\n          \"shutdownDuration\": \"string\",\n          \"shutdownTime\": \"1970-01-10T21:19:07.734Z\",\n          \"shutdownReason\": \"LOW_BATTERY\"\n        },\n        {\n          \"reportTime\": \"2014-10-21T01:10:45.828Z\",\n          \"bootUpDuration\": \"string\",\n          \"bootUpTime\": \"1982-03-30T14:14:21.547Z\",\n          \"shutdownDuration\": \"string\",\n          \"shutdownTime\": \"2025-06-30T15:40:44.197Z\",\n          \"shutdownReason\": \"LOW_BATTERY\"\n        }\n      ],\n      \"heartbeatStatusReport\": [\n        {\n          \"reportTime\": \"2023-10-28T11:19:49.429Z\",\n          \"state\": \"ONLINE\"\n        },\n        {\n          \"reportTime\": \"2017-01-10T11:33:21.012Z\",\n          \"state\": \"STATE_UNSPECIFIED\"\n        }\n      ],\n      \"networkDiagnosticsReport\": [\n        {\n          \"reportTime\": \"1985-10-10T17:01:47.090Z\",\n          \"httpsLatencyData\": {\n            \"latency\": \"string\",\n            \"problem\": \"FAILED_CONNECTIONS\"\n          }\n        },\n        {\n          \"reportTime\": \"2011-10-16T17:37:03.036Z\",\n          \"httpsLatencyData\": {\n            \"latency\": \"string\",\n            \"problem\": \"FAILED_CONNECTIONS\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\": \"string\",\n      \"customer\": \"string\",\n      \"orgUnitId\": \"string\",\n      \"deviceId\": \"string\",\n      \"serialNumber\": \"string\",\n      \"cpuInfo\": [\n        {\n          \"model\": \"string\",\n          \"architecture\": \"X86_64\",\n          \"maxClockSpeed\": 660,\n          \"keylockerSupported\": true,\n          \"keylockerConfigured\": false\n        },\n        {\n          \"model\": \"string\",\n          \"architecture\": \"ARCHITECTURE_UNSPECIFIED\",\n          \"maxClockSpeed\": 9216,\n          \"keylockerSupported\": true,\n          \"keylockerConfigured\": true\n        }\n      ],\n      \"cpuStatusReport\": [\n        {\n          \"reportTime\": \"2008-02-06T23:57:27.353Z\",\n          \"cpuUtilizationPct\": 7588,\n          \"cpuTemperatureInfo\": [\n            {\n              \"temperatureCelsius\": 3762,\n              \"label\": \"string\"\n            },\n            {\n              \"temperatureCelsius\": 3140,\n              \"label\": \"string\"\n            }\n          ],\n          \"sampleFrequency\": \"string\"\n        },\n        {\n          \"reportTime\": \"1968-03-29T17:12:11.946Z\",\n          \"cpuUtilizationPct\": 1261,\n          \"cpuTemperatureInfo\": [\n            {\n              \"temperatureCelsius\": 3665,\n              \"label\": \"string\"\n            },\n            {\n              \"temperatureCelsius\": 6764,\n              \"label\": \"string\"\n            }\n          ],\n          \"sampleFrequency\": \"string\"\n        }\n      ],\n      \"memoryInfo\": {\n        \"totalRamBytes\": \"string\",\n        \"availableRamBytes\": \"string\",\n        \"totalInternalStorageBytes\": \"string\"\n      },\n      \"memoryStatusReport\": [\n        {\n          \"reportTime\": \"2005-03-17T12:22:08.855Z\",\n          \"systemRamFreeBytes\": \"string\",\n          \"pageFaults\": 8155,\n          \"sampleFrequency\": \"string\"\n        },\n        {\n          \"reportTime\": \"2012-01-07T04:44:46.103Z\",\n          \"systemRamFreeBytes\": \"string\",\n          \"pageFaults\": 2700,\n          \"sampleFrequency\": \"string\"\n        }\n      ],\n      \"networkInfo\": {\n        \"networkDevices\": [\n          {\n            \"type\": \"WIFI\",\n            \"macAddress\": \"string\",\n            \"meid\": \"string\",\n            \"imei\": \"string\",\n            \"iccid\": \"string\",\n            \"mdn\": \"string\"\n          },\n          {\n            \"type\": \"CELLULAR\",\n            \"macAddress\": \"string\",\n            \"meid\": \"string\",\n            \"imei\": \"string\",\n            \"iccid\": \"string\",\n            \"mdn\": \"string\"\n          }\n        ]\n      },\n      \"networkStatusReport\": [\n        {\n          \"reportTime\": \"1950-09-12T06:39:57.652Z\",\n          \"connectionState\": \"PORTAL\",\n          \"connectionType\": \"WIFI\",\n          \"signalStrengthDbm\": 3239,\n          \"gatewayIpAddress\": \"string\",\n          \"lanIpAddress\": \"string\",\n          \"transmissionBitRateMbps\": \"string\",\n          \"receivingBitRateMbps\": \"string\",\n          \"wifiLinkQuality\": \"string\",\n          \"wifiPowerManagementEnabled\": true,\n          \"sampleFrequency\": \"string\"\n        },\n        {\n          \"reportTime\": \"1996-03-21T12:25:25.763Z\",\n          \"connectionState\": \"CONNECTING\",\n          \"connectionType\": \"WIFI\",\n          \"signalStrengthDbm\": 5038,\n          \"gatewayIpAddress\": \"string\",\n          \"lanIpAddress\": \"string\",\n          \"transmissionBitRateMbps\": \"string\",\n          \"receivingBitRateMbps\": \"string\",\n          \"wifiLinkQuality\": \"string\",\n          \"wifiPowerManagementEnabled\": true,\n          \"sampleFrequency\": \"string\"\n        }\n      ],\n      \"osUpdateStatus\": [\n        {\n          \"updateState\": \"OS_UPDATE_NOT_STARTED\",\n          \"newPlatformVersion\": \"string\",\n          \"newRequestedPlatformVersion\": \"string\",\n          \"lastUpdateTime\": \"2001-10-04T22:17:53.621Z\",\n          \"lastUpdateCheckTime\": \"1955-02-12T05:36:55.065Z\",\n          \"lastRebootTime\": \"2003-05-11T20:43:08.168Z\"\n        },\n        {\n          \"updateState\": \"OS_UPDATE_NOT_STARTED\",\n          \"newPlatformVersion\": \"string\",\n          \"newRequestedPlatformVersion\": \"string\",\n          \"lastUpdateTime\": \"1995-09-01T02:56:13.892Z\",\n          \"lastUpdateCheckTime\": \"1989-07-20T00:15:09.579Z\",\n          \"lastRebootTime\": \"1997-03-17T14:02:33.480Z\"\n        }\n      ],\n      \"storageInfo\": {\n        \"totalDiskBytes\": \"string\",\n        \"availableDiskBytes\": \"string\",\n        \"volume\": [\n          {\n            \"volumeId\": \"string\",\n            \"storageTotalBytes\": \"string\",\n            \"storageFreeBytes\": \"string\"\n          },\n          {\n            \"volumeId\": \"string\",\n            \"storageTotalBytes\": \"string\",\n            \"storageFreeBytes\": \"string\"\n          }\n        ]\n      },\n      \"storageStatusReport\": [\n        {\n          \"reportTime\": \"1970-11-13T08:25:57.387Z\",\n          \"disk\": [\n            {\n              \"bytesReadThisSession\": \"string\",\n              \"bytesWrittenThisSession\": \"string\",\n              \"readTimeThisSession\": \"string\",\n              \"writeTimeThisSession\": \"string\",\n              \"ioTimeThisSession\": \"string\",\n              \"discardTimeThisSession\": \"string\",\n              \"volumeIds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"health\": \"string\"\n            },\n            {\n              \"bytesReadThisSession\": \"string\",\n              \"bytesWrittenThisSession\": \"string\",\n              \"readTimeThisSession\": \"string\",\n              \"writeTimeThisSession\": \"string\",\n              \"ioTimeThisSession\": \"string\",\n              \"discardTimeThisSession\": \"string\",\n              \"volumeIds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"health\": \"string\"\n            }\n          ]\n        },\n        {\n          \"reportTime\": \"1980-07-10T00:19:24.387Z\",\n          \"disk\": [\n            {\n              \"bytesReadThisSession\": \"string\",\n              \"bytesWrittenThisSession\": \"string\",\n              \"readTimeThisSession\": \"string\",\n              \"writeTimeThisSession\": \"string\",\n              \"ioTimeThisSession\": \"string\",\n              \"discardTimeThisSession\": \"string\",\n              \"volumeIds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"health\": \"string\"\n            },\n            {\n              \"bytesReadThisSession\": \"string\",\n              \"bytesWrittenThisSession\": \"string\",\n              \"readTimeThisSession\": \"string\",\n              \"writeTimeThisSession\": \"string\",\n              \"ioTimeThisSession\": \"string\",\n              \"discardTimeThisSession\": \"string\",\n              \"volumeIds\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"health\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"batteryInfo\": [\n        {\n          \"serialNumber\": \"string\",\n          \"manufacturer\": \"string\",\n          \"designCapacity\": \"string\",\n          \"designMinVoltage\": 6295,\n          \"manufactureDate\": \"1998-05-26\",\n          \"technology\": \"string\"\n        },\n        {\n          \"serialNumber\": \"string\",\n          \"manufacturer\": \"string\",\n          \"designCapacity\": \"string\",\n          \"designMinVoltage\": 2239,\n          \"manufactureDate\": \"1993-02-05\",\n          \"technology\": \"string\"\n        }\n      ],\n      \"batteryStatusReport\": [\n        {\n          \"reportTime\": \"1991-05-27T08:20:13.636Z\",\n          \"batteryHealth\": \"BATTERY_REPLACE_NOW\",\n          \"cycleCount\": 6243,\n          \"fullChargeCapacity\": \"string\",\n          \"chargeRate\": 1441,\n          \"dischargeRate\": 8743,\n          \"voltage\": \"string\",\n          \"sample_frequency\": \"string\"\n        },\n        {\n          \"reportTime\": \"1984-07-13T20:51:28.268Z\",\n          \"batteryHealth\": \"BATTERY_HEALTH_NORMAL\",\n          \"cycleCount\": 8048,\n          \"fullChargeCapacity\": \"string\",\n          \"chargeRate\": 1660,\n          \"dischargeRate\": 7808,\n          \"voltage\": \"string\",\n          \"sample_frequency\": \"string\"\n        }\n      ],\n      \"graphicsInfo\": {\n        \"adapterInfo\": {\n          \"adapter\": \"string\",\n          \"driverVersion\": \"string\",\n          \"deviceId\": \"string\",\n          \"vendorId\": \"string\"\n        },\n        \"displayDevices\": [\n          {\n            \"displayName\": \"string\",\n            \"displayWidthMm\": 5541,\n            \"displayHeightMm\": 5503,\n            \"internal\": true,\n            \"manufacturerId\": \"string\",\n            \"modelId\": 1804,\n            \"manufactureYear\": 6071\n          },\n          {\n            \"displayName\": \"string\",\n            \"displayWidthMm\": 4191,\n            \"displayHeightMm\": 2130,\n            \"internal\": true,\n            \"manufacturerId\": \"string\",\n            \"modelId\": 6938,\n            \"manufactureYear\": 3093\n          }\n        ]\n      },\n      \"graphicsStatusReport\": [\n        {\n          \"reportTime\": \"1971-07-01T05:39:01.524Z\",\n          \"displays\": [\n            {\n              \"displayName\": \"string\",\n              \"resolutionWidth\": 6587,\n              \"resolutionHeight\": 5850,\n              \"refreshRate\": 5786\n            },\n            {\n              \"displayName\": \"string\",\n              \"resolutionWidth\": 5885,\n              \"resolutionHeight\": 8852,\n              \"refreshRate\": 7179\n            }\n          ]\n        },\n        {\n          \"reportTime\": \"1994-02-22T20:42:57.450Z\",\n          \"displays\": [\n            {\n              \"displayName\": \"string\",\n              \"resolutionWidth\": 9206,\n              \"resolutionHeight\": 5587,\n              \"refreshRate\": 1095\n            },\n            {\n              \"displayName\": \"string\",\n              \"resolutionWidth\": 5250,\n              \"resolutionHeight\": 4013,\n              \"refreshRate\": 3511\n            }\n          ]\n        }\n      ],\n      \"audioStatusReport\": [\n        {\n          \"reportTime\": \"2001-06-07T19:23:05.178Z\",\n          \"inputMute\": true,\n          \"outputMute\": false,\n          \"inputGain\": 4910,\n          \"outputVolume\": 5098,\n          \"inputDevice\": \"string\",\n          \"outputDevice\": \"string\"\n        },\n        {\n          \"reportTime\": \"1988-10-15T01:33:03.214Z\",\n          \"inputMute\": false,\n          \"outputMute\": false,\n          \"inputGain\": 6637,\n          \"outputVolume\": 9267,\n          \"inputDevice\": \"string\",\n          \"outputDevice\": \"string\"\n        }\n      ],\n      \"peripheralsReport\": [\n        {\n          \"reportTime\": \"1957-08-20T11:05:41.269Z\",\n          \"usbPeripheralReport\": [\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 593,\n              \"vid\": 8059,\n              \"categories\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"firmwareVersion\": \"string\"\n            },\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 4035,\n              \"vid\": 5475,\n              \"categories\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"firmwareVersion\": \"string\"\n            }\n          ]\n        },\n        {\n          \"reportTime\": \"1999-09-28T12:55:55.787Z\",\n          \"usbPeripheralReport\": [\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 6611,\n              \"vid\": 4529,\n              \"categories\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"firmwareVersion\": \"string\"\n            },\n            {\n              \"vendor\": \"string\",\n              \"name\": \"string\",\n              \"pid\": 9454,\n              \"vid\": 5262,\n              \"categories\": [\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              ],\n              \"firmwareVersion\": \"string\"\n            }\n          ]\n        }\n      ],\n      \"bootPerformanceReport\": [\n        {\n          \"reportTime\": \"2023-11-06T21:36:55.408Z\",\n          \"bootUpDuration\": \"string\",\n          \"bootUpTime\": \"2002-07-26T00:59:57.345Z\",\n          \"shutdownDuration\": \"string\",\n          \"shutdownTime\": \"1966-03-24T11:42:28.417Z\",\n          \"shutdownReason\": \"USER_REQUEST\"\n        },\n        {\n          \"reportTime\": \"1963-12-31T19:25:21.089Z\",\n          \"bootUpDuration\": \"string\",\n          \"bootUpTime\": \"1962-01-25T02:53:33.224Z\",\n          \"shutdownDuration\": \"string\",\n          \"shutdownTime\": \"1955-02-11T08:25:56.448Z\",\n          \"shutdownReason\": \"OTHER\"\n        }\n      ],\n      \"heartbeatStatusReport\": [\n        {\n          \"reportTime\": \"1995-04-22T07:22:17.264Z\",\n          \"state\": \"ONLINE\"\n        },\n        {\n          \"reportTime\": \"2013-06-22T21:41:39.753Z\",\n          \"state\": \"STATE_UNSPECIFIED\"\n        }\n      ],\n      \"networkDiagnosticsReport\": [\n        {\n          \"reportTime\": \"2005-10-09T12:27:51.693Z\",\n          \"httpsLatencyData\": {\n            \"latency\": \"string\",\n            \"problem\": \"FAILED_DNS_RESOLUTIONS\"\n          }\n        },\n        {\n          \"reportTime\": \"1963-11-02T12:57:15.741Z\",\n          \"httpsLatencyData\": {\n            \"latency\": \"string\",\n            \"problem\": \"FAILED_HTTPS_REQUESTS\"\n          }\n        }\n      ]\n    }\n  ],\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55aa8bb0-6c29-4ec1-8559-d6b61336ae3e",
+              "name": "The request was invalid. Check the filter syntax, field names, and parameter values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5259,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 8306,\n      \"key_1\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1410a0da-cd0f-4f71-a5bf-a6845a956bb6",
+              "name": "The request lacks valid authentication credentials. Ensure a valid OAuth 2.0 access token is provided.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5259,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 8306,\n      \"key_1\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73ade35d-5851-4963-b516-85959db7de2e",
+              "name": "The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "devices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5259,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 8306,\n      \"key_1\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3b0fbb8f-c2b5-4a85-bc22-1f37b46b7624",
+          "name": "Get a telemetry device",
+          "request": {
+            "name": "Get a telemetry device",
+            "description": {
+              "content": "Retrieves a single telemetry device by its resource name. Returns detailed telemetry data for the specified managed ChromeOS device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "telemetry",
+                "devices",
+                ":deviceId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "readMask",
+                  "value": "<string>",
+                  "description": "Fields to include in the response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deviceId",
+                  "description": "(Required) Unique identifier of the telemetry device."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "339cc415-4849-4b48-8a7e-f17162267e8b",
+              "name": "Successful response with the telemetry device",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier of the telemetry device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"customer\": \"string\",\n  \"orgUnitId\": \"string\",\n  \"deviceId\": \"string\",\n  \"serialNumber\": \"string\",\n  \"cpuInfo\": [\n    {\n      \"model\": \"string\",\n      \"architecture\": \"X86_64\",\n      \"maxClockSpeed\": 7075,\n      \"keylockerSupported\": true,\n      \"keylockerConfigured\": true\n    },\n    {\n      \"model\": \"string\",\n      \"architecture\": \"X86_64\",\n      \"maxClockSpeed\": 6299,\n      \"keylockerSupported\": false,\n      \"keylockerConfigured\": false\n    }\n  ],\n  \"cpuStatusReport\": [\n    {\n      \"reportTime\": \"1953-10-04T09:23:46.365Z\",\n      \"cpuUtilizationPct\": 7013,\n      \"cpuTemperatureInfo\": [\n        {\n          \"temperatureCelsius\": 7697,\n          \"label\": \"string\"\n        },\n        {\n          \"temperatureCelsius\": 3475,\n          \"label\": \"string\"\n        }\n      ],\n      \"sampleFrequency\": \"string\"\n    },\n    {\n      \"reportTime\": \"1993-06-24T11:32:49.852Z\",\n      \"cpuUtilizationPct\": 4458,\n      \"cpuTemperatureInfo\": [\n        {\n          \"temperatureCelsius\": 2530,\n          \"label\": \"string\"\n        },\n        {\n          \"temperatureCelsius\": 6397,\n          \"label\": \"string\"\n        }\n      ],\n      \"sampleFrequency\": \"string\"\n    }\n  ],\n  \"memoryInfo\": {\n    \"totalRamBytes\": \"string\",\n    \"availableRamBytes\": \"string\",\n    \"totalInternalStorageBytes\": \"string\"\n  },\n  \"memoryStatusReport\": [\n    {\n      \"reportTime\": \"2010-12-29T20:25:57.509Z\",\n      \"systemRamFreeBytes\": \"string\",\n      \"pageFaults\": 9983,\n      \"sampleFrequency\": \"string\"\n    },\n    {\n      \"reportTime\": \"1963-04-11T22:04:19.049Z\",\n      \"systemRamFreeBytes\": \"string\",\n      \"pageFaults\": 7770,\n      \"sampleFrequency\": \"string\"\n    }\n  ],\n  \"networkInfo\": {\n    \"networkDevices\": [\n      {\n        \"type\": \"CELLULAR\",\n        \"macAddress\": \"string\",\n        \"meid\": \"string\",\n        \"imei\": \"string\",\n        \"iccid\": \"string\",\n        \"mdn\": \"string\"\n      },\n      {\n        \"type\": \"ETHERNET\",\n        \"macAddress\": \"string\",\n        \"meid\": \"string\",\n        \"imei\": \"string\",\n        \"iccid\": \"string\",\n        \"mdn\": \"string\"\n      }\n    ]\n  },\n  \"networkStatusReport\": [\n    {\n      \"reportTime\": \"1949-01-07T22:00:40.729Z\",\n      \"connectionState\": \"ONLINE\",\n      \"connectionType\": \"ETHERNET\",\n      \"signalStrengthDbm\": 7804,\n      \"gatewayIpAddress\": \"string\",\n      \"lanIpAddress\": \"string\",\n      \"transmissionBitRateMbps\": \"string\",\n      \"receivingBitRateMbps\": \"string\",\n      \"wifiLinkQuality\": \"string\",\n      \"wifiPowerManagementEnabled\": false,\n      \"sampleFrequency\": \"string\"\n    },\n    {\n      \"reportTime\": \"2013-05-08T03:32:39.243Z\",\n      \"connectionState\": \"PORTAL\",\n      \"connectionType\": \"NETWORK_TYPE_UNSPECIFIED\",\n      \"signalStrengthDbm\": 9217,\n      \"gatewayIpAddress\": \"string\",\n      \"lanIpAddress\": \"string\",\n      \"transmissionBitRateMbps\": \"string\",\n      \"receivingBitRateMbps\": \"string\",\n      \"wifiLinkQuality\": \"string\",\n      \"wifiPowerManagementEnabled\": false,\n      \"sampleFrequency\": \"string\"\n    }\n  ],\n  \"osUpdateStatus\": [\n    {\n      \"updateState\": \"OS_UPDATE_UPDATE_AVAILABLE\",\n      \"newPlatformVersion\": \"string\",\n      \"newRequestedPlatformVersion\": \"string\",\n      \"lastUpdateTime\": \"1985-01-03T02:45:46.351Z\",\n      \"lastUpdateCheckTime\": \"2023-01-02T15:29:42.356Z\",\n      \"lastRebootTime\": \"1987-05-19T22:47:11.963Z\"\n    },\n    {\n      \"updateState\": \"OS_UPDATE_DOWNLOADING\",\n      \"newPlatformVersion\": \"string\",\n      \"newRequestedPlatformVersion\": \"string\",\n      \"lastUpdateTime\": \"1956-08-05T11:58:59.581Z\",\n      \"lastUpdateCheckTime\": \"1975-06-29T23:05:13.382Z\",\n      \"lastRebootTime\": \"2024-12-24T18:22:54.102Z\"\n    }\n  ],\n  \"storageInfo\": {\n    \"totalDiskBytes\": \"string\",\n    \"availableDiskBytes\": \"string\",\n    \"volume\": [\n      {\n        \"volumeId\": \"string\",\n        \"storageTotalBytes\": \"string\",\n        \"storageFreeBytes\": \"string\"\n      },\n      {\n        \"volumeId\": \"string\",\n        \"storageTotalBytes\": \"string\",\n        \"storageFreeBytes\": \"string\"\n      }\n    ]\n  },\n  \"storageStatusReport\": [\n    {\n      \"reportTime\": \"1962-12-10T06:19:17.933Z\",\n      \"disk\": [\n        {\n          \"bytesReadThisSession\": \"string\",\n          \"bytesWrittenThisSession\": \"string\",\n          \"readTimeThisSession\": \"string\",\n          \"writeTimeThisSession\": \"string\",\n          \"ioTimeThisSession\": \"string\",\n          \"discardTimeThisSession\": \"string\",\n          \"volumeIds\": [\n            \"string\",\n            \"string\"\n          ],\n          \"health\": \"string\"\n        },\n        {\n          \"bytesReadThisSession\": \"string\",\n          \"bytesWrittenThisSession\": \"string\",\n          \"readTimeThisSession\": \"string\",\n          \"writeTimeThisSession\": \"string\",\n          \"ioTimeThisSession\": \"string\",\n          \"discardTimeThisSession\": \"string\",\n          \"volumeIds\": [\n            \"string\",\n            \"string\"\n          ],\n          \"health\": \"string\"\n        }\n      ]\n    },\n    {\n      \"reportTime\": \"1980-07-29T16:28:31.505Z\",\n      \"disk\": [\n        {\n          \"bytesReadThisSession\": \"string\",\n          \"bytesWrittenThisSession\": \"string\",\n          \"readTimeThisSession\": \"string\",\n          \"writeTimeThisSession\": \"string\",\n          \"ioTimeThisSession\": \"string\",\n          \"discardTimeThisSession\": \"string\",\n          \"volumeIds\": [\n            \"string\",\n            \"string\"\n          ],\n          \"health\": \"string\"\n        },\n        {\n          \"bytesReadThisSession\": \"string\",\n          \"bytesWrittenThisSession\": \"string\",\n          \"readTimeThisSession\": \"string\",\n          \"writeTimeThisSession\": \"string\",\n          \"ioTimeThisSession\": \"string\",\n          \"discardTimeThisSession\": \"string\",\n          \"volumeIds\": [\n            \"string\",\n            \"string\"\n          ],\n          \"health\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"batteryInfo\": [\n    {\n      \"serialNumber\": \"string\",\n      \"manufacturer\": \"string\",\n      \"designCapacity\": \"string\",\n      \"designMinVoltage\": 673,\n      \"manufactureDate\": \"1977-01-24\",\n      \"technology\": \"string\"\n    },\n    {\n      \"serialNumber\": \"string\",\n      \"manufacturer\": \"string\",\n      \"designCapacity\": \"string\",\n      \"designMinVoltage\": 1185,\n      \"manufactureDate\": \"2007-02-26\",\n      \"technology\": \"string\"\n    }\n  ],\n  \"batteryStatusReport\": [\n    {\n      \"reportTime\": \"1980-04-04T21:52:56.859Z\",\n      \"batteryHealth\": \"BATTERY_HEALTH_UNSPECIFIED\",\n      \"cycleCount\": 4230,\n      \"fullChargeCapacity\": \"string\",\n      \"chargeRate\": 6695,\n      \"dischargeRate\": 489,\n      \"voltage\": \"string\",\n      \"sample_frequency\": \"string\"\n    },\n    {\n      \"reportTime\": \"1948-03-02T22:15:20.937Z\",\n      \"batteryHealth\": \"BATTERY_HEALTH_UNSPECIFIED\",\n      \"cycleCount\": 72,\n      \"fullChargeCapacity\": \"string\",\n      \"chargeRate\": 2869,\n      \"dischargeRate\": 9468,\n      \"voltage\": \"string\",\n      \"sample_frequency\": \"string\"\n    }\n  ],\n  \"graphicsInfo\": {\n    \"adapterInfo\": {\n      \"adapter\": \"string\",\n      \"driverVersion\": \"string\",\n      \"deviceId\": \"string\",\n      \"vendorId\": \"string\"\n    },\n    \"displayDevices\": [\n      {\n        \"displayName\": \"string\",\n        \"displayWidthMm\": 7009,\n        \"displayHeightMm\": 5396,\n        \"internal\": false,\n        \"manufacturerId\": \"string\",\n        \"modelId\": 7071,\n        \"manufactureYear\": 8809\n      },\n      {\n        \"displayName\": \"string\",\n        \"displayWidthMm\": 3552,\n        \"displayHeightMm\": 3728,\n        \"internal\": false,\n        \"manufacturerId\": \"string\",\n        \"modelId\": 2807,\n        \"manufactureYear\": 2587\n      }\n    ]\n  },\n  \"graphicsStatusReport\": [\n    {\n      \"reportTime\": \"1982-08-28T04:20:08.384Z\",\n      \"displays\": [\n        {\n          \"displayName\": \"string\",\n          \"resolutionWidth\": 1815,\n          \"resolutionHeight\": 5624,\n          \"refreshRate\": 7570\n        },\n        {\n          \"displayName\": \"string\",\n          \"resolutionWidth\": 1544,\n          \"resolutionHeight\": 1649,\n          \"refreshRate\": 8049\n        }\n      ]\n    },\n    {\n      \"reportTime\": \"1985-10-06T22:22:49.414Z\",\n      \"displays\": [\n        {\n          \"displayName\": \"string\",\n          \"resolutionWidth\": 9107,\n          \"resolutionHeight\": 1128,\n          \"refreshRate\": 5869\n        },\n        {\n          \"displayName\": \"string\",\n          \"resolutionWidth\": 2568,\n          \"resolutionHeight\": 733,\n          \"refreshRate\": 6309\n        }\n      ]\n    }\n  ],\n  \"audioStatusReport\": [\n    {\n      \"reportTime\": \"1982-03-30T22:41:43.524Z\",\n      \"inputMute\": true,\n      \"outputMute\": false,\n      \"inputGain\": 8793,\n      \"outputVolume\": 4332,\n      \"inputDevice\": \"string\",\n      \"outputDevice\": \"string\"\n    },\n    {\n      \"reportTime\": \"1975-05-27T02:08:16.468Z\",\n      \"inputMute\": false,\n      \"outputMute\": true,\n      \"inputGain\": 7048,\n      \"outputVolume\": 527,\n      \"inputDevice\": \"string\",\n      \"outputDevice\": \"string\"\n    }\n  ],\n  \"peripheralsReport\": [\n    {\n      \"reportTime\": \"1979-08-25T20:21:14.063Z\",\n      \"usbPeripheralReport\": [\n        {\n          \"vendor\": \"string\",\n          \"name\": \"string\",\n          \"pid\": 5466,\n          \"vid\": 8779,\n          \"categories\": [\n            \"string\",\n            \"string\"\n          ],\n          \"firmwareVersion\": \"string\"\n        },\n        {\n          \"vendor\": \"string\",\n          \"name\": \"string\",\n          \"pid\": 29,\n          \"vid\": 7168,\n          \"categories\": [\n            \"string\",\n            \"string\"\n          ],\n          \"firmwareVersion\": \"string\"\n        }\n      ]\n    },\n    {\n      \"reportTime\": \"2018-03-20T14:17:54.753Z\",\n      \"usbPeripheralReport\": [\n        {\n          \"vendor\": \"string\",\n          \"name\": \"string\",\n          \"pid\": 330,\n          \"vid\": 6049,\n          \"categories\": [\n            \"string\",\n            \"string\"\n          ],\n          \"firmwareVersion\": \"string\"\n        },\n        {\n          \"vendor\": \"string\",\n          \"name\": \"string\",\n          \"pid\": 6883,\n          \"vid\": 8857,\n          \"categories\": [\n            \"string\",\n            \"string\"\n          ],\n          \"firmwareVersion\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"bootPerformanceReport\": [\n    {\n      \"reportTime\": \"1985-12-31T23:27:24.141Z\",\n      \"bootUpDuration\": \"string\",\n      \"bootUpTime\": \"2017-11-22T23:55:28.682Z\",\n      \"shutdownDuration\": \"string\",\n      \"shutdownTime\": \"2000-09-05T23:26:17.968Z\",\n      \"shutdownReason\": \"SYSTEM_UPDATE\"\n    },\n    {\n      \"reportTime\": \"1957-06-12T15:01:31.773Z\",\n      \"bootUpDuration\": \"string\",\n      \"bootUpTime\": \"1956-06-05T04:12:31.611Z\",\n      \"shutdownDuration\": \"string\",\n      \"shutdownTime\": \"2005-03-31T13:41:17.238Z\",\n      \"shutdownReason\": \"SYSTEM_UPDATE\"\n    }\n  ],\n  \"heartbeatStatusReport\": [\n    {\n      \"reportTime\": \"1968-05-10T05:28:27.596Z\",\n      \"state\": \"UNKNOWN\"\n    },\n    {\n      \"reportTime\": \"2010-01-14T20:20:28.818Z\",\n      \"state\": \"ONLINE\"\n    }\n  ],\n  \"networkDiagnosticsReport\": [\n    {\n      \"reportTime\": \"1980-11-19T21:32:01.063Z\",\n      \"httpsLatencyData\": {\n        \"latency\": \"string\",\n        \"problem\": \"HTTPS_LATENCY_PROBLEM_UNSPECIFIED\"\n      }\n    },\n    {\n      \"reportTime\": \"1956-12-28T01:41:31.027Z\",\n      \"httpsLatencyData\": {\n        \"latency\": \"string\",\n        \"problem\": \"FAILED_HTTPS_REQUESTS\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a50552b-db28-4fef-8ff1-f0036adf02d3",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "devices",
+                    ":deviceId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deviceId",
+                      "description": "(Required) Unique identifier of the telemetry device."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5259,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 8306,\n      \"key_1\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://chromemanagement.googleapis.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/chrome.management.reports.readonly https://www.googleapis.com/auth/chrome.management.telemetry.readonly https://www.googleapis.com/auth/chrome.management.appdetails.readonly"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/v2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "da8ab469-30ae-4df6-aadb-b22ee953b73d",
+    "name": "Google Chrome Management App Details Telemetry Devices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.\n\nContact Support:\n Name: Google Chrome Enterprise Support",
+      "type": "text/plain"
+    }
+  }
+}

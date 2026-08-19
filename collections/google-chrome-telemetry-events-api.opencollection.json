@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Chrome Management App Details Telemetry Events API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Telemetry Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List telemetry events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/events",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Maximum value is 1000."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token to specify next page in the result set."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter to restrict results. Supports filtering by event type, device, user, and timestamp."
+              },
+              {
+                "name": "readMask",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response. Supported event types: audioSevereUnderrunEvent, usbPeripheralsEvent, networkStateChangeEvent, httpsLatencyChangeEvent, wifiSignalStrengthEvent, vpnConnectionStateChangeEvent, appInstallEvent, appUninstallEvent, appLaunchEvent."
+              }
+            ]
+          },
+          "docs": "Lists telemetry events for a customer. Events include USB peripherals added or removed, audio severe underrun, network state changes, hardware status changes, and other device-level events. Events are retained for a limited time."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

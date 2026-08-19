@@ -1,0 +1,536 @@
+{
+  "item": [
+    {
+      "id": "add35998-80b2-4b21-bbc0-79f0064856f0",
+      "name": "Telemetry Notification Configs",
+      "description": {
+        "content": "Operations for managing telemetry notification configurations that enable push notifications for telemetry events.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c8eb39d8-2166-43a8-9813-28acd77bc29e",
+          "name": "List telemetry notification configs",
+          "request": {
+            "name": "List telemetry notification configs",
+            "description": {
+              "content": "Lists all telemetry notification configurations for a customer. Notification configs define which telemetry events trigger push notifications to the specified Google Cloud Pub/Sub topic.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "telemetry",
+                "notificationConfigs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Token to specify next page in the result set."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3fdbb3b0-6890-4b05-a74e-58f4a4026f02",
+              "name": "Successful response with list of notification configs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "notificationConfigs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"telemetryNotificationConfigs\": [\n    {\n      \"name\": \"string\",\n      \"customer\": \"string\",\n      \"filter\": {\n        \"deviceId\": \"string\",\n        \"deviceOrgUnitId\": \"string\",\n        \"userEmail\": \"string\",\n        \"userOrgUnitId\": \"string\",\n        \"telemetryEventNotificationFilter\": {\n          \"eventTypes\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"googleCloudPubsubTopic\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"customer\": \"string\",\n      \"filter\": {\n        \"deviceId\": \"string\",\n        \"deviceOrgUnitId\": \"string\",\n        \"userEmail\": \"string\",\n        \"userOrgUnitId\": \"string\",\n        \"telemetryEventNotificationFilter\": {\n          \"eventTypes\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"googleCloudPubsubTopic\": \"string\"\n    }\n  ],\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09406a5b-50a0-4239-b7af-6f6161ebe62a",
+          "name": "Create a telemetry notification config",
+          "request": {
+            "name": "Create a telemetry notification config",
+            "description": {
+              "content": "Creates a telemetry notification configuration for a customer. The configuration specifies which telemetry events trigger push notifications and the Google Cloud Pub/Sub topic to deliver them to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "telemetry",
+                "notificationConfigs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"customer\": \"<string>\",\n  \"filter\": {\n    \"deviceId\": \"<string>\",\n    \"deviceOrgUnitId\": \"<string>\",\n    \"userEmail\": \"<string>\",\n    \"userOrgUnitId\": \"<string>\",\n    \"telemetryEventNotificationFilter\": {\n      \"eventTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"googleCloudPubsubTopic\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8fcb9c46-8950-4724-bedc-f868538fc4db",
+              "name": "Successfully created notification config",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "notificationConfigs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"customer\": \"<string>\",\n  \"filter\": {\n    \"deviceId\": \"<string>\",\n    \"deviceOrgUnitId\": \"<string>\",\n    \"userEmail\": \"<string>\",\n    \"userOrgUnitId\": \"<string>\",\n    \"telemetryEventNotificationFilter\": {\n      \"eventTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"googleCloudPubsubTopic\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"customer\": \"string\",\n  \"filter\": {\n    \"deviceId\": \"string\",\n    \"deviceOrgUnitId\": \"string\",\n    \"userEmail\": \"string\",\n    \"userOrgUnitId\": \"string\",\n    \"telemetryEventNotificationFilter\": {\n      \"eventTypes\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"googleCloudPubsubTopic\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "192891c9-fc34-4dcd-82a2-7278f4e2ec18",
+              "name": "The request was invalid. Check the filter syntax, field names, and parameter values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "notificationConfigs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"customer\": \"<string>\",\n  \"filter\": {\n    \"deviceId\": \"<string>\",\n    \"deviceOrgUnitId\": \"<string>\",\n    \"userEmail\": \"<string>\",\n    \"userOrgUnitId\": \"<string>\",\n    \"telemetryEventNotificationFilter\": {\n      \"eventTypes\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"googleCloudPubsubTopic\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6536,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": false\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 3354.277771314417,\n      \"key_1\": 7265\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e3a687d-d514-4f8b-bee1-743cc0cb9c48",
+          "name": "Delete a telemetry notification config",
+          "request": {
+            "name": "Delete a telemetry notification config",
+            "description": {
+              "content": "Deletes a telemetry notification configuration for a customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "telemetry",
+                "notificationConfigs",
+                ":configId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "configId",
+                  "description": "(Required) Identifier of the notification config to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a1fb0d3-31fc-4c5e-8b47-8d8eac5fe0f3",
+              "name": "Successfully deleted notification config",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "notificationConfigs",
+                    ":configId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configId",
+                      "description": "(Required) Identifier of the notification config to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5aea56af-5360-4f5e-b829-3568d04c726e",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "telemetry",
+                    "notificationConfigs",
+                    ":configId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "configId",
+                      "description": "(Required) Identifier of the notification config to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6536,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": false\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": 3354.277771314417,\n      \"key_1\": 7265\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://chromemanagement.googleapis.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/chrome.management.reports.readonly https://www.googleapis.com/auth/chrome.management.telemetry.readonly https://www.googleapis.com/auth/chrome.management.appdetails.readonly"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/v2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bbed4b28-5c31-4a7a-a553-d14b183c427d",
+    "name": "Google Chrome Management App Details Telemetry Notification Configs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.\n\nContact Support:\n Name: Google Chrome Enterprise Support",
+      "type": "text/plain"
+    }
+  }
+}

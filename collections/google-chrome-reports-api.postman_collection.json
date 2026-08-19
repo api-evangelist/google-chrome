@@ -1,0 +1,1249 @@
+{
+  "item": [
+    {
+      "id": "a63dbd52-b957-4da8-b306-fb4262eb7115",
+      "name": "Reports",
+      "description": {
+        "content": "Operations for generating reports about browsers, devices, installed apps, extensions, and app usage within the enterprise.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "564a364f-341f-4a8d-bfec-616730de3a4a",
+          "name": "Count Chrome browser versions",
+          "request": {
+            "name": "Count Chrome browser versions",
+            "description": {
+              "content": "Generates a count report of Chrome browser versions installed across all managed browsers. Useful for tracking update adoption and identifying outdated browser installations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "reports:countChromeVersions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orgUnitId",
+                  "value": "<string>",
+                  "description": "The organizational unit ID. If omitted, returns data for all org units."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter string for narrowing results. Supports filtering by version, channel, platform, and last active date."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Token for pagination."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1420a93-ac29-4354-b8ee-dc5e9dc65761",
+              "name": "Successful response with Chrome version counts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "reports:countChromeVersions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orgUnitId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"browserVersions\": [\n    {\n      \"version\": \"string\",\n      \"count\": \"string\",\n      \"channel\": \"DEV\",\n      \"system\": \"SYSTEM_LINUX\",\n      \"deviceOsVersion\": \"string\"\n    },\n    {\n      \"version\": \"string\",\n      \"count\": \"string\",\n      \"channel\": \"DEV\",\n      \"system\": \"SYSTEM_LINUX\",\n      \"deviceOsVersion\": \"string\"\n    }\n  ],\n  \"nextPageToken\": \"string\",\n  \"totalSize\": 5692\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "041d0e47-8045-4da5-83ef-1823e89aba36",
+              "name": "The request was invalid. Check the filter syntax, field names, and parameter values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "reports:countChromeVersions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orgUnitId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 1553,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\"\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3c0e115-fbbe-4f07-a829-b3f56cf51be6",
+          "name": "Count installed apps and extensions",
+          "request": {
+            "name": "Count installed apps and extensions",
+            "description": {
+              "content": "Generates a report of installed apps and extensions across all managed browsers and devices. Provides counts and details for each app or extension including version, install type, and number of installations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "reports:countInstalledApps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orgUnitId",
+                  "value": "<string>",
+                  "description": "The organizational unit ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter string. Supports filtering by app name, app ID, app type, install type, and permissions."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderBy",
+                  "value": "<string>",
+                  "description": "Field to sort results by. Supported fields: app_name, install_type, machine_count, and permission_count."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Token for pagination."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "66a1c4ca-09de-44dd-a7ef-186adacdbad3",
+              "name": "Successful response with installed app counts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "reports:countInstalledApps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orgUnitId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"installedApps\": [\n    {\n      \"appId\": \"string\",\n      \"appType\": \"APP_TYPE_UNSPECIFIED\",\n      \"appInstallType\": \"OTHER\",\n      \"appSource\": \"CHROME_WEBSTORE\",\n      \"displayName\": \"string\",\n      \"description\": \"string\",\n      \"homepageUri\": \"https://wVYdPLURqYFTUBubyJmgeDSFW.bzvaxVx5fq,6A5iRPtIyhZajRXVwIzZnCk,QrqIeKkQfa.mKU\",\n      \"permissions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"browserDeviceCount\": \"string\",\n      \"osUserCount\": \"string\",\n      \"disabled\": false\n    },\n    {\n      \"appId\": \"string\",\n      \"appType\": \"THEME\",\n      \"appInstallType\": \"ADMIN\",\n      \"appSource\": \"PLAY_STORE\",\n      \"displayName\": \"string\",\n      \"description\": \"string\",\n      \"homepageUri\": \"http://ekMpbCHSiiVsiRCEUjeXNzJwUTKUYWvL.sjfhOba8vYvm0J0JjszU8mw3D8\",\n      \"permissions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"browserDeviceCount\": \"string\",\n      \"osUserCount\": \"string\",\n      \"disabled\": true\n    }\n  ],\n  \"nextPageToken\": \"string\",\n  \"totalSize\": 6560\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0dfcad67-73e0-4d27-bdca-5ded2cbc0116",
+              "name": "The request was invalid. Check the filter syntax, field names, and parameter values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "reports:countInstalledApps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orgUnitId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3781,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": true,\n      \"key_1\": false,\n      \"key_2\": 4977.1485009747785\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": 5854.768911901267\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67ad752d-f275-4f3e-afc1-08b1e80ec2cd",
+          "name": "Find devices with a specific app installed",
+          "request": {
+            "name": "Find devices with a specific app installed",
+            "description": {
+              "content": "Generates a report listing all managed browsers and devices that have a specified app or extension installed. Useful for tracking distribution and compliance of specific applications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "reports:findInstalledAppDevices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "appId",
+                  "value": "<string>",
+                  "description": "The app ID to search for."
+                },
+                {
+                  "disabled": false,
+                  "key": "appType",
+                  "value": "<string>",
+                  "description": "Type of the app. Values include EXTENSION, APP, THEME, HOSTED_APP."
+                },
+                {
+                  "disabled": false,
+                  "key": "orgUnitId",
+                  "value": "<string>",
+                  "description": "The organizational unit ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter string for narrowing results."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderBy",
+                  "value": "<string>",
+                  "description": "Field to sort results by."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Token for pagination."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "24fefdc4-306d-41a2-b715-60203956f829",
+              "name": "Successful response with devices that have the specified app installed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "reports:findInstalledAppDevices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "appType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orgUnitId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"devices\": [\n    {\n      \"deviceId\": \"string\",\n      \"machine\": \"string\",\n      \"appVersion\": \"string\"\n    },\n    {\n      \"deviceId\": \"string\",\n      \"machine\": \"string\",\n      \"appVersion\": \"string\"\n    }\n  ],\n  \"nextPageToken\": \"string\",\n  \"totalSize\": 9477\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63b73a1d-08c9-4cde-8e70-5b968f52208c",
+              "name": "The request was invalid. Check the filter syntax, field names, and parameter values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "reports:findInstalledAppDevices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "appId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "appType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orgUnitId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderBy",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3781,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": true,\n      \"key_1\": false,\n      \"key_2\": 4977.1485009747785\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": \"string\",\n      \"key_1\": 5854.768911901267\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9727c223-fa1a-47bb-ba24-62b24ed4c961",
+          "name": "Count ChromeOS devices reaching auto-update expiration",
+          "request": {
+            "name": "Count ChromeOS devices reaching auto-update expiration",
+            "description": {
+              "content": "Generates a report counting ChromeOS devices grouped by their auto-update expiration date. Helps administrators plan for hardware refresh cycles and identify devices that will lose security update support.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "reports:countChromeDevicesReachingAutoExpirationDate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orgUnitId",
+                  "value": "<string>",
+                  "description": "The organizational unit ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "minAueDate",
+                  "value": "<date>",
+                  "description": "Minimum auto-update expiration date filter (inclusive) in yyyy-mm-dd format."
+                },
+                {
+                  "disabled": false,
+                  "key": "maxAueDate",
+                  "value": "<date>",
+                  "description": "Maximum auto-update expiration date filter (inclusive) in yyyy-mm-dd format."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Token for pagination."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4fd54269-2ba4-4497-96e9-78731f303e36",
+              "name": "Successful response with device counts by auto-update expiration date",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "reports:countChromeDevicesReachingAutoExpirationDate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orgUnitId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "minAueDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "maxAueDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deviceAueCountReports\": [\n    {\n      \"model\": \"string\",\n      \"count\": \"string\",\n      \"aueMonth\": \"string\",\n      \"aueYear\": \"string\",\n      \"expired\": true\n    },\n    {\n      \"model\": \"string\",\n      \"count\": \"string\",\n      \"aueMonth\": \"string\",\n      \"aueYear\": \"string\",\n      \"expired\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e55dc80-4787-4515-8395-ec6842fb0215",
+          "name": "Count Chrome browsers needing attention",
+          "request": {
+            "name": "Count Chrome browsers needing attention",
+            "description": {
+              "content": "Generates a report counting managed Chrome browsers that need administrator attention. Categories include browsers with pending updates, browsers recently not active, browsers with no recent policy sync, and browsers that recently enrolled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "reports:countChromeBrowsersNeedingAttention"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orgUnitId",
+                  "value": "<string>",
+                  "description": "The organizational unit ID."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "abb13b2e-d7fa-41c5-9aad-7630afb3a78a",
+              "name": "Successful response with browser attention counts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "reports:countChromeBrowsersNeedingAttention"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orgUnitId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pendingBrowserUpdateCount\": \"string\",\n  \"recentlyEnrolledCount\": \"string\",\n  \"noRecentActivityCount\": \"string\",\n  \"notRecentlyConnectedCount\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "259ba82e-aeb2-4e80-9588-77c0dae75451",
+          "name": "Count ChromeOS devices needing OS update",
+          "request": {
+            "name": "Count ChromeOS devices needing OS update",
+            "description": {
+              "content": "Generates a report counting ChromeOS devices that need an operating system update, grouped by OS version and update status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "reports:countChromeDevicesThatNeedOsUpdate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orgUnitId",
+                  "value": "<string>",
+                  "description": "The organizational unit ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Maximum number of results to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Token for pagination."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "94ed5264-d820-4c47-8a48-c5245d989a64",
+              "name": "Successful response with device counts needing OS updates",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "reports:countChromeDevicesThatNeedOsUpdate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orgUnitId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deviceOsNeedUpdateCount\": [\n    {\n      \"osVersion\": \"string\",\n      \"count\": \"string\"\n    },\n    {\n      \"osVersion\": \"string\",\n      \"count\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a28397b3-1561-42b0-9d70-64927eb05602",
+          "name": "Count ChromeOS hardware fleet devices",
+          "request": {
+            "name": "Count ChromeOS hardware fleet devices",
+            "description": {
+              "content": "Generates a report counting ChromeOS devices grouped by hardware specifications such as model, CPU, and storage capacity. Provides a fleet-level view of hardware diversity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "reports:countChromeHardwareFleetDevices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orgUnitId",
+                  "value": "<string>",
+                  "description": "The organizational unit ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "readMask",
+                  "value": "<string>",
+                  "description": "Fields to include in the response. Options include cpuReports, memoryReports, modelReports, storageReports."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ca5ff32e-5e4f-48f5-a0ef-5f4d9a5e9b9c",
+              "name": "Successful response with hardware fleet counts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "reports:countChromeHardwareFleetDevices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orgUnitId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readMask",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cpuReports\": [\n    {\n      \"reportValue\": \"string\",\n      \"count\": \"string\"\n    },\n    {\n      \"reportValue\": \"string\",\n      \"count\": \"string\"\n    }\n  ],\n  \"memoryReports\": [\n    {\n      \"reportValue\": \"string\",\n      \"count\": \"string\"\n    },\n    {\n      \"reportValue\": \"string\",\n      \"count\": \"string\"\n    }\n  ],\n  \"modelReports\": [\n    {\n      \"reportValue\": \"string\",\n      \"count\": \"string\"\n    },\n    {\n      \"reportValue\": \"string\",\n      \"count\": \"string\"\n    }\n  ],\n  \"storageReports\": [\n    {\n      \"reportValue\": \"string\",\n      \"count\": \"string\"\n    },\n    {\n      \"reportValue\": \"string\",\n      \"count\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://chromemanagement.googleapis.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/chrome.management.reports.readonly https://www.googleapis.com/auth/chrome.management.telemetry.readonly https://www.googleapis.com/auth/chrome.management.appdetails.readonly"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/v2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e9a9b42e-c048-403f-8527-dbf895cb5be2",
+    "name": "Google Chrome Management App Details Reports API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.\n\nContact Support:\n Name: Google Chrome Enterprise Support",
+      "type": "text/plain"
+    }
+  }
+}

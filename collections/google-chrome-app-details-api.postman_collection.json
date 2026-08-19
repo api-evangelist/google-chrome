@@ -1,0 +1,587 @@
+{
+  "item": [
+    {
+      "id": "84570654-9c94-4219-875b-e6ac991a8453",
+      "name": "App Details",
+      "description": {
+        "content": "Operations for retrieving information about Chrome apps, extensions, and Android apps available to managed devices.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ac747dc0-44b6-4e98-bc35-561979d8e2ab",
+          "name": "Get Chrome app details",
+          "request": {
+            "name": "Get Chrome app details",
+            "description": {
+              "content": "Retrieves specific information about a Chrome app or extension by its app ID. Returns metadata including name, description, permissions, icons, type, and store information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "apps",
+                "chrome",
+                ":appId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appId",
+                  "description": "(Required) The Chrome Web Store app ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16b1440e-b841-42b8-b4c8-8c01427a6840",
+              "name": "Successful response with Chrome app details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "apps",
+                    "chrome",
+                    ":appId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The Chrome Web Store app ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"displayName\": \"string\",\n  \"description\": \"string\",\n  \"appId\": \"string\",\n  \"revisionId\": \"string\",\n  \"type\": \"WEB\",\n  \"iconUri\": \"http://BWctnqaHBRWRXfCPdgJxogjiAcDi.bdiokXdmTyqaga,uCwqB,HWMp3xSxHUpBXfdFBMAKkAvj2-QZPoKPD\",\n  \"detailUri\": \"http://cpfxc.xbqckWe-HuTjR0A5LComRlYyg4Sg57AhQ,\",\n  \"firstPublishTime\": \"2023-05-30T05:03:30.342Z\",\n  \"latestPublishTime\": \"2003-08-24T16:19:29.604Z\",\n  \"publisher\": \"string\",\n  \"homepageUri\": \"https://jIuyyoS.vzdanMuYkp3wgwgbwIYeYulFUalCH\",\n  \"privacyPolicyUri\": \"https://bPMwDlQWIlzyGdvAdPzvsr.oppvuoeN5MBG1AaMtbfVdRLUeFrgZMddUNMmtj5EpKrS7ArEgEu\",\n  \"reviewNumber\": \"string\",\n  \"reviewRating\": 5198.5457484232475,\n  \"serviceError\": {\n    \"code\": 2401,\n    \"message\": \"string\",\n    \"details\": [\n      {\n        \"@type\": \"string\"\n      },\n      {\n        \"@type\": \"string\",\n        \"key_0\": \"string\"\n      }\n    ]\n  },\n  \"isTheme\": false,\n  \"isCwsHosted\": false,\n  \"kioskEnabled\": false,\n  \"supportEnabled\": false,\n  \"chromeAppPermissions\": [\n    {\n      \"type\": \"string\",\n      \"documentationUri\": \"http://qpNrXvVxosfcZ.vngwsYmiTWxMvog9FO2cONwJhtHAPOcfKaGefVyygh+WIeegiV-DAFX.+Jpp-EPAq4\",\n      \"accessUserData\": true\n    },\n    {\n      \"type\": \"string\",\n      \"documentationUri\": \"https://MpKbwjUjGYQbakHxsvyjkMh.roEKkhx+y4XdWbvmKQyqN3b.HRaadOltYWWcW\",\n      \"accessUserData\": true\n    }\n  ],\n  \"siteAccess\": [\n    {\n      \"hostMatch\": \"string\"\n    },\n    {\n      \"hostMatch\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8140c96-7dc9-49bb-88d1-ad75b53662d3",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "apps",
+                    "chrome",
+                    ":appId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The Chrome Web Store app ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3708,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": true,\n      \"key_1\": true\n    },\n    {\n      \"@type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3953ae1a-136b-44f9-b968-931b9cb355f1",
+          "name": "Get Android app details",
+          "request": {
+            "name": "Get Android app details",
+            "description": {
+              "content": "Retrieves specific information about an Android app by its package name. Returns metadata for apps available on managed ChromeOS devices through Google Play.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "apps",
+                "android",
+                ":appId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appId",
+                  "description": "(Required) The Android app package name."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "efe385c6-c88c-40b0-bc8d-9dd9ae9f74d8",
+              "name": "Successful response with Android app details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "apps",
+                    "android",
+                    ":appId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The Android app package name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"displayName\": \"string\",\n  \"appId\": \"string\",\n  \"permissions\": [\n    {\n      \"type\": \"string\"\n    },\n    {\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9c30be8-1031-48e8-b7ef-2a773d6c56e5",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "apps",
+                    "android",
+                    ":appId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The Android app package name."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5846,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 7615.803597484131\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": false,\n      \"key_1\": 9836,\n      \"key_2\": \"string\",\n      \"key_3\": 9480\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af3d6248-8bf1-4efe-b95e-f7f3d78dfd61",
+          "name": "Get web app details",
+          "request": {
+            "name": "Get web app details",
+            "description": {
+              "content": "Retrieves specific information about a web app. Returns metadata for progressive web apps or web links available to managed ChromeOS devices.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId",
+                "apps",
+                "web",
+                ":appId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appId",
+                  "description": "(Required) The web app identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d954da6-2327-48cb-9c93-5387c72dfb21",
+              "name": "Successful response with web app details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "apps",
+                    "web",
+                    ":appId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The web app identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"displayName\": \"string\",\n  \"appId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "327084fc-9b43-4aba-ab04-06b1dbc0820d",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId",
+                    "apps",
+                    "web",
+                    ":appId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The web app identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 5846,\n  \"message\": \"string\",\n  \"details\": [\n    {\n      \"@type\": \"string\",\n      \"key_0\": 7615.803597484131\n    },\n    {\n      \"@type\": \"string\",\n      \"key_0\": false,\n      \"key_1\": 9836,\n      \"key_2\": \"string\",\n      \"key_3\": 9480\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://chromemanagement.googleapis.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "https://www.googleapis.com/auth/chrome.management.reports.readonly https://www.googleapis.com/auth/chrome.management.telemetry.readonly https://www.googleapis.com/auth/chrome.management.appdetails.readonly"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://oauth2.googleapis.com/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://accounts.google.com/o/oauth2/v2/auth"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "346d7a1b-523c-4cb1-9c10-d4bc4a298c02",
+    "name": "Google Chrome Management App Details API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.\n\nContact Support:\n Name: Google Chrome Enterprise Support",
+      "type": "text/plain"
+    }
+  }
+}

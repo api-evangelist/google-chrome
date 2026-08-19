@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Chrome Management App Details Telemetry Devices API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Telemetry Devices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List telemetry devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/devices",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return. Maximum and default value is 100."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token to specify next page in the result set."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter to restrict results. Supports filtering by serial number, device ID, org unit, and timestamps. Example: serial_number=ABC123 AND timestamp>2024-01-01T00:00:00Z"
+              },
+              {
+                "name": "readMask",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response. Use this to request specific telemetry data categories such as cpuInfo, cpuStatusReport, memoryInfo, memoryStatusReport, networkInfo, osUpdateStatus, storageInfo, storageStatusReport, batteryInfo, batteryStatusReport, networkDiagnosticsReport, and more."
+              }
+            ]
+          },
+          "docs": "Lists all telemetry devices for a customer. Retrieves device-level telemetry data including hardware specifications, operating system version, CPU, memory, storage, network interfaces, battery status, and peripheral information for managed ChromeOS devices."
+        },
+        {
+          "info": {
+            "name": "Get a telemetry device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/devices/:deviceId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "deviceId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the telemetry device."
+              },
+              {
+                "name": "readMask",
+                "value": "",
+                "type": "query",
+                "description": "Fields to include in the response."
+              }
+            ]
+          },
+          "docs": "Retrieves a single telemetry device by its resource name. Returns detailed telemetry data for the specified managed ChromeOS device."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

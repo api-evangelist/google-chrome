@@ -1,0 +1,109 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Google Chrome Management App Details Telemetry Notification Configs API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://accounts.google.com/o/oauth2/v2/auth",
+      "accessTokenUrl": "https://oauth2.googleapis.com/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Telemetry Notification Configs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List telemetry notification configs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/notificationConfigs",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token to specify next page in the result set."
+              }
+            ]
+          },
+          "docs": "Lists all telemetry notification configurations for a customer. Notification configs define which telemetry events trigger push notifications to the specified Google Cloud Pub/Sub topic."
+        },
+        {
+          "info": {
+            "name": "Create a telemetry notification config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/notificationConfigs",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a telemetry notification configuration for a customer. The configuration specifies which telemetry events trigger push notifications and the Google Cloud Pub/Sub topic to deliver them to."
+        },
+        {
+          "info": {
+            "name": "Delete a telemetry notification config",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://chromemanagement.googleapis.com/v1/customers/:customerId/telemetry/notificationConfigs/:configId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin."
+              },
+              {
+                "name": "configId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier of the notification config to delete."
+              }
+            ]
+          },
+          "docs": "Deletes a telemetry notification configuration for a customer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
