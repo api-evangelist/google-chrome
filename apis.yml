@@ -32,6 +32,10 @@ apis:
   humanUrl: https://developer.chrome.com/docs/extensions/
   baseUrl: chrome://extensions/
   tags:
+  - Addons
+  - Browser
+  - Extensions
+  tags_raw:
   - Add-Ons
   - Browser
   - Extensions
@@ -216,6 +220,11 @@ apis:
   humanUrl: https://developer.chrome.com/docs/ai/built-in
   baseUrl: chrome://flags/#optimization-guide-on-device-model
   tags:
+  - Artificial Intelligence
+  - Gemini Nano
+  - Machine-Learning
+  - On-Device AI
+  tags_raw:
   - AI
   - Gemini Nano
   - Machine Learning
