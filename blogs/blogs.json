@@ -13,8 +13,7 @@
       "feed_url": "https://developer.chrome.com/docs/webstore/using-api",
       "title": "",
       "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "method": "none"
     },
     {
       "source": "https://developer.chrome.com/feed.xml",
@@ -32,5 +31,5 @@
     }
   ],
   "post_count": 48,
-  "fetched": "2026-08-15T12:11:08Z"
+  "fetched": "2026-08-22T20:20:02Z"
 }
