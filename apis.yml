@@ -46,7 +46,7 @@ apis:
   humanUrl: https://developer.chrome.com/docs/extensions/
   baseUrl: chrome://extensions/
   tags:
-  - Add-Ons
+  - Addons
   - Browser
   - Extensions
   tags_raw:
