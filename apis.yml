@@ -33,12 +33,12 @@ url: https://www.google.com/chrome/
 type: Index
 specificationVersion: '0.23'
 tags:
-  - Browser
-  - Chrome Extensions
-  - Developer Tools
-  - Web Platform
+- Browser
+- Chrome Extensions
+- Developer Tools
+- Web Platform
 created: '2024'
-modified: '2026-05-19'
+modified: '2026-09-16'
 apis:
 - name: Chrome Extensions API
   description: APIs for building Chrome browser extensions.
@@ -131,16 +131,15 @@ apis:
   - type: APIReference
     url: https://developers.google.com/web/tools/chrome-user-experience-report/api/reference/rest
   - type: Documentation
-    url: >-
-      https://developers.google.com/web/tools/chrome-user-experience-report/bigquery/getting-started
+    url: https://developers.google.com/web/tools/chrome-user-experience-report/bigquery/getting-started
   - type: Resources
     url: https://developer.chrome.com/docs/crux/methodology/tools
   contact:
   - type: Support
     url: https://support.google.com/webmasters/
 - name: Chrome Policy API
-  description: >-
-    API for programmatically viewing and managing Chrome policies assigned to Organizational Units.
+  description: API for programmatically viewing and managing Chrome policies assigned to Organizational
+    Units.
   humanUrl: https://developers.google.com/chrome/policy
   baseUrl: https://chromepolicy.googleapis.com/
   tags:
@@ -163,8 +162,8 @@ apis:
   - type: Support
     url: https://support.google.com/chrome/a/
 - name: Chrome Verified Access API
-  description: >-
-    API to cryptographically verify that ChromeOS clients are genuine and conform to corporate policy.
+  description: API to cryptographically verify that ChromeOS clients are genuine and conform to corporate
+    policy.
   humanUrl: https://developers.google.com/chrome/verified-access
   baseUrl: https://verifiedaccess.googleapis.com/
   tags:
@@ -183,8 +182,8 @@ apis:
   - type: Support
     url: https://support.google.com/chrome/a/
 - name: Google Safe Browsing API
-  description: >-
-    API to check URLs against Google lists of unsafe web resources including phishing and malware sites.
+  description: API to check URLs against Google lists of unsafe web resources including phishing and malware
+    sites.
   humanUrl: https://developers.google.com/safe-browsing
   baseUrl: https://safebrowsing.googleapis.com/
   tags:
@@ -207,9 +206,8 @@ apis:
   - type: Support
     url: https://safebrowsing.google.com/
 - name: PageSpeed Insights API
-  description: >-
-    API to measure web page performance and receive optimization suggestions using Lighthouse and CrUX
-    data.
+  description: API to measure web page performance and receive optimization suggestions using Lighthouse
+    and CrUX data.
   humanUrl: https://developers.google.com/speed/docs/insights/v5/about
   baseUrl: https://pagespeedonline.googleapis.com/
   tags:
@@ -228,9 +226,8 @@ apis:
   - type: Support
     url: https://support.google.com/webmasters/
 - name: Chrome Built-in AI APIs
-  description: >-
-    On-device AI APIs powered by Gemini Nano built into Chrome for text generation, summarization, translation,
-    and more.
+  description: On-device AI APIs powered by Gemini Nano built into Chrome for text generation, summarization,
+    translation, and more.
   humanUrl: https://developer.chrome.com/docs/ai/built-in
   baseUrl: chrome://flags/#optimization-guide-on-device-model
   tags:
@@ -267,9 +264,8 @@ apis:
     url: https://developer.chrome.com/docs/ai/built-in
 - aid: google-chrome:google-chrome-app-details-api
   name: Google Chrome App Details API
-  description: >-
-    Operations for retrieving information about Chrome apps, extensions, and Android apps available to
-    managed devices.
+  description: Operations for retrieving information about Chrome apps, extensions, and Android apps available
+    to managed devices.
   tags:
   - App Details
   properties:
@@ -293,9 +289,8 @@ apis:
     url: https://github.com/google/ChromeBrowserEnterprise
 - aid: google-chrome:google-chrome-reports-api
   name: Google Chrome Reports API
-  description: >-
-    Operations for generating reports about browsers, devices, installed apps, extensions, and app usage
-    within the enterprise.
+  description: Operations for generating reports about browsers, devices, installed apps, extensions,
+    and app usage within the enterprise.
   tags:
   - Reports
   properties:
@@ -319,9 +314,8 @@ apis:
     url: https://github.com/google/ChromeBrowserEnterprise
 - aid: google-chrome:google-chrome-telemetry-devices-api
   name: Google Chrome Telemetry Devices API
-  description: >-
-    Operations for retrieving telemetry data from managed ChromeOS devices including hardware specs, OS
-    version, CPU, memory, storage, and network information.
+  description: Operations for retrieving telemetry data from managed ChromeOS devices including hardware
+    specs, OS version, CPU, memory, storage, and network information.
   tags:
   - Telemetry Devices
   properties:
@@ -345,9 +339,8 @@ apis:
     url: https://github.com/google/ChromeBrowserEnterprise
 - aid: google-chrome:google-chrome-telemetry-events-api
   name: Google Chrome Telemetry Events API
-  description: >-
-    Operations for listing telemetry events from managed ChromeOS devices such as USB peripherals, audio,
-    network state changes, and hardware status events.
+  description: Operations for listing telemetry events from managed ChromeOS devices such as USB peripherals,
+    audio, network state changes, and hardware status events.
   tags:
   - Telemetry Events
   properties:
@@ -371,9 +364,8 @@ apis:
     url: https://github.com/google/ChromeBrowserEnterprise
 - aid: google-chrome:google-chrome-telemetry-notification-configs-api
   name: Google Chrome Telemetry Notification Configs API
-  description: >-
-    Operations for managing telemetry notification configurations that enable push notifications for telemetry
-    events.
+  description: Operations for managing telemetry notification configurations that enable push notifications
+    for telemetry events.
   tags:
   - Telemetry Notification Configs
   properties:
@@ -397,8 +389,8 @@ apis:
     url: https://github.com/google/ChromeBrowserEnterprise
 - aid: google-chrome:google-chrome-telemetry-users-api
   name: Google Chrome Telemetry Users API
-  description: >-
-    Operations for retrieving telemetry information associated with managed users on ChromeOS devices.
+  description: Operations for retrieving telemetry information associated with managed users on ChromeOS
+    devices.
   tags:
   - Telemetry Users
   properties:
@@ -421,84 +413,86 @@ apis:
   - type: GitHubRepository
     url: https://github.com/google/ChromeBrowserEnterprise
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
-    url: https://apievangelist.com/
+- FN: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com/
 common:
-  - type: License
-    name: BSD-3-Clause
-    url: https://github.com/ChromeDevTools/devtools-protocol/blob/master/LICENSE
-  - type: AgenticAccess
-    url: agentic-access/google-chrome-agentic-access.yml
-  - type: DomainSecurity
-    url: security/google-chrome-domain-security.yml
-  - type: Authentication
-    url: authentication/google-chrome-authentication.yml
-  - type: OAuthScopes
-    url: scopes/google-chrome-scopes.yml
-  - type: LinkedIn
-    url: https://www.linkedin.com/showcase/google-chrome
-  - type: DeveloperPortal
-    url: https://developer.chrome.com/
-  - type: Blog
-    url: https://developer.chrome.com/blog/
-  - type: GitHubOrganization
-    url: https://github.com/GoogleChrome
-  - type: X
-    url: https://twitter.com/ChromiumDev
-  - type: YouTube
-    url: https://www.youtube.com/c/GoogleChromeDevelopers
-  - type: TermsOfService
-    url: https://developers.google.com/terms
-  - type: PrivacyPolicy
-    url: https://policies.google.com/privacy
-  - type: ReleaseNotes
-    url: https://developer.chrome.com/release-notes
-  - type: ChangeLog
-    url: https://developer.chrome.com/new
-  - type: StatusPage
-    url: https://chromestatus.com/
-  - type: Documentation
-    url: https://developer.chrome.com/origintrials/
-  - type: Documentation
-    url: https://developer.chrome.com/docs/web-platform/origin-trials
-  - type: StackOverflow
-    url: https://stackoverflow.com/questions/tagged/google-chrome-extension
-  - type: Portal
-    url: https://chromeenterprise.google/
-  - type: Resources
-    url: https://source.chromium.org/chromium
-  - type: JSONSchema
-    url: json-schema/google-chrome-extension-manifest-schema.json
-  - type: JSONLD
-    url: json-ld/google-chrome-context.jsonld
-  - type: Features
-    data:
-      - Chrome Extensions Manifest V3 platform
-      - Chrome DevTools Protocol for browser automation
-      - Chrome Web Store publishing and management APIs
-      - Enterprise device and policy management
-      - Real user experience metrics (CrUX)
-      - Safe Browsing URL threat detection
-      - PageSpeed Insights performance analysis
-      - Built-in AI APIs (Gemini Nano)
-      - Verified Access for ChromeOS device attestation
-  - type: UseCases
-    data:
-      - Building and publishing Chrome browser extensions
-      - Automating browser testing and debugging
-      - Managing Chrome enterprise deployments at scale
-      - Monitoring web performance with real user metrics
-      - Protecting users from phishing and malware URLs
-      - Running on-device AI inference in the browser
-      - Enforcing Chrome policies across organizational units
-  - type: Integrations
-    data:
-      - Google Workspace Admin
-      - Google Cloud
-      - Puppeteer
-      - Playwright
-      - Selenium
-      - BigQuery
-      - Lighthouse
-      - Google Search Console
+- type: Website
+  url: https://google.com
+- type: License
+  name: BSD-3-Clause
+  url: https://github.com/ChromeDevTools/devtools-protocol/blob/master/LICENSE
+- type: AgenticAccess
+  url: agentic-access/google-chrome-agentic-access.yml
+- type: DomainSecurity
+  url: security/google-chrome-domain-security.yml
+- type: Authentication
+  url: authentication/google-chrome-authentication.yml
+- type: OAuthScopes
+  url: scopes/google-chrome-scopes.yml
+- type: LinkedIn
+  url: https://www.linkedin.com/showcase/google-chrome
+- type: DeveloperPortal
+  url: https://developer.chrome.com/
+- type: Blog
+  url: https://developer.chrome.com/blog/
+- type: GitHubOrganization
+  url: https://github.com/GoogleChrome
+- type: X
+  url: https://twitter.com/ChromiumDev
+- type: YouTube
+  url: https://www.youtube.com/c/GoogleChromeDevelopers
+- type: TermsOfService
+  url: https://developers.google.com/terms
+- type: PrivacyPolicy
+  url: https://policies.google.com/privacy
+- type: ReleaseNotes
+  url: https://developer.chrome.com/release-notes
+- type: ChangeLog
+  url: https://developer.chrome.com/new
+- type: StatusPage
+  url: https://chromestatus.com/
+- type: Documentation
+  url: https://developer.chrome.com/origintrials/
+- type: Documentation
+  url: https://developer.chrome.com/docs/web-platform/origin-trials
+- type: StackOverflow
+  url: https://stackoverflow.com/questions/tagged/google-chrome-extension
+- type: Portal
+  url: https://chromeenterprise.google/
+- type: Resources
+  url: https://source.chromium.org/chromium
+- type: JSONSchema
+  url: json-schema/google-chrome-extension-manifest-schema.json
+- type: JSONLD
+  url: json-ld/google-chrome-context.jsonld
+- type: Features
+  data:
+  - Chrome Extensions Manifest V3 platform
+  - Chrome DevTools Protocol for browser automation
+  - Chrome Web Store publishing and management APIs
+  - Enterprise device and policy management
+  - Real user experience metrics (CrUX)
+  - Safe Browsing URL threat detection
+  - PageSpeed Insights performance analysis
+  - Built-in AI APIs (Gemini Nano)
+  - Verified Access for ChromeOS device attestation
+- type: UseCases
+  data:
+  - Building and publishing Chrome browser extensions
+  - Automating browser testing and debugging
+  - Managing Chrome enterprise deployments at scale
+  - Monitoring web performance with real user metrics
+  - Protecting users from phishing and malware URLs
+  - Running on-device AI inference in the browser
+  - Enforcing Chrome policies across organizational units
+- type: Integrations
+  data:
+  - Google Workspace Admin
+  - Google Cloud
+  - Puppeteer
+  - Playwright
+  - Selenium
+  - BigQuery
+  - Lighthouse
+  - Google Search Console
