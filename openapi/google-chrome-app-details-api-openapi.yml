@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Google Chrome Management App Details API
   description: The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.
@@ -97,25 +97,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    GoogleRpcStatus:
-      type: object
-      description: Standard Google API error response following the google.rpc.Status format.
-      properties:
-        code:
-          type: integer
-          description: The HTTP status code.
-        message:
-          type: string
-          description: A developer-facing error message.
-        details:
-          type: array
-          description: A list of messages carrying error details.
-          items:
-            type: object
-            properties:
-              '@type':
-                type: string
-            additionalProperties: true
     AndroidAppInfo:
       type: object
       description: Information about an Android app available on managed ChromeOS devices.
@@ -135,16 +116,6 @@ components:
               type:
                 type: string
                 description: Permission type.
-    WebAppInfo:
-      type: object
-      description: Information about a web app.
-      properties:
-        displayName:
-          type: string
-          description: Display name of the web app.
-        appId:
-          type: string
-          description: Web app identifier.
     ChromeAppInfo:
       type: object
       description: Information about a Chrome app or extension.
@@ -242,13 +213,35 @@ components:
               hostMatch:
                 type: string
                 description: Host match pattern.
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
+    WebAppInfo:
+      type: object
+      description: Information about a web app.
+      properties:
+        displayName:
+          type: string
+          description: Display name of the web app.
+        appId:
+          type: string
+          description: Web app identifier.
   parameters:
     customerId:
       name: customerId
@@ -257,6 +250,13 @@ components:
       description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
       schema:
         type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
   securitySchemes:
     oauth2:
       type: oauth2

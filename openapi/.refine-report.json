@@ -1,12 +1,7 @@
 {
   "provider": "google-chrome",
   "sources": [
-    "google-chrome-app-details-api-openapi.yml",
-    "google-chrome-reports-api-openapi.yml",
-    "google-chrome-telemetry-devices-api-openapi.yml",
-    "google-chrome-telemetry-events-api-openapi.yml",
-    "google-chrome-telemetry-notification-configs-api-openapi.yml",
-    "google-chrome-telemetry-users-api-openapi.yml"
+    "_original/google-chrome-management-api-openapi.json"
   ],
   "outputs": [
     "google-chrome-app-details-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "google-chrome-management-api-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "google-chrome-app-details-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-chrome-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-chrome-telemetry-devices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-chrome-telemetry-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-chrome-telemetry-notification-configs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "google-chrome-telemetry-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

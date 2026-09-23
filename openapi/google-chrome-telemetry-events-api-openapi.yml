@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Google Chrome Management App Details Telemetry Events API
+  title: Google Chrome Management Telemetry Events API
   description: The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.
   version: v1
   contact:
@@ -65,37 +65,20 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+    Forbidden:
+      description: The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
   schemas:
-    ListTelemetryEventsResponse:
-      type: object
-      description: Response containing a list of telemetry events.
-      properties:
-        telemetryEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/TelemetryEvent'
-        nextPageToken:
-          type: string
-          description: Token for retrieving the next page of results.
-    GoogleRpcStatus:
-      type: object
-      description: Standard Google API error response following the google.rpc.Status format.
-      properties:
-        code:
-          type: integer
-          description: The HTTP status code.
-        message:
-          type: string
-          description: A developer-facing error message.
-        details:
-          type: array
-          description: A list of messages carrying error details.
-          items:
-            type: object
-            properties:
-              '@type':
-                type: string
-            additionalProperties: true
     TelemetryEvent:
       type: object
       description: A telemetry event from a managed ChromeOS device.
@@ -163,19 +146,36 @@ components:
               type: string
             httpsLatencyRoutineData:
               type: object
-  responses:
-    BadRequest:
-      description: The request was invalid. Check the filter syntax, field names, and parameter values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
-    Forbidden:
-      description: The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
+    ListTelemetryEventsResponse:
+      type: object
+      description: Response containing a list of telemetry events.
+      properties:
+        telemetryEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelemetryEvent'
+        nextPageToken:
+          type: string
+          description: Token for retrieving the next page of results.
   parameters:
     customerId:
       name: customerId

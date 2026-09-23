@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Google Chrome Management App Details Reports API
+  title: Google Chrome Management Reports API
   description: The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.
   version: v1
   contact:
@@ -287,100 +287,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/CountChromeHardwareFleetDevicesResponse'
 components:
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
   schemas:
-    CountChromeDevicesReachingAutoExpirationDateResponse:
-      type: object
-      description: Response containing counts of ChromeOS devices by auto-update expiration date.
-      properties:
-        deviceAueCountReports:
-          type: array
-          items:
-            type: object
-            properties:
-              model:
-                type: string
-                description: Device model name.
-              count:
-                type: string
-                format: int64
-                description: Number of devices with this model.
-              aueMonth:
-                type: string
-                description: Auto-update expiration month (YYYY-MM).
-              aueYear:
-                type: string
-                description: Auto-update expiration year.
-              expired:
-                type: boolean
-                description: Whether the AUE date has passed.
-    CountChromeBrowsersNeedingAttentionResponse:
-      type: object
-      description: Response with counts of Chrome browsers needing attention.
-      properties:
-        pendingBrowserUpdateCount:
-          type: string
-          format: int64
-          description: Number of browsers with a pending update.
-        recentlyEnrolledCount:
-          type: string
-          format: int64
-          description: Number of browsers recently enrolled.
-        noRecentActivityCount:
-          type: string
-          format: int64
-          description: Number of browsers with no recent activity.
-        notRecentlyConnectedCount:
-          type: string
-          format: int64
-          description: Number of browsers that have not recently synced policy.
-    CountChromeHardwareFleetDevicesResponse:
-      type: object
-      description: Response containing hardware fleet device counts.
-      properties:
-        cpuReports:
-          type: array
-          description: CPU model distribution.
-          items:
-            type: object
-            properties:
-              reportValue:
-                type: string
-              count:
-                type: string
-                format: int64
-        memoryReports:
-          type: array
-          description: Memory capacity distribution.
-          items:
-            type: object
-            properties:
-              reportValue:
-                type: string
-              count:
-                type: string
-                format: int64
-        modelReports:
-          type: array
-          description: Device model distribution.
-          items:
-            type: object
-            properties:
-              reportValue:
-                type: string
-              count:
-                type: string
-                format: int64
-        storageReports:
-          type: array
-          description: Storage capacity distribution.
-          items:
-            type: object
-            properties:
-              reportValue:
-                type: string
-              count:
-                type: string
-                format: int64
     FindInstalledAppDevicesResponse:
       type: object
       description: Response listing devices with a specific app installed.
@@ -406,88 +320,6 @@ components:
         totalSize:
           type: integer
           description: Total number of devices with the app.
-    CountChromeVersionsResponse:
-      type: object
-      description: Response containing counts of Chrome browser versions.
-      properties:
-        browserVersions:
-          type: array
-          description: Chrome browser version counts.
-          items:
-            type: object
-            properties:
-              version:
-                type: string
-                description: Full version string (e.g., 120.0.6099.109).
-              count:
-                type: string
-                format: int64
-                description: Number of browsers running this version.
-              channel:
-                type: string
-                description: Release channel (STABLE, BETA, DEV, CANARY).
-                enum:
-                - RELEASE_CHANNEL_UNSPECIFIED
-                - STABLE
-                - BETA
-                - DEV
-                - CANARY
-              system:
-                type: string
-                description: Operating system platform.
-                enum:
-                - DEVICE_SYSTEM_UNSPECIFIED
-                - SYSTEM_OTHER
-                - SYSTEM_ANDROID
-                - SYSTEM_IOS
-                - SYSTEM_CROS
-                - SYSTEM_WINDOWS
-                - SYSTEM_MAC
-                - SYSTEM_LINUX
-              deviceOsVersion:
-                type: string
-                description: Operating system version.
-        nextPageToken:
-          type: string
-          description: Token for the next page of results.
-        totalSize:
-          type: integer
-          description: Total number of browser version entries.
-    GoogleRpcStatus:
-      type: object
-      description: Standard Google API error response following the google.rpc.Status format.
-      properties:
-        code:
-          type: integer
-          description: The HTTP status code.
-        message:
-          type: string
-          description: A developer-facing error message.
-        details:
-          type: array
-          description: A list of messages carrying error details.
-          items:
-            type: object
-            properties:
-              '@type':
-                type: string
-            additionalProperties: true
-    CountChromeDevicesThatNeedOsUpdateResponse:
-      type: object
-      description: Response containing counts of devices needing OS updates.
-      properties:
-        deviceOsNeedUpdateCount:
-          type: array
-          items:
-            type: object
-            properties:
-              osVersion:
-                type: string
-                description: ChromeOS version.
-              count:
-                type: string
-                format: int64
-                description: Number of devices running this version.
     CountInstalledAppsResponse:
       type: object
       description: Response containing counts of installed apps and extensions.
@@ -561,13 +393,181 @@ components:
         totalSize:
           type: integer
           description: Total number of installed apps.
-  responses:
-    BadRequest:
-      description: The request was invalid. Check the filter syntax, field names, and parameter values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
+    CountChromeDevicesThatNeedOsUpdateResponse:
+      type: object
+      description: Response containing counts of devices needing OS updates.
+      properties:
+        deviceOsNeedUpdateCount:
+          type: array
+          items:
+            type: object
+            properties:
+              osVersion:
+                type: string
+                description: ChromeOS version.
+              count:
+                type: string
+                format: int64
+                description: Number of devices running this version.
+    CountChromeVersionsResponse:
+      type: object
+      description: Response containing counts of Chrome browser versions.
+      properties:
+        browserVersions:
+          type: array
+          description: Chrome browser version counts.
+          items:
+            type: object
+            properties:
+              version:
+                type: string
+                description: Full version string (e.g., 120.0.6099.109).
+              count:
+                type: string
+                format: int64
+                description: Number of browsers running this version.
+              channel:
+                type: string
+                description: Release channel (STABLE, BETA, DEV, CANARY).
+                enum:
+                - RELEASE_CHANNEL_UNSPECIFIED
+                - STABLE
+                - BETA
+                - DEV
+                - CANARY
+              system:
+                type: string
+                description: Operating system platform.
+                enum:
+                - DEVICE_SYSTEM_UNSPECIFIED
+                - SYSTEM_OTHER
+                - SYSTEM_ANDROID
+                - SYSTEM_IOS
+                - SYSTEM_CROS
+                - SYSTEM_WINDOWS
+                - SYSTEM_MAC
+                - SYSTEM_LINUX
+              deviceOsVersion:
+                type: string
+                description: Operating system version.
+        nextPageToken:
+          type: string
+          description: Token for the next page of results.
+        totalSize:
+          type: integer
+          description: Total number of browser version entries.
+    CountChromeDevicesReachingAutoExpirationDateResponse:
+      type: object
+      description: Response containing counts of ChromeOS devices by auto-update expiration date.
+      properties:
+        deviceAueCountReports:
+          type: array
+          items:
+            type: object
+            properties:
+              model:
+                type: string
+                description: Device model name.
+              count:
+                type: string
+                format: int64
+                description: Number of devices with this model.
+              aueMonth:
+                type: string
+                description: Auto-update expiration month (YYYY-MM).
+              aueYear:
+                type: string
+                description: Auto-update expiration year.
+              expired:
+                type: boolean
+                description: Whether the AUE date has passed.
+    CountChromeBrowsersNeedingAttentionResponse:
+      type: object
+      description: Response with counts of Chrome browsers needing attention.
+      properties:
+        pendingBrowserUpdateCount:
+          type: string
+          format: int64
+          description: Number of browsers with a pending update.
+        recentlyEnrolledCount:
+          type: string
+          format: int64
+          description: Number of browsers recently enrolled.
+        noRecentActivityCount:
+          type: string
+          format: int64
+          description: Number of browsers with no recent activity.
+        notRecentlyConnectedCount:
+          type: string
+          format: int64
+          description: Number of browsers that have not recently synced policy.
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
+    CountChromeHardwareFleetDevicesResponse:
+      type: object
+      description: Response containing hardware fleet device counts.
+      properties:
+        cpuReports:
+          type: array
+          description: CPU model distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
+        memoryReports:
+          type: array
+          description: Memory capacity distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
+        modelReports:
+          type: array
+          description: Device model distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
+        storageReports:
+          type: array
+          description: Storage capacity distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
   parameters:
     customerId:
       name: customerId

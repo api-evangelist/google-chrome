@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Google Chrome Management App Details Telemetry Notification Configs API
+  title: Google Chrome Management Telemetry Notification Configs API
   description: The Chrome Management API provides programmatic access to manage Chrome browser deployments and ChromeOS devices in enterprise environments. It enables administrators to retrieve telemetry data from managed devices, query information about installed apps and extensions, generate reports on browser and device usage, and manage Chrome policies at scale. The API is part of the Google Workspace Admin suite and requires appropriate admin privileges and OAuth 2.0 authentication scopes.
   version: v1
   contact:
@@ -98,17 +98,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ListTelemetryNotificationConfigsResponse:
-      type: object
-      description: Response containing a list of telemetry notification configurations.
-      properties:
-        telemetryNotificationConfigs:
-          type: array
-          items:
-            $ref: '#/components/schemas/TelemetryNotificationConfig'
-        nextPageToken:
-          type: string
-          description: Token for retrieving the next page of results.
     TelemetryNotificationConfig:
       type: object
       description: Configuration for telemetry push notifications.
@@ -147,6 +136,17 @@ components:
         googleCloudPubsubTopic:
           type: string
           description: 'Google Cloud Pub/Sub topic to deliver notifications to. Format: projects/{project}/topics/{topic}'
+    ListTelemetryNotificationConfigsResponse:
+      type: object
+      description: Response containing a list of telemetry notification configurations.
+      properties:
+        telemetryNotificationConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelemetryNotificationConfig'
+        nextPageToken:
+          type: string
+          description: Token for retrieving the next page of results.
     GoogleRpcStatus:
       type: object
       description: Standard Google API error response following the google.rpc.Status format.
