@@ -97,7 +97,47 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
+      schema:
+        type: string
   schemas:
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
     TelemetryNotificationConfig:
       type: object
       description: Configuration for telemetry push notifications.
@@ -147,46 +187,6 @@ components:
         nextPageToken:
           type: string
           description: Token for retrieving the next page of results.
-    GoogleRpcStatus:
-      type: object
-      description: Standard Google API error response following the google.rpc.Status format.
-      properties:
-        code:
-          type: integer
-          description: The HTTP status code.
-        message:
-          type: string
-          description: A developer-facing error message.
-        details:
-          type: array
-          description: A list of messages carrying error details.
-          items:
-            type: object
-            properties:
-              '@type':
-                type: string
-            additionalProperties: true
-  responses:
-    BadRequest:
-      description: The request was invalid. Check the filter syntax, field names, and parameter values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
-  parameters:
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
-      schema:
-        type: string
   securitySchemes:
     oauth2:
       type: oauth2

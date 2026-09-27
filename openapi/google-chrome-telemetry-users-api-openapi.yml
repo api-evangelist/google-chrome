@@ -94,116 +94,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: The request was invalid. Check the filter syntax, field names, and parameter values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
-    Forbidden:
-      description: The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
   schemas:
-    AudioStatusReport:
-      type: object
-      description: Audio device status report.
-      properties:
-        reportTime:
-          type: string
-          format: date-time
-          description: Timestamp of the report.
-        inputMute:
-          type: boolean
-          description: Whether the audio input is muted.
-        outputMute:
-          type: boolean
-          description: Whether the audio output is muted.
-        inputGain:
-          type: integer
-          description: Input gain level.
-        outputVolume:
-          type: integer
-          description: Output volume level.
-        inputDevice:
-          type: string
-          description: Name of the active input audio device.
-        outputDevice:
-          type: string
-          description: Name of the active output audio device.
-    ListTelemetryUsersResponse:
-      type: object
-      description: Response containing a list of telemetry users.
-      properties:
-        telemetryUsers:
-          type: array
-          items:
-            $ref: '#/components/schemas/TelemetryUser'
-        nextPageToken:
-          type: string
-          description: Token for retrieving the next page of results.
-    GoogleRpcStatus:
-      type: object
-      description: Standard Google API error response following the google.rpc.Status format.
-      properties:
-        code:
-          type: integer
-          description: The HTTP status code.
-        message:
-          type: string
-          description: A developer-facing error message.
-        details:
-          type: array
-          description: A list of messages carrying error details.
-          items:
-            type: object
-            properties:
-              '@type':
-                type: string
-            additionalProperties: true
-    PeripheralsReport:
-      type: object
-      description: Connected USB peripheral report.
-      properties:
-        reportTime:
-          type: string
-          format: date-time
-          description: Timestamp of the report.
-        usbPeripheralReport:
-          type: array
-          description: List of USB peripherals connected to the device.
-          items:
-            type: object
-            properties:
-              vendor:
-                type: string
-                description: USB vendor name.
-              name:
-                type: string
-                description: USB device name.
-              pid:
-                type: integer
-                description: USB product ID.
-              vid:
-                type: integer
-                description: USB vendor ID.
-              categories:
-                type: array
-                items:
-                  type: string
-                description: USB device categories.
-              firmwareVersion:
-                type: string
-                description: Firmware version of the USB device.
     TelemetryUser:
       type: object
       description: Telemetry information for a managed user.
@@ -269,6 +160,115 @@ components:
                       type: string
                     appType:
                       type: string
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
+    AudioStatusReport:
+      type: object
+      description: Audio device status report.
+      properties:
+        reportTime:
+          type: string
+          format: date-time
+          description: Timestamp of the report.
+        inputMute:
+          type: boolean
+          description: Whether the audio input is muted.
+        outputMute:
+          type: boolean
+          description: Whether the audio output is muted.
+        inputGain:
+          type: integer
+          description: Input gain level.
+        outputVolume:
+          type: integer
+          description: Output volume level.
+        inputDevice:
+          type: string
+          description: Name of the active input audio device.
+        outputDevice:
+          type: string
+          description: Name of the active output audio device.
+    ListTelemetryUsersResponse:
+      type: object
+      description: Response containing a list of telemetry users.
+      properties:
+        telemetryUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelemetryUser'
+        nextPageToken:
+          type: string
+          description: Token for retrieving the next page of results.
+    PeripheralsReport:
+      type: object
+      description: Connected USB peripheral report.
+      properties:
+        reportTime:
+          type: string
+          format: date-time
+          description: Timestamp of the report.
+        usbPeripheralReport:
+          type: array
+          description: List of USB peripherals connected to the device.
+          items:
+            type: object
+            properties:
+              vendor:
+                type: string
+                description: USB vendor name.
+              name:
+                type: string
+                description: USB device name.
+              pid:
+                type: integer
+                description: USB product ID.
+              vid:
+                type: integer
+                description: USB vendor ID.
+              categories:
+                type: array
+                items:
+                  type: string
+                description: USB device categories.
+              firmwareVersion:
+                type: string
+                description: Firmware version of the USB device.
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+    Forbidden:
+      description: The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
   parameters:
     customerId:
       name: customerId

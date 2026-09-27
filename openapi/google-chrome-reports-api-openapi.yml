@@ -287,39 +287,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CountChromeHardwareFleetDevicesResponse'
 components:
-  responses:
-    BadRequest:
-      description: The request was invalid. Check the filter syntax, field names, and parameter values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
   schemas:
-    FindInstalledAppDevicesResponse:
-      type: object
-      description: Response listing devices with a specific app installed.
-      properties:
-        devices:
-          type: array
-          description: Devices with the specified app installed.
-          items:
-            type: object
-            properties:
-              deviceId:
-                type: string
-                description: Device identifier.
-              machine:
-                type: string
-                description: Machine name.
-              appVersion:
-                type: string
-                description: Version of the app installed on this device.
-        nextPageToken:
-          type: string
-          description: Token for the next page of results.
-        totalSize:
-          type: integer
-          description: Total number of devices with the app.
     CountInstalledAppsResponse:
       type: object
       description: Response containing counts of installed apps and extensions.
@@ -393,22 +361,25 @@ components:
         totalSize:
           type: integer
           description: Total number of installed apps.
-    CountChromeDevicesThatNeedOsUpdateResponse:
+    GoogleRpcStatus:
       type: object
-      description: Response containing counts of devices needing OS updates.
+      description: Standard Google API error response following the google.rpc.Status format.
       properties:
-        deviceOsNeedUpdateCount:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
           type: array
+          description: A list of messages carrying error details.
           items:
             type: object
             properties:
-              osVersion:
+              '@type':
                 type: string
-                description: ChromeOS version.
-              count:
-                type: string
-                format: int64
-                description: Number of devices running this version.
+            additionalProperties: true
     CountChromeVersionsResponse:
       type: object
       description: Response containing counts of Chrome browser versions.
@@ -456,6 +427,26 @@ components:
         totalSize:
           type: integer
           description: Total number of browser version entries.
+    CountChromeBrowsersNeedingAttentionResponse:
+      type: object
+      description: Response with counts of Chrome browsers needing attention.
+      properties:
+        pendingBrowserUpdateCount:
+          type: string
+          format: int64
+          description: Number of browsers with a pending update.
+        recentlyEnrolledCount:
+          type: string
+          format: int64
+          description: Number of browsers recently enrolled.
+        noRecentActivityCount:
+          type: string
+          format: int64
+          description: Number of browsers with no recent activity.
+        notRecentlyConnectedCount:
+          type: string
+          format: int64
+          description: Number of browsers that have not recently synced policy.
     CountChromeDevicesReachingAutoExpirationDateResponse:
       type: object
       description: Response containing counts of ChromeOS devices by auto-update expiration date.
@@ -481,45 +472,31 @@ components:
               expired:
                 type: boolean
                 description: Whether the AUE date has passed.
-    CountChromeBrowsersNeedingAttentionResponse:
+    FindInstalledAppDevicesResponse:
       type: object
-      description: Response with counts of Chrome browsers needing attention.
+      description: Response listing devices with a specific app installed.
       properties:
-        pendingBrowserUpdateCount:
-          type: string
-          format: int64
-          description: Number of browsers with a pending update.
-        recentlyEnrolledCount:
-          type: string
-          format: int64
-          description: Number of browsers recently enrolled.
-        noRecentActivityCount:
-          type: string
-          format: int64
-          description: Number of browsers with no recent activity.
-        notRecentlyConnectedCount:
-          type: string
-          format: int64
-          description: Number of browsers that have not recently synced policy.
-    GoogleRpcStatus:
-      type: object
-      description: Standard Google API error response following the google.rpc.Status format.
-      properties:
-        code:
-          type: integer
-          description: The HTTP status code.
-        message:
-          type: string
-          description: A developer-facing error message.
-        details:
+        devices:
           type: array
-          description: A list of messages carrying error details.
+          description: Devices with the specified app installed.
           items:
             type: object
             properties:
-              '@type':
+              deviceId:
                 type: string
-            additionalProperties: true
+                description: Device identifier.
+              machine:
+                type: string
+                description: Machine name.
+              appVersion:
+                type: string
+                description: Version of the app installed on this device.
+        nextPageToken:
+          type: string
+          description: Token for the next page of results.
+        totalSize:
+          type: integer
+          description: Total number of devices with the app.
     CountChromeHardwareFleetDevicesResponse:
       type: object
       description: Response containing hardware fleet device counts.
@@ -568,6 +545,29 @@ components:
               count:
                 type: string
                 format: int64
+    CountChromeDevicesThatNeedOsUpdateResponse:
+      type: object
+      description: Response containing counts of devices needing OS updates.
+      properties:
+        deviceOsNeedUpdateCount:
+          type: array
+          items:
+            type: object
+            properties:
+              osVersion:
+                type: string
+                description: ChromeOS version.
+              count:
+                type: string
+                format: int64
+                description: Number of devices running this version.
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
   parameters:
     customerId:
       name: customerId

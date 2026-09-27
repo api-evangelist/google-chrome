@@ -97,116 +97,87 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
+      schema:
+        type: string
   schemas:
-    MemoryInfo:
+    CpuInfo:
       type: object
-      description: Memory hardware specifications.
+      description: CPU hardware information.
       properties:
-        totalRamBytes:
+        model:
           type: string
-          format: int64
-          description: Total RAM in bytes.
-        availableRamBytes:
+          description: CPU model name.
+        architecture:
           type: string
-          format: int64
-          description: Available RAM in bytes.
-        totalInternalStorageBytes:
-          type: string
-          format: int64
-          description: Total internal storage in bytes.
-    AudioStatusReport:
-      type: object
-      description: Audio device status report.
-      properties:
-        reportTime:
-          type: string
-          format: date-time
-          description: Timestamp of the report.
-        inputMute:
-          type: boolean
-          description: Whether the audio input is muted.
-        outputMute:
-          type: boolean
-          description: Whether the audio output is muted.
-        inputGain:
-          type: integer
-          description: Input gain level.
-        outputVolume:
-          type: integer
-          description: Output volume level.
-        inputDevice:
-          type: string
-          description: Name of the active input audio device.
-        outputDevice:
-          type: string
-          description: Name of the active output audio device.
-    BatteryStatusReport:
-      type: object
-      description: Battery status report at a point in time.
-      properties:
-        reportTime:
-          type: string
-          format: date-time
-          description: Timestamp of the report.
-        batteryHealth:
-          type: string
-          description: Battery health status.
+          description: CPU architecture (e.g., x86_64, ARM).
           enum:
-          - BATTERY_HEALTH_UNSPECIFIED
-          - BATTERY_HEALTH_NORMAL
-          - BATTERY_REPLACE_SOON
-          - BATTERY_REPLACE_NOW
-        cycleCount:
+          - X86_64
+          - ARM
+          - ARCHITECTURE_UNSPECIFIED
+        maxClockSpeed:
           type: integer
-          description: Number of battery charge cycles.
-        fullChargeCapacity:
-          type: string
-          format: int64
-          description: Full charge capacity in milliamp hours.
-        chargeRate:
-          type: integer
-          description: Charge rate in milliwatts.
-        dischargeRate:
-          type: integer
-          description: Discharge rate in milliwatts.
-        voltage:
-          type: string
-          format: double
-          description: Battery voltage in volts.
-        sample_frequency:
-          type: string
-          description: Sampling frequency of the report.
-    OsUpdateStatus:
+          description: Maximum clock speed in kilohertz.
+        keylockerSupported:
+          type: boolean
+          description: Whether Key Locker is supported.
+        keylockerConfigured:
+          type: boolean
+          description: Whether Key Locker is configured.
+    GraphicsInfo:
       type: object
-      description: ChromeOS update status.
+      description: Graphics adapter information.
       properties:
-        updateState:
-          type: string
-          description: Current OS update state.
-          enum:
-          - OS_UPDATE_STATUS_UNSPECIFIED
-          - OS_UPDATE_NEED_REBOOT
-          - OS_UPDATE_NOT_STARTED
-          - OS_UPDATE_DOWNLOADING
-          - OS_UPDATE_UPDATE_AVAILABLE
-        newPlatformVersion:
-          type: string
-          description: New platform version of the pending update.
-        newRequestedPlatformVersion:
-          type: string
-          description: New platform version of the requested update.
-        lastUpdateTime:
-          type: string
-          format: date-time
-          description: Timestamp of the last update check.
-        lastUpdateCheckTime:
-          type: string
-          format: date-time
-          description: Timestamp of the last update check.
-        lastRebootTime:
-          type: string
-          format: date-time
-          description: Timestamp of the last device reboot.
+        adapterInfo:
+          type: object
+          description: Graphics adapter details.
+          properties:
+            adapter:
+              type: string
+              description: Graphics adapter name.
+            driverVersion:
+              type: string
+              description: Graphics driver version.
+            deviceId:
+              type: string
+              format: int64
+              description: PCI device ID.
+            vendorId:
+              type: string
+              format: int64
+              description: PCI vendor ID.
+        displayDevices:
+          type: array
+          description: Connected display devices.
+          items:
+            type: object
+            properties:
+              displayName:
+                type: string
+                description: Display name.
+              displayWidthMm:
+                type: integer
+                description: Display width in millimeters.
+              displayHeightMm:
+                type: integer
+                description: Display height in millimeters.
+              internal:
+                type: boolean
+                description: Whether the display is internal.
+              manufacturerId:
+                type: string
+                description: Display manufacturer ID.
+              modelId:
+                type: integer
+                description: Display model ID.
+              manufactureYear:
+                type: integer
+                description: Year the display was manufactured.
     MemoryStatusReport:
       type: object
       description: Memory usage report at a point in time.
@@ -225,60 +196,32 @@ components:
         sampleFrequency:
           type: string
           description: Sampling frequency of the report.
-    StorageInfo:
+    CpuStatusReport:
       type: object
-      description: Storage hardware specifications.
-      properties:
-        totalDiskBytes:
-          type: string
-          format: int64
-          description: Total disk space in bytes.
-        availableDiskBytes:
-          type: string
-          format: int64
-          description: Available disk space in bytes.
-        volume:
-          type: array
-          description: Disk volumes and partitions.
-          items:
-            type: object
-            properties:
-              volumeId:
-                type: string
-                description: Volume identifier.
-              storageTotalBytes:
-                type: string
-                format: int64
-                description: Total storage of the volume in bytes.
-              storageFreeBytes:
-                type: string
-                format: int64
-                description: Free storage of the volume in bytes.
-    NetworkDiagnosticsReport:
-      type: object
-      description: Network diagnostics report with latency and HTTPS test results.
+      description: CPU usage and temperature report at a point in time.
       properties:
         reportTime:
           type: string
           format: date-time
           description: Timestamp of the report.
-        httpsLatencyData:
-          type: object
-          description: HTTPS latency test data.
-          properties:
-            latency:
-              type: string
-              description: Measured HTTPS latency.
-            problem:
-              type: string
-              description: Problem type if the HTTPS latency test encountered an issue.
-              enum:
-              - HTTPS_LATENCY_PROBLEM_UNSPECIFIED
-              - FAILED_DNS_RESOLUTIONS
-              - FAILED_CONNECTIONS
-              - FAILED_HTTPS_REQUESTS
-              - HIGH_LATENCY
-              - VERY_HIGH_LATENCY
+        cpuUtilizationPct:
+          type: integer
+          description: CPU utilization percentage (0-100).
+        cpuTemperatureInfo:
+          type: array
+          description: Temperature readings from CPU sensors.
+          items:
+            type: object
+            properties:
+              temperatureCelsius:
+                type: integer
+                description: CPU temperature in Celsius.
+              label:
+                type: string
+                description: Temperature sensor label.
+        sampleFrequency:
+          type: string
+          description: Sampling frequency of the report.
     BootPerformanceReport:
       type: object
       description: Boot performance report.
@@ -310,17 +253,6 @@ components:
           - SYSTEM_UPDATE
           - LOW_BATTERY
           - OTHER
-    ListTelemetryDevicesResponse:
-      type: object
-      description: Response containing a list of telemetry devices.
-      properties:
-        devices:
-          type: array
-          items:
-            $ref: '#/components/schemas/TelemetryDevice'
-        nextPageToken:
-          type: string
-          description: Token for retrieving the next page of results.
     GoogleRpcStatus:
       type: object
       description: Standard Google API error response following the google.rpc.Status format.
@@ -373,165 +305,154 @@ components:
               mdn:
                 type: string
                 description: MDN (phone number) of the cellular device.
-    GraphicsInfo:
+    NetworkStatusReport:
       type: object
-      description: Graphics adapter information.
-      properties:
-        adapterInfo:
-          type: object
-          description: Graphics adapter details.
-          properties:
-            adapter:
-              type: string
-              description: Graphics adapter name.
-            driverVersion:
-              type: string
-              description: Graphics driver version.
-            deviceId:
-              type: string
-              format: int64
-              description: PCI device ID.
-            vendorId:
-              type: string
-              format: int64
-              description: PCI vendor ID.
-        displayDevices:
-          type: array
-          description: Connected display devices.
-          items:
-            type: object
-            properties:
-              displayName:
-                type: string
-                description: Display name.
-              displayWidthMm:
-                type: integer
-                description: Display width in millimeters.
-              displayHeightMm:
-                type: integer
-                description: Display height in millimeters.
-              internal:
-                type: boolean
-                description: Whether the display is internal.
-              manufacturerId:
-                type: string
-                description: Display manufacturer ID.
-              modelId:
-                type: integer
-                description: Display model ID.
-              manufactureYear:
-                type: integer
-                description: Year the display was manufactured.
-    CpuStatusReport:
-      type: object
-      description: CPU usage and temperature report at a point in time.
+      description: Network status report at a point in time.
       properties:
         reportTime:
           type: string
           format: date-time
           description: Timestamp of the report.
-        cpuUtilizationPct:
+        connectionState:
+          type: string
+          description: Current network connection state.
+          enum:
+          - ONLINE
+          - CONNECTED
+          - PORTAL
+          - CONNECTING
+          - NOT_CONNECTED
+          - CONNECTION_STATE_UNSPECIFIED
+        connectionType:
+          type: string
+          description: Type of network connection.
+          enum:
+          - WIFI
+          - ETHERNET
+          - CELLULAR
+          - NETWORK_TYPE_UNSPECIFIED
+        signalStrengthDbm:
           type: integer
-          description: CPU utilization percentage (0-100).
-        cpuTemperatureInfo:
-          type: array
-          description: Temperature readings from CPU sensors.
-          items:
-            type: object
-            properties:
-              temperatureCelsius:
-                type: integer
-                description: CPU temperature in Celsius.
-              label:
-                type: string
-                description: Temperature sensor label.
+          description: Signal strength in dBm.
+        gatewayIpAddress:
+          type: string
+          description: Gateway IP address.
+        lanIpAddress:
+          type: string
+          description: LAN IP address of the device.
+        transmissionBitRateMbps:
+          type: string
+          format: int64
+          description: Transmission speed in Mbps.
+        receivingBitRateMbps:
+          type: string
+          format: int64
+          description: Receiving speed in Mbps.
+        wifiLinkQuality:
+          type: string
+          description: WiFi link quality percentage.
+        wifiPowerManagementEnabled:
+          type: boolean
+          description: Whether WiFi power management is enabled.
         sampleFrequency:
           type: string
           description: Sampling frequency of the report.
-    GraphicsStatusReport:
+    NetworkDiagnosticsReport:
       type: object
-      description: Graphics status report.
+      description: Network diagnostics report with latency and HTTPS test results.
       properties:
         reportTime:
           type: string
           format: date-time
           description: Timestamp of the report.
-        displays:
-          type: array
-          description: Display status information.
-          items:
-            type: object
-            properties:
-              displayName:
-                type: string
-                description: Display name.
-              resolutionWidth:
-                type: integer
-                description: Resolution width in pixels.
-              resolutionHeight:
-                type: integer
-                description: Resolution height in pixels.
-              refreshRate:
-                type: integer
-                description: Refresh rate in Hertz.
-    PeripheralsReport:
+        httpsLatencyData:
+          type: object
+          description: HTTPS latency test data.
+          properties:
+            latency:
+              type: string
+              description: Measured HTTPS latency.
+            problem:
+              type: string
+              description: Problem type if the HTTPS latency test encountered an issue.
+              enum:
+              - HTTPS_LATENCY_PROBLEM_UNSPECIFIED
+              - FAILED_DNS_RESOLUTIONS
+              - FAILED_CONNECTIONS
+              - FAILED_HTTPS_REQUESTS
+              - HIGH_LATENCY
+              - VERY_HIGH_LATENCY
+    AudioStatusReport:
       type: object
-      description: Connected USB peripheral report.
+      description: Audio device status report.
       properties:
         reportTime:
           type: string
           format: date-time
           description: Timestamp of the report.
-        usbPeripheralReport:
-          type: array
-          description: List of USB peripherals connected to the device.
-          items:
-            type: object
-            properties:
-              vendor:
-                type: string
-                description: USB vendor name.
-              name:
-                type: string
-                description: USB device name.
-              pid:
-                type: integer
-                description: USB product ID.
-              vid:
-                type: integer
-                description: USB vendor ID.
-              categories:
-                type: array
-                items:
-                  type: string
-                description: USB device categories.
-              firmwareVersion:
-                type: string
-                description: Firmware version of the USB device.
-    BatteryInfo:
+        inputMute:
+          type: boolean
+          description: Whether the audio input is muted.
+        outputMute:
+          type: boolean
+          description: Whether the audio output is muted.
+        inputGain:
+          type: integer
+          description: Input gain level.
+        outputVolume:
+          type: integer
+          description: Output volume level.
+        inputDevice:
+          type: string
+          description: Name of the active input audio device.
+        outputDevice:
+          type: string
+          description: Name of the active output audio device.
+    HeartbeatStatusReport:
       type: object
-      description: Battery hardware information.
+      description: Heartbeat status indicating the device is online.
       properties:
-        serialNumber:
+        reportTime:
           type: string
-          description: Battery serial number.
-        manufacturer:
+          format: date-time
+          description: Timestamp of the heartbeat.
+        state:
           type: string
-          description: Battery manufacturer.
-        designCapacity:
+          description: Device state.
+          enum:
+          - STATE_UNSPECIFIED
+          - UNKNOWN
+          - ONLINE
+          - OFFLINE
+    StorageInfo:
+      type: object
+      description: Storage hardware specifications.
+      properties:
+        totalDiskBytes:
           type: string
           format: int64
-          description: Design capacity in milliamp hours.
-        designMinVoltage:
-          type: integer
-          description: Designed minimum voltage in millivolts.
-        manufactureDate:
+          description: Total disk space in bytes.
+        availableDiskBytes:
           type: string
-          format: date
-          description: Battery manufacture date.
-        technology:
-          type: string
-          description: Battery technology (e.g., Li-ion).
+          format: int64
+          description: Available disk space in bytes.
+        volume:
+          type: array
+          description: Disk volumes and partitions.
+          items:
+            type: object
+            properties:
+              volumeId:
+                type: string
+                description: Volume identifier.
+              storageTotalBytes:
+                type: string
+                format: int64
+                description: Total storage of the volume in bytes.
+              storageFreeBytes:
+                type: string
+                format: int64
+                description: Free storage of the volume in bytes.
     StorageStatusReport:
       type: object
       description: Storage usage report at a point in time.
@@ -671,100 +592,187 @@ components:
           description: Network diagnostics reports with latency and HTTPS test results.
           items:
             $ref: '#/components/schemas/NetworkDiagnosticsReport'
-    NetworkStatusReport:
+    BatteryStatusReport:
       type: object
-      description: Network status report at a point in time.
+      description: Battery status report at a point in time.
       properties:
         reportTime:
           type: string
           format: date-time
           description: Timestamp of the report.
-        connectionState:
+        batteryHealth:
           type: string
-          description: Current network connection state.
+          description: Battery health status.
           enum:
-          - ONLINE
-          - CONNECTED
-          - PORTAL
-          - CONNECTING
-          - NOT_CONNECTED
-          - CONNECTION_STATE_UNSPECIFIED
-        connectionType:
-          type: string
-          description: Type of network connection.
-          enum:
-          - WIFI
-          - ETHERNET
-          - CELLULAR
-          - NETWORK_TYPE_UNSPECIFIED
-        signalStrengthDbm:
+          - BATTERY_HEALTH_UNSPECIFIED
+          - BATTERY_HEALTH_NORMAL
+          - BATTERY_REPLACE_SOON
+          - BATTERY_REPLACE_NOW
+        cycleCount:
           type: integer
-          description: Signal strength in dBm.
-        gatewayIpAddress:
-          type: string
-          description: Gateway IP address.
-        lanIpAddress:
-          type: string
-          description: LAN IP address of the device.
-        transmissionBitRateMbps:
+          description: Number of battery charge cycles.
+        fullChargeCapacity:
           type: string
           format: int64
-          description: Transmission speed in Mbps.
-        receivingBitRateMbps:
+          description: Full charge capacity in milliamp hours.
+        chargeRate:
+          type: integer
+          description: Charge rate in milliwatts.
+        dischargeRate:
+          type: integer
+          description: Discharge rate in milliwatts.
+        voltage:
           type: string
-          format: int64
-          description: Receiving speed in Mbps.
-        wifiLinkQuality:
-          type: string
-          description: WiFi link quality percentage.
-        wifiPowerManagementEnabled:
-          type: boolean
-          description: Whether WiFi power management is enabled.
-        sampleFrequency:
+          format: double
+          description: Battery voltage in volts.
+        sample_frequency:
           type: string
           description: Sampling frequency of the report.
-    CpuInfo:
+    ListTelemetryDevicesResponse:
       type: object
-      description: CPU hardware information.
+      description: Response containing a list of telemetry devices.
       properties:
-        model:
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelemetryDevice'
+        nextPageToken:
           type: string
-          description: CPU model name.
-        architecture:
-          type: string
-          description: CPU architecture (e.g., x86_64, ARM).
-          enum:
-          - X86_64
-          - ARM
-          - ARCHITECTURE_UNSPECIFIED
-        maxClockSpeed:
-          type: integer
-          description: Maximum clock speed in kilohertz.
-        keylockerSupported:
-          type: boolean
-          description: Whether Key Locker is supported.
-        keylockerConfigured:
-          type: boolean
-          description: Whether Key Locker is configured.
-    HeartbeatStatusReport:
+          description: Token for retrieving the next page of results.
+    BatteryInfo:
       type: object
-      description: Heartbeat status indicating the device is online.
+      description: Battery hardware information.
+      properties:
+        serialNumber:
+          type: string
+          description: Battery serial number.
+        manufacturer:
+          type: string
+          description: Battery manufacturer.
+        designCapacity:
+          type: string
+          format: int64
+          description: Design capacity in milliamp hours.
+        designMinVoltage:
+          type: integer
+          description: Designed minimum voltage in millivolts.
+        manufactureDate:
+          type: string
+          format: date
+          description: Battery manufacture date.
+        technology:
+          type: string
+          description: Battery technology (e.g., Li-ion).
+    OsUpdateStatus:
+      type: object
+      description: ChromeOS update status.
+      properties:
+        updateState:
+          type: string
+          description: Current OS update state.
+          enum:
+          - OS_UPDATE_STATUS_UNSPECIFIED
+          - OS_UPDATE_NEED_REBOOT
+          - OS_UPDATE_NOT_STARTED
+          - OS_UPDATE_DOWNLOADING
+          - OS_UPDATE_UPDATE_AVAILABLE
+        newPlatformVersion:
+          type: string
+          description: New platform version of the pending update.
+        newRequestedPlatformVersion:
+          type: string
+          description: New platform version of the requested update.
+        lastUpdateTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last update check.
+        lastUpdateCheckTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last update check.
+        lastRebootTime:
+          type: string
+          format: date-time
+          description: Timestamp of the last device reboot.
+    GraphicsStatusReport:
+      type: object
+      description: Graphics status report.
       properties:
         reportTime:
           type: string
           format: date-time
-          description: Timestamp of the heartbeat.
-        state:
+          description: Timestamp of the report.
+        displays:
+          type: array
+          description: Display status information.
+          items:
+            type: object
+            properties:
+              displayName:
+                type: string
+                description: Display name.
+              resolutionWidth:
+                type: integer
+                description: Resolution width in pixels.
+              resolutionHeight:
+                type: integer
+                description: Resolution height in pixels.
+              refreshRate:
+                type: integer
+                description: Refresh rate in Hertz.
+    MemoryInfo:
+      type: object
+      description: Memory hardware specifications.
+      properties:
+        totalRamBytes:
           type: string
-          description: Device state.
-          enum:
-          - STATE_UNSPECIFIED
-          - UNKNOWN
-          - ONLINE
-          - OFFLINE
+          format: int64
+          description: Total RAM in bytes.
+        availableRamBytes:
+          type: string
+          format: int64
+          description: Available RAM in bytes.
+        totalInternalStorageBytes:
+          type: string
+          format: int64
+          description: Total internal storage in bytes.
+    PeripheralsReport:
+      type: object
+      description: Connected USB peripheral report.
+      properties:
+        reportTime:
+          type: string
+          format: date-time
+          description: Timestamp of the report.
+        usbPeripheralReport:
+          type: array
+          description: List of USB peripherals connected to the device.
+          items:
+            type: object
+            properties:
+              vendor:
+                type: string
+                description: USB vendor name.
+              name:
+                type: string
+                description: USB device name.
+              pid:
+                type: integer
+                description: USB product ID.
+              vid:
+                type: integer
+                description: USB vendor ID.
+              categories:
+                type: array
+                items:
+                  type: string
+                description: USB device categories.
+              firmwareVersion:
+                type: string
+                description: Firmware version of the USB device.
   responses:
-    Unauthorized:
-      description: The request lacks valid authentication credentials. Ensure a valid OAuth 2.0 access token is provided.
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
       content:
         application/json:
           schema:
@@ -775,8 +783,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/GoogleRpcStatus'
-    BadRequest:
-      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+    Unauthorized:
+      description: The request lacks valid authentication credentials. Ensure a valid OAuth 2.0 access token is provided.
       content:
         application/json:
           schema:
@@ -787,14 +795,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/GoogleRpcStatus'
-  parameters:
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
-      schema:
-        type: string
   securitySchemes:
     oauth2:
       type: oauth2
