@@ -65,27 +65,6 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  responses:
-    BadRequest:
-      description: The request was invalid. Check the filter syntax, field names, and parameter values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
-    Forbidden:
-      description: The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
-  parameters:
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
-      schema:
-        type: string
   schemas:
     GoogleRpcStatus:
       type: object
@@ -106,17 +85,6 @@ components:
               '@type':
                 type: string
             additionalProperties: true
-    ListTelemetryEventsResponse:
-      type: object
-      description: Response containing a list of telemetry events.
-      properties:
-        telemetryEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/TelemetryEvent'
-        nextPageToken:
-          type: string
-          description: Token for retrieving the next page of results.
     TelemetryEvent:
       type: object
       description: A telemetry event from a managed ChromeOS device.
@@ -184,6 +152,38 @@ components:
               type: string
             httpsLatencyRoutineData:
               type: object
+    ListTelemetryEventsResponse:
+      type: object
+      description: Response containing a list of telemetry events.
+      properties:
+        telemetryEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelemetryEvent'
+        nextPageToken:
+          type: string
+          description: Token for retrieving the next page of results.
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+    Forbidden:
+      description: The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
+      schema:
+        type: string
   securitySchemes:
     oauth2:
       type: oauth2

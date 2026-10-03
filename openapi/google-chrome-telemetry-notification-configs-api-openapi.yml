@@ -97,27 +97,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: The request was invalid. Check the filter syntax, field names, and parameter values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
-  parameters:
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
-      schema:
-        type: string
   schemas:
     GoogleRpcStatus:
       type: object
@@ -187,6 +166,27 @@ components:
         nextPageToken:
           type: string
           description: Token for retrieving the next page of results.
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
+      schema:
+        type: string
   securitySchemes:
     oauth2:
       type: oauth2
