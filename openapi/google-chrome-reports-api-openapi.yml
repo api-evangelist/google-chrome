@@ -287,53 +287,121 @@ paths:
               schema:
                 $ref: '#/components/schemas/CountChromeHardwareFleetDevicesResponse'
 components:
-  responses:
-    BadRequest:
-      description: The request was invalid. Check the filter syntax, field names, and parameter values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
   schemas:
-    CountChromeBrowsersNeedingAttentionResponse:
+    CountInstalledAppsResponse:
       type: object
-      description: Response with counts of Chrome browsers needing attention.
+      description: Response containing counts of installed apps and extensions.
       properties:
-        pendingBrowserUpdateCount:
-          type: string
-          format: int64
-          description: Number of browsers with a pending update.
-        recentlyEnrolledCount:
-          type: string
-          format: int64
-          description: Number of browsers recently enrolled.
-        noRecentActivityCount:
-          type: string
-          format: int64
-          description: Number of browsers with no recent activity.
-        notRecentlyConnectedCount:
-          type: string
-          format: int64
-          description: Number of browsers that have not recently synced policy.
-    GoogleRpcStatus:
-      type: object
-      description: Standard Google API error response following the google.rpc.Status format.
-      properties:
-        code:
-          type: integer
-          description: The HTTP status code.
-        message:
-          type: string
-          description: A developer-facing error message.
-        details:
+        installedApps:
           type: array
-          description: A list of messages carrying error details.
+          description: Installed app counts.
           items:
             type: object
             properties:
-              '@type':
+              appId:
                 type: string
-            additionalProperties: true
+                description: App identifier.
+              appType:
+                type: string
+                description: Type of the app.
+                enum:
+                - APP_TYPE_UNSPECIFIED
+                - EXTENSION
+                - APP
+                - THEME
+                - HOSTED_APP
+                - ANDROID_APP
+              appInstallType:
+                type: string
+                description: How the app was installed.
+                enum:
+                - APP_INSTALL_TYPE_UNSPECIFIED
+                - MULTIPLE
+                - NORMAL
+                - ADMIN
+                - DEVELOPMENT
+                - SIDELOAD
+                - OTHER
+              appSource:
+                type: string
+                description: Source of the app.
+                enum:
+                - APP_SOURCE_UNSPECIFIED
+                - CHROME_WEBSTORE
+                - PLAY_STORE
+              displayName:
+                type: string
+                description: Display name of the app.
+              description:
+                type: string
+                description: Description of the app.
+              homepageUri:
+                type: string
+                format: uri
+                description: Homepage URL.
+              permissions:
+                type: array
+                items:
+                  type: string
+                description: Permissions requested by the app.
+              browserDeviceCount:
+                type: string
+                format: int64
+                description: Number of browsers with this app installed.
+              osUserCount:
+                type: string
+                format: int64
+                description: Number of ChromeOS users with this app installed.
+              disabled:
+                type: boolean
+                description: Whether the app is disabled by policy.
+        nextPageToken:
+          type: string
+          description: Token for the next page of results.
+        totalSize:
+          type: integer
+          description: Total number of installed apps.
+    CountChromeDevicesThatNeedOsUpdateResponse:
+      type: object
+      description: Response containing counts of devices needing OS updates.
+      properties:
+        deviceOsNeedUpdateCount:
+          type: array
+          items:
+            type: object
+            properties:
+              osVersion:
+                type: string
+                description: ChromeOS version.
+              count:
+                type: string
+                format: int64
+                description: Number of devices running this version.
+    CountChromeDevicesReachingAutoExpirationDateResponse:
+      type: object
+      description: Response containing counts of ChromeOS devices by auto-update expiration date.
+      properties:
+        deviceAueCountReports:
+          type: array
+          items:
+            type: object
+            properties:
+              model:
+                type: string
+                description: Device model name.
+              count:
+                type: string
+                format: int64
+                description: Number of devices with this model.
+              aueMonth:
+                type: string
+                description: Auto-update expiration month (YYYY-MM).
+              aueYear:
+                type: string
+                description: Auto-update expiration year.
+              expired:
+                type: boolean
+                description: Whether the AUE date has passed.
     CountChromeHardwareFleetDevicesResponse:
       type: object
       description: Response containing hardware fleet device counts.
@@ -429,104 +497,45 @@ components:
         totalSize:
           type: integer
           description: Total number of browser version entries.
-    CountChromeDevicesReachingAutoExpirationDateResponse:
+    GoogleRpcStatus:
       type: object
-      description: Response containing counts of ChromeOS devices by auto-update expiration date.
+      description: Standard Google API error response following the google.rpc.Status format.
       properties:
-        deviceAueCountReports:
-          type: array
-          items:
-            type: object
-            properties:
-              model:
-                type: string
-                description: Device model name.
-              count:
-                type: string
-                format: int64
-                description: Number of devices with this model.
-              aueMonth:
-                type: string
-                description: Auto-update expiration month (YYYY-MM).
-              aueYear:
-                type: string
-                description: Auto-update expiration year.
-              expired:
-                type: boolean
-                description: Whether the AUE date has passed.
-    CountInstalledAppsResponse:
-      type: object
-      description: Response containing counts of installed apps and extensions.
-      properties:
-        installedApps:
-          type: array
-          description: Installed app counts.
-          items:
-            type: object
-            properties:
-              appId:
-                type: string
-                description: App identifier.
-              appType:
-                type: string
-                description: Type of the app.
-                enum:
-                - APP_TYPE_UNSPECIFIED
-                - EXTENSION
-                - APP
-                - THEME
-                - HOSTED_APP
-                - ANDROID_APP
-              appInstallType:
-                type: string
-                description: How the app was installed.
-                enum:
-                - APP_INSTALL_TYPE_UNSPECIFIED
-                - MULTIPLE
-                - NORMAL
-                - ADMIN
-                - DEVELOPMENT
-                - SIDELOAD
-                - OTHER
-              appSource:
-                type: string
-                description: Source of the app.
-                enum:
-                - APP_SOURCE_UNSPECIFIED
-                - CHROME_WEBSTORE
-                - PLAY_STORE
-              displayName:
-                type: string
-                description: Display name of the app.
-              description:
-                type: string
-                description: Description of the app.
-              homepageUri:
-                type: string
-                format: uri
-                description: Homepage URL.
-              permissions:
-                type: array
-                items:
-                  type: string
-                description: Permissions requested by the app.
-              browserDeviceCount:
-                type: string
-                format: int64
-                description: Number of browsers with this app installed.
-              osUserCount:
-                type: string
-                format: int64
-                description: Number of ChromeOS users with this app installed.
-              disabled:
-                type: boolean
-                description: Whether the app is disabled by policy.
-        nextPageToken:
-          type: string
-          description: Token for the next page of results.
-        totalSize:
+        code:
           type: integer
-          description: Total number of installed apps.
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
+    CountChromeBrowsersNeedingAttentionResponse:
+      type: object
+      description: Response with counts of Chrome browsers needing attention.
+      properties:
+        pendingBrowserUpdateCount:
+          type: string
+          format: int64
+          description: Number of browsers with a pending update.
+        recentlyEnrolledCount:
+          type: string
+          format: int64
+          description: Number of browsers recently enrolled.
+        noRecentActivityCount:
+          type: string
+          format: int64
+          description: Number of browsers with no recent activity.
+        notRecentlyConnectedCount:
+          type: string
+          format: int64
+          description: Number of browsers that have not recently synced policy.
     FindInstalledAppDevicesResponse:
       type: object
       description: Response listing devices with a specific app installed.
@@ -552,22 +561,13 @@ components:
         totalSize:
           type: integer
           description: Total number of devices with the app.
-    CountChromeDevicesThatNeedOsUpdateResponse:
-      type: object
-      description: Response containing counts of devices needing OS updates.
-      properties:
-        deviceOsNeedUpdateCount:
-          type: array
-          items:
-            type: object
-            properties:
-              osVersion:
-                type: string
-                description: ChromeOS version.
-              count:
-                type: string
-                format: int64
-                description: Number of devices running this version.
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
   parameters:
     customerId:
       name: customerId

@@ -97,54 +97,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    GoogleRpcStatus:
-      type: object
-      description: Standard Google API error response following the google.rpc.Status format.
-      properties:
-        code:
-          type: integer
-          description: The HTTP status code.
-        message:
-          type: string
-          description: A developer-facing error message.
-        details:
-          type: array
-          description: A list of messages carrying error details.
-          items:
-            type: object
-            properties:
-              '@type':
-                type: string
-            additionalProperties: true
-    WebAppInfo:
-      type: object
-      description: Information about a web app.
-      properties:
-        displayName:
-          type: string
-          description: Display name of the web app.
-        appId:
-          type: string
-          description: Web app identifier.
-    AndroidAppInfo:
-      type: object
-      description: Information about an Android app available on managed ChromeOS devices.
-      properties:
-        displayName:
-          type: string
-          description: Display name of the Android app.
-        appId:
-          type: string
-          description: Android app package name.
-        permissions:
-          type: array
-          description: Permissions requested by the Android app.
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-                description: Permission type.
     ChromeAppInfo:
       type: object
       description: Information about a Chrome app or extension.
@@ -242,6 +194,54 @@ components:
               hostMatch:
                 type: string
                 description: Host match pattern.
+    WebAppInfo:
+      type: object
+      description: Information about a web app.
+      properties:
+        displayName:
+          type: string
+          description: Display name of the web app.
+        appId:
+          type: string
+          description: Web app identifier.
+    AndroidAppInfo:
+      type: object
+      description: Information about an Android app available on managed ChromeOS devices.
+      properties:
+        displayName:
+          type: string
+          description: Display name of the Android app.
+        appId:
+          type: string
+          description: Android app package name.
+        permissions:
+          type: array
+          description: Permissions requested by the Android app.
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+                description: Permission type.
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
   responses:
     NotFound:
       description: The requested resource was not found.
