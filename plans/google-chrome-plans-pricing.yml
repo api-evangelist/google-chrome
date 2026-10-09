@@ -122,3 +122,46 @@ plans:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - seat
+  - subscription
+  units:
+  - none
+  - object
+  - seat
+  plans:
+  - name: Chrome Developer Platform
+    access: freemium
+    model: subscription
+    model_how: derived
+    units:
+    - none
+    periods:
+    - month
+  - name: Chrome Web Store Developer Account
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - object
+    periods:
+    - per-use
+  - name: Chrome Enterprise Core
+    access: freemium
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Chrome Enterprise Premium
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - seat
+    periods:
+    - month
