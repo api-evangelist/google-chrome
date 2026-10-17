@@ -288,6 +288,54 @@ paths:
                 $ref: '#/components/schemas/CountChromeHardwareFleetDevicesResponse'
 components:
   schemas:
+    CountChromeHardwareFleetDevicesResponse:
+      type: object
+      description: Response containing hardware fleet device counts.
+      properties:
+        cpuReports:
+          type: array
+          description: CPU model distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
+        memoryReports:
+          type: array
+          description: Memory capacity distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
+        modelReports:
+          type: array
+          description: Device model distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
+        storageReports:
+          type: array
+          description: Storage capacity distribution.
+          items:
+            type: object
+            properties:
+              reportValue:
+                type: string
+              count:
+                type: string
+                format: int64
     CountInstalledAppsResponse:
       type: object
       description: Response containing counts of installed apps and extensions.
@@ -377,79 +425,6 @@ components:
                 type: string
                 format: int64
                 description: Number of devices running this version.
-    CountChromeDevicesReachingAutoExpirationDateResponse:
-      type: object
-      description: Response containing counts of ChromeOS devices by auto-update expiration date.
-      properties:
-        deviceAueCountReports:
-          type: array
-          items:
-            type: object
-            properties:
-              model:
-                type: string
-                description: Device model name.
-              count:
-                type: string
-                format: int64
-                description: Number of devices with this model.
-              aueMonth:
-                type: string
-                description: Auto-update expiration month (YYYY-MM).
-              aueYear:
-                type: string
-                description: Auto-update expiration year.
-              expired:
-                type: boolean
-                description: Whether the AUE date has passed.
-    CountChromeHardwareFleetDevicesResponse:
-      type: object
-      description: Response containing hardware fleet device counts.
-      properties:
-        cpuReports:
-          type: array
-          description: CPU model distribution.
-          items:
-            type: object
-            properties:
-              reportValue:
-                type: string
-              count:
-                type: string
-                format: int64
-        memoryReports:
-          type: array
-          description: Memory capacity distribution.
-          items:
-            type: object
-            properties:
-              reportValue:
-                type: string
-              count:
-                type: string
-                format: int64
-        modelReports:
-          type: array
-          description: Device model distribution.
-          items:
-            type: object
-            properties:
-              reportValue:
-                type: string
-              count:
-                type: string
-                format: int64
-        storageReports:
-          type: array
-          description: Storage capacity distribution.
-          items:
-            type: object
-            properties:
-              reportValue:
-                type: string
-              count:
-                type: string
-                format: int64
     CountChromeVersionsResponse:
       type: object
       description: Response containing counts of Chrome browser versions.
@@ -516,6 +491,31 @@ components:
               '@type':
                 type: string
             additionalProperties: true
+    CountChromeDevicesReachingAutoExpirationDateResponse:
+      type: object
+      description: Response containing counts of ChromeOS devices by auto-update expiration date.
+      properties:
+        deviceAueCountReports:
+          type: array
+          items:
+            type: object
+            properties:
+              model:
+                type: string
+                description: Device model name.
+              count:
+                type: string
+                format: int64
+                description: Number of devices with this model.
+              aueMonth:
+                type: string
+                description: Auto-update expiration month (YYYY-MM).
+              aueYear:
+                type: string
+                description: Auto-update expiration year.
+              expired:
+                type: boolean
+                description: Whether the AUE date has passed.
     CountChromeBrowsersNeedingAttentionResponse:
       type: object
       description: Response with counts of Chrome browsers needing attention.
@@ -561,13 +561,6 @@ components:
         totalSize:
           type: integer
           description: Total number of devices with the app.
-  responses:
-    BadRequest:
-      description: The request was invalid. Check the filter syntax, field names, and parameter values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GoogleRpcStatus'
   parameters:
     customerId:
       name: customerId
@@ -576,6 +569,13 @@ components:
       description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
       schema:
         type: string
+  responses:
+    BadRequest:
+      description: The request was invalid. Check the filter syntax, field names, and parameter values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GoogleRpcStatus'
   securitySchemes:
     oauth2:
       type: oauth2

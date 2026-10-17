@@ -65,7 +65,45 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  parameters:
+    customerId:
+      name: customerId
+      in: path
+      required: true
+      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
+      schema:
+        type: string
   schemas:
+    ListTelemetryEventsResponse:
+      type: object
+      description: Response containing a list of telemetry events.
+      properties:
+        telemetryEvents:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelemetryEvent'
+        nextPageToken:
+          type: string
+          description: Token for retrieving the next page of results.
+    GoogleRpcStatus:
+      type: object
+      description: Standard Google API error response following the google.rpc.Status format.
+      properties:
+        code:
+          type: integer
+          description: The HTTP status code.
+        message:
+          type: string
+          description: A developer-facing error message.
+        details:
+          type: array
+          description: A list of messages carrying error details.
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+            additionalProperties: true
     TelemetryEvent:
       type: object
       description: A telemetry event from a managed ChromeOS device.
@@ -133,36 +171,6 @@ components:
               type: string
             httpsLatencyRoutineData:
               type: object
-    ListTelemetryEventsResponse:
-      type: object
-      description: Response containing a list of telemetry events.
-      properties:
-        telemetryEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/TelemetryEvent'
-        nextPageToken:
-          type: string
-          description: Token for retrieving the next page of results.
-    GoogleRpcStatus:
-      type: object
-      description: Standard Google API error response following the google.rpc.Status format.
-      properties:
-        code:
-          type: integer
-          description: The HTTP status code.
-        message:
-          type: string
-          description: A developer-facing error message.
-        details:
-          type: array
-          description: A list of messages carrying error details.
-          items:
-            type: object
-            properties:
-              '@type':
-                type: string
-            additionalProperties: true
   responses:
     Forbidden:
       description: The authenticated user does not have the required permissions. Ensure the appropriate admin role and API scope are granted.
@@ -176,14 +184,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/GoogleRpcStatus'
-  parameters:
-    customerId:
-      name: customerId
-      in: path
-      required: true
-      description: Google Workspace customer ID. Use 'my_customer' to refer to the customer associated with the authenticated admin.
-      schema:
-        type: string
   securitySchemes:
     oauth2:
       type: oauth2
