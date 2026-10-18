@@ -76,6 +76,11 @@ apis:
   tags:
   - Automation
   - Debugging
+  - Developer Tools
+  - Testing
+  tags_raw:
+  - Automation
+  - Debugging
   - DevTools
   - Testing
   properties:
