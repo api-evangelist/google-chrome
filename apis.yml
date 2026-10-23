@@ -423,6 +423,8 @@ maintainers:
   email: kin@apievangelist.com
   url: https://apievangelist.com/
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/google-chrome/overview
 - type: Plans
   url: plans/google-chrome-plans-pricing.yml
 - type: RateLimits
